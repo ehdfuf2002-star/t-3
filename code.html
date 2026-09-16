@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="초등 고학년 가족을 위한 이천 반나절 역사·문화·힐링 코스와 체험 미션 가이드" name="description"/>
+<title>교과서 밖 초등고학년 이천 반나절 코스 &amp; 힐링 가이드</title>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ea580c'/%3E%3Cpath d='M16 43c8-1 11-10 16-22 5 12 8 21 16 22' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='18' r='4' fill='%23fef3c7'/%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;family=Noto+Sans+KR:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#FAF7F2',
+            card: '#FFFFFF',
+            cardSubtle: '#F4EFEA',
+            border: '#E8DFD5',
+            accentOrange: '#ea580c',
+            accentAmber: '#d97706',
+            accentYellow: '#b45309',
+            accentGreen: '#16a34a',
+            accentSky: '#0284c7'
+          },
+          fontFamily: {
+            sans: ['Noto Sans KR', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Noto Sans KR', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body { background-color: #FAF7F2; color: #1E293B; -webkit-tap-highlight-color: transparent; }
+    ::-webkit-scrollbar { display: none; }
+    .watermark-step {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 900;
+      font-size: 4.5rem;
+      line-height: 1;
+      color: rgba(0, 0, 0, 0.05);
+      user-select: none;
+    }
+    #editor-toolbar {
+      position: fixed;
+      left: 50%;
+      bottom: 76px;
+      z-index: 90;
+      width: min(366px, calc(100vw - 24px));
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px;
+      border: 1px solid rgba(234, 88, 12, 0.24);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+      backdrop-filter: blur(16px);
+    }
+    #editor-toolbar button {
+      min-height: 36px;
+      padding: 0 10px;
+      border-radius: 10px;
+      border: 1px solid #E8DFD5;
+      background: #FAF7F2;
+      color: #334155;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    #editor-toolbar button:hover { border-color: #fb923c; color: #c2410c; }
+    #editor-toolbar .editor-primary { background: #ea580c; border-color: #ea580c; color: white; }
+    #editor-toolbar .editor-primary:hover { background: #c2410c; color: white; }
+    #editor-save-state {
+      margin-left: auto;
+      color: #64748b;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    body.edit-mode main {
+      outline: 3px dashed rgba(234, 88, 12, 0.65);
+      outline-offset: -3px;
+      caret-color: #ea580c;
+      cursor: text;
+    }
+    body.edit-mode main:focus { outline-color: #ea580c; }
+    body.edit-mode main *::selection { background: rgba(251, 146, 60, 0.32); }
+    @media (max-width: 360px) {
+      #editor-toolbar { gap: 4px; padding: 6px; }
+      #editor-toolbar button { padding: 0 7px; font-size: 10px; }
+      #editor-save-state { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-[#FAF7F2] text-slate-800 flex flex-col min-h-screen max-w-[390px] mx-auto shadow-2xl">
+<!-- Top Sticky Glass Nav -->
+<header class="sticky top-0 inset-x-0 z-40 bg-white/90 backdrop-blur-md border-b border-[#E8DFD5] max-w-[390px] shadow-sm">
+<div class="flex items-center justify-between px-4 h-14">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-orange-500/10 text-orange-600 flex items-center justify-center border border-orange-500/20">
+<span class="material-symbols-outlined text-[17px]">explore</span>
+</span>
+<span class="font-bold text-[14px] text-slate-900 tracking-tight">이천 반나절 역사·힐링 투어</span>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="지도" class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 active:scale-95 transition-transform" onclick="openModal('map')">
+<span class="material-symbols-outlined text-[18px]">map</span>
+</button>
+<button aria-label="임명장" class="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-extrabold flex items-center justify-center shadow-md shadow-orange-500/20 active:scale-95 transition-transform" onclick="openModal('cert')">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+</button>
+</div>
+</div>
+<!-- Jump Navigation Chips -->
+<div class="flex items-center gap-2 px-4 pb-2.5 overflow-x-auto no-scrollbar text-[12px]">
+<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#summary">코스 요약</a>
+<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#route">오늘의 코스</a>
+<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#missions">3대 미션</a>
+<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#timeline">상세 일정표</a>
+<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#food">맛집&amp;카페</a>
+<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#rewards">가족 보상</a>
+</div>
+</header>
+<main class="flex flex-col pb-24">
+<!-- 1. HERO SECTION -->
+<section class="relative min-h-[460px] flex flex-col justify-end px-5 pb-8 overflow-hidden" id="summary">
+<!-- Visual Background with Dark Vignette for Text Legibility -->
+<div class="absolute inset-0 z-0">
+<img alt="이천 설봉공원 호수와 조각공원 가족 산책" class="w-full h-full object-cover object-center filter brightness-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCodsLsGaHImxdOmR5sXhW0eWyN0Yh9PLZpR8B2cskI0rwX-KExxBM-yKk-DhJ8G0FGs1GYJhA8UOA2bvdyC9iJiLT21Pa-7IEyrvS3EYhUwkjBv7hOyPzLAWp6gCKorzfhfq56Ml5sKwWDvKg0eSfWlUTps4vwTH6xqTE6Ygs6JsPBd-crfQ1rz0_1a46Osr8byFH9SIyWojcXzA0gnRlwhLyzs58XfQn-7Dpo4q-3P_d4M-DoyyrhPA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center max-w-sm mx-auto">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/25 border border-orange-400/50 text-orange-200 text-[12px] font-bold mb-3 backdrop-blur-md">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+          10년 차 기획자가 엄선한
+        </div>
+<h1 class="text-[30px] sm:text-[34px] font-black tracking-tight text-white leading-tight drop-shadow-md">
+          교과서 밖 초등고학년<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-amber-300 to-yellow-200">
+            이천 반나절 코스 &amp; 힐링 가이드
+          </span>
+</h1>
+<p class="text-[13px] text-slate-200 mt-2.5 leading-snug drop-shadow">
+          07:30 서울 강서구 출발부터 15:30 귀가까지, 고려 외교 영웅 서희와 예술이 숨쉬는 완벽한 주말 가족 로드맵
+        </p>
+<!-- Pill Badges -->
+<div class="flex items-center gap-2 mt-4">
+<div class="px-2.5 py-1 rounded-lg bg-white/90 text-[12px] text-slate-800 font-bold shadow-sm backdrop-blur-sm">
+            07:30 서울 강서구 출발
+          </div>
+<div class="px-2.5 py-1 rounded-lg bg-orange-500 text-[12px] text-white font-extrabold shadow-sm">
+            13:40 귀경 정체 회피
+          </div>
+</div>
+<!-- 3-Chevron Arrow Indicator -->
+<a class="mt-6 flex flex-col items-center text-amber-300 animate-bounce cursor-pointer" href="#route">
+<span class="material-symbols-outlined text-[18px] -mb-2">keyboard_arrow_down</span>
+<span class="material-symbols-outlined text-[18px] -mb-2">keyboard_arrow_down</span>
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</a>
+</div>
+</section>
+<!-- 2. QUICK STATS 4-GRID -->
+<section class="px-4 -mt-2 mb-6">
+<div class="grid grid-cols-2 gap-2.5">
+<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 border border-sky-200">
+<span class="material-symbols-outlined text-[19px]">payments</span>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] text-slate-500">3인 총 관람료</div>
+<div class="text-[14px] font-extrabold text-slate-900 truncate">단 4,600원</div>
+</div>
+</div>
+<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 cursor-pointer hover:border-orange-500/50 transition-colors shadow-sm" onclick="openModal('map')">
+<div class="w-9 h-9 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 border border-orange-200">
+<span class="material-symbols-outlined text-[19px]">directions_car</span>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] text-orange-600 font-bold flex items-center gap-0.5">스팟 간 이동 <span class="material-symbols-outlined text-[12px]">open_in_new</span></div>
+<div class="text-[14px] font-extrabold text-slate-900 truncate">자차 3~15분</div>
+</div>
+</div>
+<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-200">
+<span class="material-symbols-outlined text-[19px]">schedule</span>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] text-slate-500">총 소요 시간</div>
+<div class="text-[14px] font-extrabold text-slate-900 truncate">약 8시간 소요</div>
+</div>
+</div>
+<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-200">
+<span class="material-symbols-outlined text-[19px]">school</span>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] text-slate-500">학습 연계</div>
+<div class="text-[14px] font-extrabold text-slate-900 truncate">초5-2 역사 외교</div>
+</div>
+</div>
+</div>
+<!-- Traffic Callout -->
+<div class="mt-2.5 rounded-xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 p-3 flex items-start gap-2.5 shadow-xs">
+<span class="material-symbols-outlined text-[18px] text-orange-600 shrink-0 mt-0.5">traffic</span>
+<div class="text-[12px] text-slate-700 leading-snug">
+<strong class="text-orange-700 font-bold">일요일 귀경 팁:</strong> 오후 2시 이후 중부고속도로 상행선 혼잡이 급격히 증가합니다. 13:40 현장 출발 일정을 준수하시면 15시대 서울 안착이 가능합니다.
+        </div>
+</div>
+</section>
+<!-- 3. TODAY'S ROUTE -->
+<section class="px-4 mb-8" id="route">
+<div class="mb-1 text-[11px] font-black uppercase tracking-widest text-orange-600">TODAY'S ROUTE</div>
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-[22px] font-extrabold text-slate-900 flex items-center gap-1.5">
+          오늘의 코스 <span class="text-amber-500">✨</span>
+</h2>
+<span class="text-[11px] text-slate-500">*위치를 클릭해 보세요!</span>
+</div>
+<!-- Interactive Visual Map Card -->
+<div class="relative w-full h-44 rounded-2xl overflow-hidden border border-[#E8DFD5] bg-white mb-4 cursor-pointer group shadow-sm" onclick="openModal('map')">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCcuvPKXAM4_gkXDdWv3Hx2RXuRFO3wVSMR7xbPp_4TP7FdHBMCc1UIue1GX7E1WEHVkQZqvp6aWEZfc8AYa_aCNf4FjW4JB46WUuWSZtDfkrBiAlRghT_lhcFipucgRJT2xMQiUJ4LRNVFTt62ELceN8Z6hr_AOTbSzqv5M3EiEF7MRUW4gtzuA1yrWJmD3EGLLAvtN7H0MY_PtkATXxPunJoRRklzWa38Gxx8t3JsTVmEBSqrOU1vZg');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/40 to-transparent flex flex-col justify-between p-3.5">
+<div class="flex justify-between items-center">
+<span class="px-2.5 py-1 rounded-full bg-white/90 border border-slate-200 text-slate-900 text-[11px] font-bold shadow-xs">
+              이천 반나절 스마트 로드맵
+            </span>
+<span class="px-2.5 py-0.5 rounded bg-orange-500 text-white text-[11px] font-black shadow-xs">
+              총 주행 22km
+            </span>
+</div>
+<div class="flex items-end justify-between">
+<div class="text-[12px] text-slate-100">
+<span class="text-orange-200 font-semibold">설봉공원 ➔ 월전미술관 ➔ 얼쓰갤러리 ➔ 서희테마파크</span>
+</div>
+<span class="px-3 py-1.5 rounded-lg bg-orange-500 text-white font-extrabold text-[12px] flex items-center gap-1 shadow-md shadow-orange-500/30">
+<span class="material-symbols-outlined text-[15px]">map</span> 상세 지도
+            </span>
+</div>
+</div>
+</div>
+<!-- Vertical Node Stepper -->
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
+<div class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200">
+<div class="relative flex items-start gap-3 cursor-pointer group" onclick="openModal('map', 'route0')">
+<span class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-[#FAF7F2] border-2 border-slate-400 flex items-center justify-center text-[11px] font-black text-slate-600 group-hover:border-orange-500">0</span>
+<div>
+<div class="text-[14px] font-bold text-slate-900 group-hover:text-orange-600 transition-colors flex items-center gap-1.5">
+                07:30 서울 강서구청 출발
+                <span class="text-[10px] text-slate-500 font-normal">이동 70~80분</span>
+</div>
+<p class="text-[12px] text-slate-500 mt-0.5">올림픽대로 ➔ 제1외곽순환 ➔ 중부고속도로</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3 cursor-pointer group" onclick="openModal('map', 'seolbong')">
+<span class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-sky-100 border-2 border-sky-500 flex items-center justify-center text-[11px] font-black text-sky-700">1</span>
+<div>
+<div class="text-[14px] font-bold text-slate-900 group-hover:text-sky-600 transition-colors flex items-center gap-1.5">
+                09:10 설봉국제조각공원 &amp; 설봉호
+                <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-700 font-medium">무료</span>
+</div>
+<p class="text-[12px] text-slate-500 mt-0.5">90여 점 초대형 야외 조각 감상 &amp; 미션 1</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3 cursor-pointer group" onclick="openModal('map', 'museum')">
+<span class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-orange-100 border-2 border-orange-500 flex items-center justify-center text-[11px] font-black text-orange-700">2</span>
+<div>
+<div class="text-[14px] font-bold text-slate-900 group-hover:text-orange-600 transition-colors flex items-center gap-1.5">
+                09:40 이천시립박물관
+                <span class="text-[10px] text-slate-500 font-normal">도보 5분</span>
+</div>
+<p class="text-[12px] text-slate-500 mt-0.5">고대 선사~도자역사 상설전 &amp; 인터랙티브</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3 cursor-pointer group" onclick="openModal('map', 'woljeon')">
+<span class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-orange-100 border-2 border-orange-500 flex items-center justify-center text-[11px] font-black text-orange-700">3</span>
+<div>
+<div class="text-[14px] font-bold text-slate-900 group-hover:text-orange-600 transition-colors flex items-center gap-1.5">
+                10:30 이천시립월전미술관
+                <span class="text-[10px] text-slate-500 font-normal">차량 3분</span>
+</div>
+<p class="text-[12px] text-slate-500 mt-0.5">장우성 화백 명작과 여백의 미 &amp; 미션 2</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3 cursor-pointer group" onclick="openModal('map', 'earth')">
+<span class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-amber-100 border-2 border-amber-500 flex items-center justify-center text-[11px] font-black text-amber-700">4</span>
+<div>
+<div class="text-[14px] font-bold text-slate-900 group-hover:text-amber-600 transition-colors flex items-center gap-1.5">
+                11:20 얼쓰갤러리카페 브런치
+                <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 font-medium">조기식사</span>
+</div>
+<p class="text-[12px] text-slate-500 mt-0.5">논뷰 통창 갤러리 파니니/화덕피자 (또는 로컬 한식)</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3 cursor-pointer group" onclick="openModal('map', 'seohee')">
+<span class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-orange-500 border-2 border-orange-600 flex items-center justify-center text-[11px] font-black text-white">5</span>
+<div>
+<div class="text-[14px] font-bold text-slate-900 group-hover:text-orange-600 transition-colors flex items-center gap-1.5">
+                12:20 서희테마파크 (80분 집중)
+                <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-700 font-medium">핵심</span>
+</div>
+<p class="text-[12px] text-slate-500 mt-0.5">거란 담판 롤플레잉, 역사산책로 조각상 &amp; 미션 3</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3 cursor-pointer group" onclick="openModal('cert')">
+<span class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center text-[11px] font-black text-emerald-700">✓</span>
+<div>
+<div class="text-[14px] font-bold text-slate-900 group-hover:text-emerald-600 transition-colors flex items-center gap-1.5">
+                13:40 이천 출발 ➔ 15시대 서울 안착
+              </div>
+<p class="text-[12px] text-emerald-700 font-semibold mt-0.5">오후 정체 시작 전 여유로운 귀경 골든타임</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. 3-MISSION INTERACTIVE PASSPORT CARDS -->
+<section class="px-4 mb-8" id="missions">
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping"></span>
+<h2 class="text-[18px] font-extrabold text-slate-900 tracking-tight">초등 고학년 탐험 여권</h2>
+</div>
+<button class="px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200 text-orange-600 font-bold text-[12px] active:scale-95 transition-all shadow-xs" id="stamp-count-badge" onclick="openModal('cert')">
+            0 / 3 완주
+          </button>
+</div>
+<p class="text-[12px] text-slate-600 mb-4">
+          현장에서 자녀와 함께 카드를 터치해 가이드를 확인하고 도장을 찍어보세요! 3개를 모두 모으면 평화 외교관 임명장이 수여됩니다.
+        </p>
+<!-- 3 Slots Grid -->
+<div class="grid grid-cols-3 gap-2 mb-4">
+<div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-1" onclick="toggleMissionDetail(1)">
+<div class="w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs" id="stamp-slot-1">
+<span class="material-symbols-outlined text-[22px] text-slate-400">brush</span>
+</div>
+<span class="text-[12px] font-bold text-slate-900 leading-tight">M1. 조각 큐레이터</span>
+<span class="text-[10px] text-slate-500 mt-0.5" id="stamp-state-1">미션 대기</span>
+</div>
+<div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-2" onclick="toggleMissionDetail(2)">
+<div class="w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs" id="stamp-slot-2">
+<span class="material-symbols-outlined text-[22px] text-slate-400">search</span>
+</div>
+<span class="text-[12px] font-bold text-slate-900 leading-tight">M2. 문화 탐정</span>
+<span class="text-[10px] text-slate-500 mt-0.5" id="stamp-state-2">미션 대기</span>
+</div>
+<div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-3" onclick="toggleMissionDetail(3)">
+<div class="w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs" id="stamp-slot-3">
+<span class="material-symbols-outlined text-[22px] text-slate-400">military_tech</span>
+</div>
+<span class="text-[12px] font-bold text-slate-900 leading-tight">M3. 서희 협상가</span>
+<span class="text-[10px] text-slate-500 mt-0.5" id="stamp-state-3">미션 대기</span>
+</div>
+</div>
+<!-- Mission Detail Cards (Interactive) -->
+<div class="space-y-2.5">
+<!-- Mission 1 Accordion -->
+<div class="rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] overflow-hidden">
+<div class="p-3 cursor-pointer flex items-center justify-between" onclick="toggleMissionDetail(1)">
+<div class="flex items-center gap-2.5">
+<span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center text-[14px]">
+<span class="material-symbols-outlined text-[16px]">brush</span>
+</span>
+<div class="text-left">
+<span class="text-[13px] font-bold text-sky-900 block">[설봉공원] 내가 붙이는 조각 작품명</span>
+<span class="text-[11px] text-slate-500">터치하여 질문 가이드 &amp; 인증 열기</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-sky-100 text-sky-700 border border-sky-200">예술 스탬프</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px] transition-transform" id="mission-arrow-1">expand_more</span>
+</div>
+</div>
+<div class="px-3 pb-3 pt-1 space-y-2 border-t border-[#E8DFD5]" id="mission-body-1">
+<p class="text-[12px] text-slate-700 leading-relaxed">
+                마음에 드는 야외 조각을 1분간 감상하고, 작품명 팻말을 보기 전에 우리 가족만의 독창적인 제목을 지어 대화해보세요.
+              </p>
+<div class="bg-white rounded-lg p-2.5 border border-[#E8DFD5] text-[12px] space-y-1">
+<div class="text-sky-800 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">psychology_alt</span> 부모와 아이 대화 질문 힌트
+                </div>
+<p class="text-slate-600">"이 조각은 어떤 감정이나 이야기를 전하고 싶었을까? 작가는 왜 쇠와 돌을 이런 각도로 깎았을까?"</p>
+<div class="text-emerald-700 font-medium text-[11px] pt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 성공 기준: 팻말 확인 전 가족 3명의 제목 후보 비교 후 인증
+                </div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button class="text-[12px] text-slate-500 hover:text-slate-900 flex items-center gap-0.5" onclick="openModal('map', 'seolbong')">
+<span class="material-symbols-outlined text-[14px]">place</span>위치 보기
+                </button>
+<button class="px-3 py-1.5 rounded-lg bg-sky-50 text-sky-700 border border-sky-300 text-[12px] font-bold active:scale-95 transition-transform flex items-center gap-1" id="btn-stamp-1" onclick="toggleStamp(1, 'sky', 'brush', '예술 발견가')">
+<span class="material-symbols-outlined text-[16px]">verified</span> 미션 1 인증하기
+                </button>
+</div>
+</div>
+</div>
+<!-- Mission 2 Accordion -->
+<div class="rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] overflow-hidden">
+<div class="p-3 cursor-pointer flex items-center justify-between" onclick="toggleMissionDetail(2)">
+<div class="flex items-center gap-2.5">
+<span class="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-[14px]">
+<span class="material-symbols-outlined text-[16px]">search</span>
+</span>
+<div class="text-left">
+<span class="text-[13px] font-bold text-orange-950 block">[박물관/미술관] 도자기와 여백의 미</span>
+<span class="text-[11px] text-slate-500">터치하여 질문 가이드 &amp; 인증 열기</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-orange-100 text-orange-700 border border-orange-200">문화 스탬프</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px] transition-transform" id="mission-arrow-2">expand_more</span>
+</div>
+</div>
+<div class="px-3 pb-3 pt-1 space-y-2 border-t border-[#E8DFD5] hidden" id="mission-body-2">
+<p class="text-[12px] text-slate-700 leading-relaxed">
+                청자와 백자의 흙 빛깔 차이나 월전 장우성 화백 그림 속 '비어있는 공간(여백)'이 무엇을 상상하게 만드는지 부모님께 브리핑합니다.
+              </p>
+<div class="bg-white rounded-lg p-2.5 border border-[#E8DFD5] text-[12px] space-y-1">
+<div class="text-orange-800 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">psychology_alt</span> 부모와 아이 대화 질문 힌트
+                </div>
+<p class="text-slate-600">"하얀 여백은 왜 그냥 남겨두었을까? 바람일까, 구름일까, 아니면 보는 사람의 몫일까?"</p>
+<div class="text-emerald-700 font-medium text-[11px] pt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 성공 기준: 월전미술관 한 점을 골라 아이가 도슨트처럼 1분 설명
+                </div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button class="text-[12px] text-slate-500 hover:text-slate-900 flex items-center gap-0.5" onclick="openModal('map', 'museum')">
+<span class="material-symbols-outlined text-[14px]">place</span>위치 보기
+                </button>
+<button class="px-3 py-1.5 rounded-lg bg-orange-50 text-orange-700 border border-orange-300 text-[12px] font-bold active:scale-95 transition-transform flex items-center gap-1" id="btn-stamp-2" onclick="toggleStamp(2, 'orange', 'search', '문화 탐정')">
+<span class="material-symbols-outlined text-[16px]">verified</span> 미션 2 인증하기
+                </button>
+</div>
+</div>
+</div>
+<!-- Mission 3 Accordion -->
+<div class="rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] overflow-hidden">
+<div class="p-3 cursor-pointer flex items-center justify-between" onclick="toggleMissionDetail(3)">
+<div class="flex items-center gap-2.5">
+<span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center text-[14px]">
+<span class="material-symbols-outlined text-[16px]">military_tech</span>
+</span>
+<div class="text-left">
+<span class="text-[13px] font-bold text-amber-950 block">[서희테마파크] 거란 장수 소손녕 설득하기</span>
+<span class="text-[11px] text-slate-500">터치하여 질문 가이드 &amp; 인증 열기</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">외교 스탬프</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px] transition-transform" id="mission-arrow-3">expand_more</span>
+</div>
+</div>
+<div class="px-3 pb-3 pt-1 space-y-2 border-t border-[#E8DFD5] hidden" id="mission-body-3">
+<p class="text-[12px] text-slate-700 leading-relaxed">
+                거란의 진짜 의도(송과의 교류 차단)를 파악하고, 강동 6주를 획득한 명분을 가족 앞에서 30초 롤플레잉 연기로 펼쳐보세요.
+              </p>
+<div class="bg-white rounded-lg p-2.5 border border-[#E8DFD5] text-[12px] space-y-1">
+<div class="text-amber-800 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">psychology_alt</span> 부모와 아이 대화 질문 힌트
+                </div>
+<p class="text-slate-600">"만약 서희 장군이 무조건 싸우자고만 했다면 어떻게 되었을까? 상대가 진짜 원하는 걸 알아채는 힘이란?"</p>
+<div class="text-emerald-700 font-medium text-[11px] pt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 성공 기준: 역사산책로 담판 동상 앞에서 외교관 역할극 30초 완료
+                </div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button class="text-[12px] text-slate-500 hover:text-slate-900 flex items-center gap-0.5" onclick="openModal('map', 'seohee')">
+<span class="material-symbols-outlined text-[14px]">place</span>위치 보기
+                </button>
+<button class="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 border border-amber-300 text-[12px] font-bold active:scale-95 transition-transform flex items-center gap-1" id="btn-stamp-3" onclick="toggleStamp(3, 'amber', 'stars', '평화 외교관')">
+<span class="material-symbols-outlined text-[16px]">verified</span> 미션 3 인증하기
+                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Completion Certificate Banner -->
+<div class="hidden mt-4 rounded-xl bg-gradient-to-r from-orange-50 via-amber-50 to-orange-100/50 border border-orange-300 p-3.5 shadow-xs" id="diplomat-cert">
+<div class="flex items-center justify-between mb-1">
+<span class="px-2 py-0.5 rounded bg-orange-500 text-white font-extrabold text-[11px]">미션 완주 성공!</span>
+<span class="text-[11px] text-slate-500 font-mono" id="cert-date">탐험 완료</span>
+</div>
+<h3 class="text-[14px] font-bold text-slate-900 mb-1">우리 가족 어린이 평화 외교관 임명장 수여</h3>
+<p class="text-[12px] text-slate-700 mb-2.5">
+            논리와 통찰력으로 나라를 지킨 서희 선생의 기개를 이어받아 지혜로운 문화 탐험을 완수했습니다.
+          </p>
+<button class="w-full py-2 rounded-lg bg-orange-500 text-white font-extrabold text-[12px] flex items-center justify-center gap-1 shadow-md shadow-orange-500/20 active:scale-95 transition-transform" onclick="openModal('cert')">
+<span class="material-symbols-outlined text-[16px]">visibility</span> 임명장 확인하기
+          </button>
+</div>
+</div>
+</section>
+<!-- 5. TIMELINE GUIDE -->
+<section class="px-4 mb-8 space-y-5" id="timeline">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[11px] font-black uppercase tracking-widest text-orange-600">TIMELINE GUIDE</span>
+<h2 class="text-[22px] font-extrabold text-slate-900">타임라인 상세 가이드</h2>
+</div>
+<button class="text-orange-600 text-[12px] font-bold bg-orange-50 border border-orange-200 px-3 py-1 rounded-full flex items-center gap-1 active:scale-95 transition-all shadow-xs" id="btn-toggle-all-steps" onclick="toggleAllSteps()">
+<span class="material-symbols-outlined text-[15px]">unfold_more</span> 전체 열기
+        </button>
+</div>
+<!-- STEP 00 -->
+<div class="relative rounded-2xl bg-white border border-[#E8DFD5] p-4 overflow-hidden shadow-sm">
+<div class="absolute -right-2 -top-2 watermark-step">00</div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-1">
+<span class="text-[11px] font-bold text-orange-600 tracking-wider">START · 07:30</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-[#FAF7F2] text-slate-600 border border-slate-200">이동 70~80분</span>
+</div>
+<h3 class="text-[17px] font-extrabold text-slate-900 mb-1.5">서울 강서구청 출발 ➔ 이천 설봉공원</h3>
+<p class="text-[13px] text-slate-600 leading-relaxed mb-3">
+            올림픽대로에서 제1외곽순환고속도로를 경유하여 중부고속도로를 이용합니다. 아침 공복 시 덕평자연휴게소 또는 공원 입구 편의점을 가볍게 활용하세요.
+          </p>
+<div class="flex items-center justify-between text-[12px] text-slate-500 pt-2 border-t border-[#E8DFD5]">
+<span>예상 이동 거리: 약 78km</span>
+<button class="text-orange-600 font-bold hover:underline flex items-center gap-0.5" onclick="openModal('map', 'route0')">
+<span>내비 연동 안내</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- STEP 01 (설봉국제조각공원 & 설봉호) -->
+<div class="relative rounded-2xl bg-white border border-[#E8DFD5] overflow-hidden shadow-sm">
+<div class="absolute right-2 top-2 watermark-step pointer-events-none">01</div>
+<div class="relative z-10 p-4 cursor-pointer select-none" onclick="toggleStep(1)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-sky-100 border border-sky-300 text-sky-800 text-[11px] font-black">STEP 01</span>
+<span class="text-[12px] text-slate-500 font-medium">09:10 ~ 09:40 (30분)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold">입장료 무료</span>
+<span class="material-symbols-outlined text-slate-400 transition-transform rotate-180" id="step-arrow-1">expand_more</span>
+</div>
+</div>
+<h3 class="text-[18px] font-extrabold text-slate-900">설봉국제조각공원 &amp; 설봉호 호숫길</h3>
+<p class="text-[13px] text-slate-600 mt-1">
+            세계 유명 작가들의 초대형 현대 조각품 90여 점이 푸른 숲 잔디밭에 펼쳐져 있습니다. 호수 산책로와 함께 예술 감수성을 깨우는 코스입니다.
+          </p>
+</div>
+<div class="px-4 pb-4 space-y-3" id="step-body-1">
+<div class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200">
+<img alt="설봉국제조각공원 잔디마당 조각상" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzQJ5ZzG9TM1mE8Bf2Bald10wts4Okrl8Du9VtEH4hGhnAZplpkh61rZGP7aefeu6yfLuABd6n8x8SaJGJGP0PwsB1GQtpLFiT6DFOOG7Ch-3Ru3Ni5-xiR1wPH83RBIeUAGU9IFssXm-Wb2T21WdGMYogO-nbHBcJrHw97mvlN4f6nQrMm7PdmEZFNk0XeSlmDGdwvzdRukyW28wl_ZiQ2y9sdXAaPRB8kgAVkPv7Nxrax08Cil41CA"/>
+<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-black/70 text-white text-[11px] font-medium backdrop-blur-sm">
+              설봉호 둘레길 조각 정원
+            </div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[12px]">
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
+<div class="text-[10px] text-slate-500 font-bold">주차 팁</div>
+<div class="font-bold text-slate-900 mt-0.5">설봉공원 제1주차장 (무료)</div>
+<p class="text-slate-500 text-[11px] mt-0.5">진입로 안쪽 화장실 가까운 자리 추천</p>
+</div>
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
+<div class="text-[10px] text-slate-500 font-bold">다음 이동</div>
+<div class="font-bold text-slate-900 mt-0.5">도보 5분 (300m)</div>
+<p class="text-slate-500 text-[11px] mt-0.5">차량 이동 없이 숲길 산책로로 연결</p>
+</div>
+</div>
+<div class="p-2.5 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-between">
+<span class="text-[12px] text-sky-800 font-medium">미션 1: 조각 작품명 짓기 수행처</span>
+<button class="text-[12px] text-sky-600 underline font-bold" onclick="toggleMissionDetail(1); document.getElementById('missions').scrollIntoView({behavior:'smooth'});">미션 가이드</button>
+</div>
+<div class="flex justify-end pt-1">
+<button class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs" onclick="openModal('map', 'seolbong')">
+<span class="material-symbols-outlined text-[15px] text-sky-600">location_on</span> 길찾기 / 주차정보
+            </button>
+</div>
+</div>
+</div>
+<!-- STEP 02 (이천시립박물관) -->
+<div class="relative rounded-2xl bg-white border border-[#E8DFD5] overflow-hidden shadow-sm">
+<div class="absolute right-2 top-2 watermark-step pointer-events-none">02</div>
+<div class="relative z-10 p-4 cursor-pointer select-none" onclick="toggleStep(2)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-orange-100 border border-orange-300 text-orange-800 text-[11px] font-black">STEP 02</span>
+<span class="text-[12px] text-slate-500 font-medium">09:40 ~ 10:20 (40분)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold">도보 5분 · 무료</span>
+<span class="material-symbols-outlined text-slate-400 transition-transform" id="step-arrow-2">expand_more</span>
+</div>
+</div>
+<h3 class="text-[18px] font-extrabold text-slate-900">이천시립박물관 (고대 선사~도자역사)</h3>
+<p class="text-[13px] text-slate-600 mt-1">
+            조각공원에서 도보 5분. 이천의 지리적 기원과 왜 명품 쌀과 도자기가 발달했는지 실물 유물로 확인합니다.
+          </p>
+</div>
+<div class="px-4 pb-4 space-y-3 hidden" id="step-body-2">
+<div class="rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] p-3 space-y-1 text-[12px]">
+<div class="text-orange-700 font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">lightbulb</span> 초등 5학년 역사 교과 연계 핵심 질문
+            </div>
+<p class="text-slate-700 leading-relaxed pl-4">
+              "도자기가 왜 하필 이천에서 가장 융성했을까?" 흙(고령토)과 땔감(소나무), 그리고 한양으로 물자를 나르던 물길의 비밀을 2층 기획전시실 인터랙티브 터치스크린에서 확인해보세요.
+            </p>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[12px]">
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
+<div class="text-[10px] text-slate-500 font-bold">관람 소요</div>
+<div class="font-bold text-slate-900 mt-0.5">35~40분 소요</div>
+<p class="text-slate-500 text-[11px] mt-0.5">영상실 10분 + 상설전 25분</p>
+</div>
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
+<div class="text-[10px] text-slate-500 font-bold">편의시설</div>
+<div class="font-bold text-slate-900 mt-0.5">물품보관함 / 정수기</div>
+<p class="text-slate-500 text-[11px] mt-0.5">유모차 및 휠체어 대여 가능</p>
+</div>
+</div>
+<div class="flex justify-end pt-1">
+<button class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs" onclick="openModal('map', 'museum')">
+<span class="material-symbols-outlined text-[15px] text-orange-600">location_on</span> 위치 상세
+            </button>
+</div>
+</div>
+</div>
+<!-- STEP 03 (이천시립월전미술관) -->
+<div class="relative rounded-2xl bg-white border border-[#E8DFD5] overflow-hidden shadow-sm">
+<div class="absolute right-2 top-2 watermark-step pointer-events-none">03</div>
+<div class="relative z-10 p-4 cursor-pointer select-none" onclick="toggleStep(3)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-orange-100 border border-orange-300 text-orange-800 text-[11px] font-black">STEP 03</span>
+<span class="text-[12px] text-slate-500 font-medium">10:30 ~ 11:05 (35분)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-semibold">차량 3분 이동</span>
+<span class="material-symbols-outlined text-slate-400 transition-transform" id="step-arrow-3">expand_more</span>
+</div>
+</div>
+<h3 class="text-[18px] font-extrabold text-slate-900">이천시립월전미술관</h3>
+<p class="text-[13px] text-slate-600 mt-1">
+            한국화의 거장 월전 장우성 화백의 대표작과 한옥 전통 조형미가 어우러진 고즈넉한 갤러리.
+          </p>
+</div>
+<div class="px-4 pb-4 space-y-3 hidden" id="step-body-3">
+<div class="grid grid-cols-2 gap-2 text-[12px]">
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
+<div class="text-[10px] text-slate-500 font-bold">관람료 (3인 총 4,600원)</div>
+<div class="font-bold text-slate-900 mt-0.5">어린이 600원 / 성인 2,000원</div>
+<p class="text-orange-600 text-[11px] mt-0.5 font-medium">이천 시민 50% 할인</p>
+</div>
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
+<div class="text-[10px] text-slate-500 font-bold">관람 환경</div>
+<div class="font-bold text-slate-900 mt-0.5">실내 쾌적, 조용한 사색</div>
+<p class="text-slate-500 text-[11px] mt-0.5">포토존 정원 보유</p>
+</div>
+</div>
+<div class="p-2.5 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-between">
+<span class="text-[12px] text-orange-800 font-medium">미션 2: '여백의 미' 관찰 도슨트 완수 지점</span>
+<button class="text-[12px] text-orange-600 underline font-bold" onclick="toggleMissionDetail(2); document.getElementById('missions').scrollIntoView({behavior:'smooth'});">미션 인증</button>
+</div>
+<div class="flex justify-end pt-1">
+<button class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs" onclick="openModal('map', 'woljeon')">
+<span class="material-symbols-outlined text-[15px] text-orange-600">location_on</span> 위치 상세
+            </button>
+</div>
+</div>
+</div>
+<!-- STEP 04 (얼쓰갤러리카페 & 점심) -->
+<div class="relative rounded-2xl bg-white border border-[#E8DFD5] overflow-hidden shadow-sm">
+<div class="absolute right-2 top-2 watermark-step pointer-events-none">04</div>
+<div class="relative z-10 p-4 cursor-pointer select-none" onclick="toggleStep(4)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-800 text-[11px] font-black">LUNCH</span>
+<span class="text-[12px] text-slate-500 font-medium">11:20 ~ 12:10 (50분)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-semibold">웨이팅 방지 조기식사</span>
+<span class="material-symbols-outlined text-slate-400 transition-transform" id="step-arrow-4">expand_more</span>
+</div>
+</div>
+<h3 class="text-[18px] font-extrabold text-slate-900">얼쓰갤러리카페 &amp; 이천 맛집 옵션</h3>
+<p class="text-[13px] text-slate-600 mt-1">
+            통유리창 너머 논뷰와 잔디 마당을 감상하며 샌드위치 브런치 또는 피자를 편안하게 즐길 수 있는 복합문화 카페.
+          </p>
+</div>
+<div class="px-4 pb-4 space-y-3 hidden" id="step-body-4">
+<div class="relative w-full h-40 rounded-xl overflow-hidden border border-slate-200">
+<img alt="얼쓰갤러리카페 내부 및 논뷰 풍경" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcMlmkV4agVvhpA2eML9SwiTEGdK7kLVOI7WZ-VFQEpRQ0ixNdJ73-xdoK61JxnpI2nBNEQBxFmEyfKnw8umIb1jvbzdxfAtjo1Z8bt-5C6Hbha-qqA3ErGF5i80unh48h7KRC7yTa2mFU-V59ZO8AdMOegr_7yFkKbOfOcnL8IN3d86YUOLVv_GFjwPMS1-d_lf6RUAyHk4Q8962HQjBePjKeOfSuDPXO-72wn844r5ggknaX-3yGiQ"/>
+<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-black/70 text-white text-[11px] font-medium backdrop-blur-sm">
+              얼쓰갤러리카페 전경
+            </div>
+</div>
+<div class="space-y-2">
+<div class="text-[12px] font-bold text-slate-800">가족 취향별 빠른 선택 (자차 5~10분 반경):</div>
+<div class="grid grid-cols-1 gap-2">
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-between">
+<div>
+<div class="text-[13px] font-bold text-slate-900">얼쓰갤러리 (추천 브런치)</div>
+<div class="text-[11px] text-slate-500">파니니&amp;화덕피자, 잔디정원, 한적함</div>
+</div>
+<button class="text-[11px] text-orange-600 font-bold hover:underline" onclick="openModal('map', 'earth')">상세보기</button>
+</div>
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-between">
+<div>
+<div class="text-[13px] font-bold text-slate-900">응암리막국수</div>
+<div class="text-[11px] text-slate-500">자가제면 메밀국수 &amp; 편육 (회전율 빠름)</div>
+</div>
+<button class="text-[11px] text-orange-600 font-bold hover:underline" onclick="openModal('map', 'eungam')">상세보기</button>
+</div>
+<div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-between">
+<div>
+<div class="text-[13px] font-bold text-slate-900">강민주의들밥</div>
+<div class="text-[11px] text-slate-500">이천 쌀밥 정식 (11시 이전 원격줄서기 필수)</div>
+</div>
+<button class="text-[11px] text-orange-600 font-bold hover:underline" onclick="openModal('map', 'kang')">상세보기</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN STEP 05 (서희테마파크 80분 완전 몰입 탐방) -->
+<div class="relative rounded-2xl bg-white border-2 border-orange-400 overflow-hidden shadow-sm">
+<div class="absolute right-2 top-2 watermark-step pointer-events-none">05</div>
+<div class="relative z-10 p-4 cursor-pointer select-none" onclick="toggleStep(5)">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-orange-500 text-white text-[11px] font-black">MAIN STEP 05</span>
+<span class="text-[12px] text-slate-500 font-medium">12:20 ~ 13:40 (80분)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold">입장료 무료</span>
+<span class="material-symbols-outlined text-slate-400 transition-transform rotate-180" id="step-arrow-5">expand_more</span>
+</div>
+</div>
+<h3 class="text-[18px] font-extrabold text-slate-900">서희테마파크 80분 완전 몰입 탐방</h3>
+<p class="text-[13px] text-slate-600 mt-1">
+            싸우지 않고 피 한 방울 흘리지 않은 채 거란의 80만 대군을 돌려보내고 '강동 6주'를 확보한 서희 선생의 외교 지혜를 입체적으로 체험합니다.
+          </p>
+</div>
+<div class="px-4 pb-4 space-y-3" id="step-body-5">
+<div class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200">
+<img alt="서희테마파크 역사산책로 담판 조각상 광장" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWGOjnI-9KNTmrcKe4gu_Af-LVLOrL_ddIwQ0QNILdfc5a0CvuSMMxfcJtV1FzVYh_zzPKcBaENjMy9IjburJOrb0XCW-uskg-TgYOW4PRqbqsFTJUbzJgy0zJWPwUdUgtJ71ZbIz9bO8TVf1Va9e_JZAzYQYW5a2mgjRifdH9Um8uu_XuUbRoBHw_gSa3QM9xyMD9BSYXT6qJN6Eijc8SlLnxZuKQw314AuGdsjkbeQTLhWc6E-kc4g"/>
+<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-black/70 text-white text-[11px] font-medium backdrop-blur-sm">
+              서희 역사산책로 담판 동상 광장
+            </div>
+</div>
+<!-- 4-Phase Experience Sub-steps -->
+<div class="space-y-2">
+<div class="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-start gap-2.5">
+<div class="w-6 h-6 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-[12px] font-bold shrink-0">1</div>
+<div>
+<div class="text-[13px] font-bold text-slate-900">서희역사관 애니메이션 영상실 (15분)</div>
+<div class="text-[12px] text-slate-600 leading-snug mt-0.5">고려와 거란의 긴박했던 역사적 대치 상황을 입체 영상으로 시청합니다.</div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-start gap-2.5">
+<div class="w-6 h-6 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-[12px] font-bold shrink-0">2</div>
+<div>
+<div class="text-[13px] font-bold text-slate-900">가족 토론 질문 3문항 (15분)</div>
+<div class="text-[12px] text-slate-600 leading-snug mt-0.5">
+                  Q1. 거란 장군 소손녕은 왜 쳐들어왔을까? / Q2. 서희는 어떻게 옛 고구려 땅을 명분으로 삼았을까? / Q3. 친구와 다툴 때 말로 풀었던 나의 경험은?
+                </div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-start gap-2.5">
+<div class="w-6 h-6 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-[12px] font-bold shrink-0">3</div>
+<div>
+<div class="text-[13px] font-bold text-slate-900">체험존 &amp; 느린 우체통 (20분)</div>
+<div class="text-[12px] text-slate-600 leading-snug mt-0.5">고려 관복·갑옷 착용 포토존, 터치스크린 외교 퀴즈, 미래의 나에게 보내는 평화 엽서 쓰기.</div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-start gap-2.5">
+<div class="w-6 h-6 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-[12px] font-bold shrink-0">4</div>
+<div>
+<div class="text-[13px] font-bold text-slate-900">역사산책로 30여 점 조각상 탐방 (30분)</div>
+<div class="text-[12px] text-slate-600 leading-snug mt-0.5">소나무 숲길을 따라 서희의 탄생부터 담판 성공까지 스토리텔링 조각상을 순서대로 관람.</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs" onclick="openModal('map', 'seohee')">
+<span class="material-symbols-outlined text-[15px] text-orange-600">location_on</span> 위치 및 주차 안내
+            </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white font-extrabold text-[12px] shadow-md shadow-orange-500/20 active:scale-95 transition-transform flex items-center gap-1" onclick="toggleStamp(3, 'amber', 'stars', '평화 외교관')">
+<span class="material-symbols-outlined text-[16px]">verified</span> 미션 3 즉시 인증
+            </button>
+</div>
+</div>
+</div>
+<!-- STEP 06 (귀가) -->
+<div class="relative rounded-2xl bg-white border border-[#E8DFD5] p-4 overflow-hidden shadow-sm">
+<div class="absolute -right-2 -top-2 watermark-step">06</div>
+<div class="relative z-10 cursor-pointer select-none" onclick="toggleStep(6)">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[11px] font-bold text-emerald-700 tracking-wider">RETURN · 13:40</span>
+<div class="flex items-center gap-1">
+<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold">귀경 최적 골든타임</span>
+<span class="material-symbols-outlined text-slate-400 transition-transform" id="step-arrow-6">expand_more</span>
+</div>
+</div>
+<h3 class="text-[17px] font-extrabold text-slate-900 mb-1">이천 출발 ➔ 서울 귀가 (15:10~15:30 도착)</h3>
+<p class="text-[13px] text-slate-600 leading-relaxed">
+            13:40에 현장을 출발하면 중부고속도로와 올림픽대로 상행선 병목 현상을 거의 피할 수 있습니다.
+          </p>
+</div>
+<div class="mt-3 pt-3 border-t border-[#E8DFD5] space-y-2.5 hidden" id="step-body-6">
+<div class="grid grid-cols-2 gap-2 text-slate-700 text-[12px]">
+<div class="p-2.5 bg-[#FAF7F2] rounded-lg border border-emerald-300">
+<strong class="text-emerald-700 block mb-0.5">13:40 출발 시 (권장)</strong>
+              소요시간: 70~85분 (체증 전 안착)
+            </div>
+<div class="p-2.5 bg-[#FAF7F2] rounded-lg border border-orange-200 opacity-90">
+<strong class="text-orange-700 block mb-0.5">15:00 이후 출발 시</strong>
+              소요시간: 120~150분 (병목 심화)
+            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. LOCAL FOOD & CAFE -->
+<section class="px-4 mb-8" id="food">
+<div class="mb-1 text-[11px] font-black uppercase tracking-widest text-orange-600">LOCAL FLAVORS</div>
+<h2 class="text-[22px] font-extrabold text-slate-900 mb-3">가성비 로컬 맛집 &amp; 힐링 카페</h2>
+<div class="space-y-3">
+<!-- Cafe 1 -->
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe1')">
+<div class="min-w-0 pr-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[15px] font-bold text-slate-900">함께 걷는 길</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-200">설봉공원 도보권</span>
+</div>
+<p class="text-[12px] text-slate-500 truncate">조각공원 산책 후 들르기 좋은 따뜻한 원목 인테리어와 정원</p>
+<div class="text-[11px] text-orange-600 mt-1 font-medium">핸드드립 &amp; 계절 수제과일에이드</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-center text-slate-600 shrink-0">
+<span class="material-symbols-outlined text-[20px]">yard</span>
+</div>
+</div>
+<!-- Cafe 2 -->
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe2')">
+<div class="min-w-0 pr-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[15px] font-bold text-slate-900">한옥카페 문</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-orange-100 text-orange-800 border border-orange-200">고즈넉한 한옥</span>
+</div>
+<p class="text-[12px] text-slate-500 truncate">한국 전통 서까래 처마 아래에서 즐기는 쑥라떼와 인절미 와플</p>
+<div class="text-[11px] text-orange-600 mt-1 font-medium">도자예술마을 예스파크 인접</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-center text-slate-600 shrink-0">
+<span class="material-symbols-outlined text-[20px]">roofing</span>
+</div>
+</div>
+<!-- Cafe 3 -->
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe3')">
+<div class="min-w-0 pr-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[15px] font-bold text-slate-900">흥만소 (이천 쌀빵 명소)</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">포장 추천</span>
+</div>
+<p class="text-[12px] text-slate-500 truncate">이천 쌀 100%로 구워낸 쌀크림빵, 서울 귀갓길 가족 차내 간식 최고</p>
+<div class="text-[11px] text-orange-600 mt-1 font-medium">시그니처 쌀크림빵 4,000원대</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-center text-slate-600 shrink-0">
+<span class="material-symbols-outlined text-[20px]">bakery_dining</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. CHECK: RECOMMENDED FOR & PRECAUTIONS -->
+<section class="px-4 mb-8">
+<div class="mb-3">
+<span class="text-[11px] font-black uppercase tracking-widest text-slate-500">CHECK</span>
+<h2 class="text-[20px] font-extrabold text-slate-900">이런 분께 추천해요</h2>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
+<div class="flex items-center gap-1.5 text-emerald-700 font-extrabold text-[13px] mb-3">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> 추천 대상
+          </div>
+<ul class="space-y-2 text-[12px] text-slate-700 leading-tight">
+<li class="flex items-start gap-1.5"><span class="text-emerald-600 font-bold">•</span> 초등 4~6학년 한국사 교과 연계 나들이</li>
+<li class="flex items-start gap-1.5"><span class="text-emerald-600 font-bold">•</span> 3인 5천원 미만 알뜰 고품격 문화 코스</li>
+<li class="flex items-start gap-1.5"><span class="text-emerald-600 font-bold">•</span> 주말 오후 교통체증 피하고 싶은 가족</li>
+</ul>
+</div>
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
+<div class="flex items-center gap-1.5 text-orange-700 font-extrabold text-[13px] mb-3">
+<span class="material-symbols-outlined text-[16px]">warning</span> 주의 사항
+          </div>
+<ul class="space-y-2 text-[12px] text-slate-700 leading-tight">
+<li class="flex items-start gap-1.5"><span class="text-orange-600 font-bold">•</span> 13:40 이후 귀경 시 정체 1시간 이상 급증</li>
+<li class="flex items-start gap-1.5"><span class="text-orange-600 font-bold">•</span> 유명 쌀밥집은 11시 전 테이블링 필수</li>
+<li class="flex items-start gap-1.5"><span class="text-orange-600 font-bold">•</span> 야외 산책로 대비 모자 및 운동화 착용</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- 8. WEATHER BACKUP & CHECKLIST -->
+<section class="px-4 mb-8 space-y-3">
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="material-symbols-outlined text-sky-600 text-[20px]">umbrella</span>
+<h3 class="text-[15px] font-bold text-slate-900">우천·폭염 시 100% 실내 대체안</h3>
+</div>
+<p class="text-[12px] text-slate-600 leading-relaxed mb-3">
+          날씨가 궂을 경우 설봉공원 야외 조각 산책 대신 <strong class="text-slate-900 font-bold">이천세라피아 도자미술관 실내 전시관</strong> 및 <strong class="text-slate-900 font-bold">예스파크(도자예술마을) 공방 체험</strong>으로 즉시 전환하세요.
+        </p>
+<button class="w-full p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-between text-[12px] text-slate-800 hover:border-sky-400 transition-all shadow-xs" onclick="openModal('map', 'serapia')">
+<span class="font-bold">이천세라피아 실내 전환 길안내</span>
+<span class="text-sky-600 font-semibold flex items-center gap-0.5">자차 5분 연결 <span class="material-symbols-outlined text-[14px]">arrow_forward</span></span>
+</button>
+</div>
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-orange-600 text-[20px]">checklist</span>
+<h3 class="text-[15px] font-bold text-slate-900">초등 탐험 준비물 체크리스트</h3>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[12px] text-slate-800">
+<label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
+<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox"/>
+<span>편안한 운동화</span>
+</label>
+<label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
+<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox"/>
+<span>보조배터리 (사진용)</span>
+</label>
+<label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
+<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox"/>
+<span>필기도구 &amp; 노트</span>
+</label>
+<label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
+<input class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox"/>
+<span>모자 / 자외선 차단제</span>
+</label>
+</div>
+</div>
+</section>
+<!-- 9. FAMILY REWARDS PROMISE -->
+<section class="px-4 mb-8" id="rewards">
+<div class="rounded-2xl bg-white border border-orange-300 p-4 shadow-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-600 text-[22px]">redeem</span>
+<h3 class="text-[17px] font-bold text-slate-900">오늘 완주 시 가족 선택 보상</h3>
+</div>
+<button class="text-[11px] text-orange-600 font-bold hover:underline flex items-center gap-0.5" onclick="openModal('cert')">
+<span>임명장 미리보기</span>
+<span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</div>
+<p class="text-[12px] text-slate-600 mb-3 leading-relaxed">
+          미션을 모두 달성한 자녀에게 오늘 나들이의 주인공 권한을 선물하세요! 카드를 터치해 약속을 선택하세요.
+        </p>
+<div class="space-y-2">
+<label class="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] hover:border-orange-300 cursor-pointer transition-all">
+<div class="flex items-center gap-2.5">
+<input checked="" class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" name="family-reward" type="radio"/>
+<div>
+<span class="text-[13px] font-bold text-slate-900 block">카페에서 내가 원하는 디저트 1개 고르기</span>
+<span class="text-[11px] text-slate-500">얼쓰갤러리카페 or 흥만소 쌀크림빵 즉시 교환</span>
+</div>
+</div>
+<span class="text-[10px] px-2 py-0.5 rounded bg-orange-100 text-orange-800 border border-orange-200">인기</span>
+</label>
+<label class="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] hover:border-orange-300 cursor-pointer transition-all">
+<div class="flex items-center gap-2.5">
+<input class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" name="family-reward" type="radio"/>
+<div>
+<span class="text-[13px] font-bold text-slate-900 block">다음 달 가족 주말 여행지 1곳 직접 결정권</span>
+<span class="text-[11px] text-slate-500">초등 아이가 직접 다음 가족 나들이 대장 역할</span>
+</div>
+</div>
+<span class="text-[10px] px-2 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-200">대장</span>
+</label>
+<label class="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] hover:border-orange-300 cursor-pointer transition-all">
+<div class="flex items-center gap-2.5">
+<input class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" name="family-reward" type="radio"/>
+<div>
+<span class="text-[13px] font-bold text-slate-900 block">귀가길 10분 차내 DJ &amp; 역사 퀴즈 출제권</span>
+<span class="text-[11px] text-slate-500">부모님에게 퀴즈 내고 오답 시 간식 압수권 부여</span>
+</div>
+</div>
+<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">훈장</span>
+</label>
+</div>
+</div>
+</section>
+<!-- 10. SHARE & FOOTER -->
+<section class="px-4 mb-6 flex flex-col items-center text-center">
+<span class="text-[10px] font-black uppercase tracking-widest text-orange-600 mb-1">SHARE</span>
+<h2 class="text-[20px] font-extrabold text-slate-900 mb-1.5">같이 갈 가족에게 공유하세요</h2>
+<p class="text-[12px] text-slate-600 max-w-xs leading-snug mb-4">
+        착한 가격, 짧은 이동, 풍부한 역사 학습까지.<br/>이번 주말 당일치기로 함께 떠나보세요.
+      </p>
+<div class="w-full space-y-2 max-w-xs">
+<button class="w-full py-3 rounded-xl bg-white border border-[#E8DFD5] text-slate-800 text-[13px] font-bold flex items-center justify-center gap-2 hover:border-orange-400 active:scale-98 transition-all shadow-xs" onclick="copyCurrentLink()">
+<span class="material-symbols-outlined text-[17px]">link</span>
+          링크 복사하기
+        </button>
+<button class="w-full py-3 rounded-xl bg-[#FEE500] text-[#3C1E1E] text-[13px] font-extrabold flex items-center justify-center gap-2 active:scale-98 transition-all shadow-md" onclick="alert('가족 단톡방에 공유되었습니다!')">
+<span class="material-symbols-outlined text-[17px]">share</span>
+          카카오톡으로 공유
+        </button>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-500 mt-5">
+<span>#이천역사문화탐방</span>
+<span>#서희테마파크</span>
+<span>#설봉공원</span>
+<span>#초등역사체험</span>
+<span>#가족당일치기</span>
+</div>
+<button class="mt-6 flex items-center gap-1 text-[12px] text-slate-500 hover:text-slate-900 transition-colors" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+<span>코스 최상단으로 돌아가기</span>
+</button>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-xl border-t border-[#E8DFD5] max-w-[390px] mx-auto shadow-lg">
+<div class="flex justify-around items-center h-16 px-2">
+<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-0.5 text-orange-600 font-bold" href="#summary">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span class="text-[11px]">일정표</span>
+</a>
+<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-0.5 text-slate-500 hover:text-slate-900 transition-colors" href="#missions">
+<span class="material-symbols-outlined text-[20px]">military_tech</span>
+<span class="text-[11px]">3대 미션</span>
+</a>
+<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-0.5 text-slate-500 hover:text-slate-900 transition-colors" href="#route" onclick="openModal('map'); return false;">
+<span class="material-symbols-outlined text-[20px]">near_me</span>
+<span class="text-[11px]">지도 안내</span>
+</a>
+<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-0.5 text-slate-500 hover:text-slate-900 transition-colors" href="#rewards">
+<span class="material-symbols-outlined text-[20px]">redeem</span>
+<span class="text-[11px]">가족 보상</span>
+</a>
+</div>
+</nav>
+<!-- Modal: Map Dialog -->
+<div class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center bg-slate-900/50 backdrop-blur-sm p-0 sm:p-4" id="modal-map">
+<div class="w-full max-w-md bg-white rounded-t-2xl sm:rounded-2xl p-4 shadow-2xl border border-[#E8DFD5] max-h-[85vh] overflow-y-auto">
+<div class="flex items-center justify-between pb-3 border-b border-[#E8DFD5]">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center border border-orange-200">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</span>
+<div>
+<h3 class="text-[15px] font-extrabold text-slate-900" id="map-modal-title">설봉국제조각공원 안내</h3>
+<p class="text-[11px] text-slate-500" id="map-modal-sub">경기도 이천시 관고동 418-2</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500" onclick="closeModal('map')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="py-3 space-y-3">
+<div class="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] text-[12px] space-y-2">
+<div class="flex justify-between items-center text-slate-900 font-bold">
+<span>주차 &amp; 현장 팁</span>
+<span class="text-emerald-700 text-[11px] px-2 py-0.5 rounded bg-emerald-100 border border-emerald-200">무료 주차</span>
+</div>
+<p class="text-slate-700 leading-relaxed" id="map-modal-desc">
+            제1주차장이 잔디광장 및 호수 둘레길과 가장 가깝습니다. 주차비는 무료이며 산책로 평탄화가 잘 되어 있습니다.
+          </p>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="p-2.5 rounded-xl bg-[#03C75A]/10 text-[#029b46] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#03C75A]/30" href="https://map.naver.com" target="_blank">
+<span>N</span> 네이버 지도
+          </a>
+<a class="p-2.5 rounded-xl bg-[#FEE500]/40 text-[#4c3500] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#FEE500]/60" href="https://map.kakao.com" target="_blank">
+<span>K</span> 카카오맵
+          </a>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 text-[12px] font-bold flex items-center justify-center gap-1 border border-[#E8DFD5]" onclick="copyText('경기도 이천시 관고동 418-2')">
+<span class="material-symbols-outlined text-[15px]">content_copy</span> 주소 복사하기
+        </button>
+</div>
+<div class="pt-2 border-t border-[#E8DFD5] flex justify-end">
+<button class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-[12px] font-bold" onclick="closeModal('map')">닫기</button>
+</div>
+</div>
+</div>
+<!-- Modal: Certificate Dialog -->
+<div class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm p-0 sm:p-4" id="modal-cert">
+<div class="w-full max-w-md bg-white rounded-t-2xl sm:rounded-2xl p-4 shadow-2xl border-2 border-orange-400 max-h-[90vh] overflow-y-auto">
+<div class="flex items-center justify-between pb-2 border-b border-[#E8DFD5]">
+<div class="flex items-center gap-1.5 text-orange-600 font-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+<span>이천 역사문화 탐험 명예 임명장</span>
+</div>
+<button class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500" onclick="closeModal('cert')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="my-3 p-5 rounded-xl bg-gradient-to-b from-[#FFFDF9] to-[#FAF5EE] border border-orange-300 text-center relative overflow-hidden shadow-inner">
+<div class="w-12 h-12 rounded-full bg-orange-100 text-orange-600 mx-auto flex items-center justify-center mb-2 border border-orange-300 shadow-xs">
+<span class="material-symbols-outlined text-[26px]">stars</span>
+</div>
+<span class="text-[9px] tracking-widest text-slate-500 uppercase font-black">Diplomatic Peace Envoy Certificate</span>
+<h2 class="text-[20px] font-black text-slate-900 mt-1 mb-2">어린이 평화 외교관 임명장</h2>
+<div class="w-16 h-0.5 bg-orange-500 mx-auto mb-3"></div>
+<p class="text-[12px] text-slate-700 leading-relaxed px-1 mb-3">
+          위 어린이는 고려의 명외교관 서희 선생의 지혜를 본받아, 설봉공원과 서희테마파크 탐험 미션을 훌륭히 수행하고 <strong class="text-orange-700">싸우지 않고 소통으로 평화를 일구는 외교관의 마음가짐</strong>을 체득하였으므로 본 임명장을 수여합니다.
+        </p>
+<div class="inline-block px-3 py-1 rounded-full bg-orange-100 border border-orange-300 text-orange-800 text-[11px] font-bold mb-3" id="cert-status-text">
+          스탬프 진행도: 0 / 3 완주 중
+        </div>
+<div class="flex justify-between items-center text-[10px] text-slate-500 px-1 pt-2 border-t border-[#E8DFD5]">
+<span>2025년 탐방일</span>
+<span class="font-bold text-slate-800">이천시 역사 탐험대</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#E8DFD5] flex gap-2">
+<button class="flex-1 py-2.5 rounded-xl bg-orange-500 text-white text-[12px] font-extrabold flex items-center justify-center gap-1 active:scale-95 transition-transform shadow-md shadow-orange-500/30" onclick="alert('임명장 이미지가 저장되었습니다!')">
+<span class="material-symbols-outlined text-[16px]">download</span> 임명장 이미지 저장
+        </button>
+<button class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-[12px] font-bold" onclick="closeModal('cert')">닫기</button>
+</div>
+</div>
+</div>
+<!-- Inline Design Editor -->
+<aside aria-label="디자인 편집 도구" contenteditable="false" id="editor-toolbar">
+<button class="editor-primary" id="editor-toggle" onclick="toggleEditMode()" type="button">편집 시작</button>
+<button onclick="downloadEditedHtml()" type="button">HTML 저장</button>
+<button onclick="resetEditedContent()" type="button">초기화</button>
+<span aria-live="polite" id="editor-save-state">편집 가능</span>
+</aside>
+<script>
+    const state = { s1: false, s2: false, s3: false };
+    const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
+    let editModeEnabled = false;
+    let editorSaveTimer;
+
+    function setEditorStatus(message) {
+      const status = document.getElementById('editor-save-state');
+      if (status) status.textContent = message;
+    }
+
+    function restoreEditedContent() {
+      const saved = localStorage.getItem(EDITOR_STORAGE_KEY);
+      const main = document.querySelector('main');
+      if (saved && main) {
+        main.innerHTML = saved;
+        setEditorStatus('저장본 불러옴');
+      }
+    }
+
+    function saveEditedContent() {
+      const main = document.querySelector('main');
+      if (!main) return;
+      localStorage.setItem(EDITOR_STORAGE_KEY, main.innerHTML);
+      setEditorStatus('자동 저장됨');
+    }
+
+    function queueEditorSave() {
+      setEditorStatus('저장 중…');
+      clearTimeout(editorSaveTimer);
+      editorSaveTimer = setTimeout(saveEditedContent, 350);
+    }
+
+    function toggleEditMode(forceState) {
+      const main = document.querySelector('main');
+      const button = document.getElementById('editor-toggle');
+      if (!main || !button) return;
+
+      editModeEnabled = typeof forceState === 'boolean' ? forceState : !editModeEnabled;
+      document.body.classList.toggle('edit-mode', editModeEnabled);
+      main.contentEditable = editModeEnabled ? 'true' : 'false';
+      main.spellcheck = editModeEnabled;
+      button.textContent = editModeEnabled ? '편집 종료' : '편집 시작';
+      button.setAttribute('aria-pressed', String(editModeEnabled));
+
+      if (editModeEnabled) {
+        main.focus({ preventScroll: true });
+        setEditorStatus('화면을 클릭해 수정');
+      } else {
+        saveEditedContent();
+      }
+    }
+
+    function downloadEditedHtml() {
+      const resumeEditing = editModeEnabled;
+      if (resumeEditing) toggleEditMode(false);
+
+      const source = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([source], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'icheon-tour-editable.html';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      setEditorStatus('HTML 저장 완료');
+
+      if (resumeEditing) toggleEditMode(true);
+    }
+
+    function resetEditedContent() {
+      if (!confirm('브라우저에 자동 저장된 편집 내용을 지우고 원본으로 돌아갈까요?')) return;
+      localStorage.removeItem(EDITOR_STORAGE_KEY);
+      window.location.reload();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreEditedContent();
+      const main = document.querySelector('main');
+      if (!main) return;
+
+      main.addEventListener('input', queueEditorSave);
+      main.addEventListener('click', (event) => {
+        if (!editModeEnabled) return;
+        const interactive = event.target.closest('a, button, input, label');
+        if (interactive) event.preventDefault();
+      }, true);
+    });
+
+    function toggleStep(num) {
+      const b = document.getElementById(`step-body-${num}`);
+      const a = document.getElementById(`step-arrow-${num}`);
+      if (!b) return;
+      b.classList.toggle('hidden');
+      if (a) a.classList.toggle('rotate-180');
+    }
+
+    let allOpen = false;
+    function toggleAllSteps() {
+      allOpen = !allOpen;
+      for (let i = 1; i <= 6; i++) {
+        const b = document.getElementById(`step-body-${i}`);
+        const a = document.getElementById(`step-arrow-${i}`);
+        if (b) {
+          if (allOpen) { b.classList.remove('hidden'); if (a) a.classList.add('rotate-180'); }
+          else { b.classList.add('hidden'); if (a) a.classList.remove('rotate-180'); }
+        }
+      }
+      const btn = document.getElementById('btn-toggle-all-steps');
+      if (btn) {
+        btn.innerHTML = allOpen 
+          ? '<span class="material-symbols-outlined text-[15px]">unfold_less</span> 전체 접기' 
+          : '<span class="material-symbols-outlined text-[15px]">unfold_more</span> 전체 열기';
+      }
+    }
+
+    function toggleMissionDetail(num) {
+      const b = document.getElementById(`mission-body-${num}`);
+      const a = document.getElementById(`mission-arrow-${num}`);
+      if (!b) return;
+      b.classList.toggle('hidden');
+      if (a) a.classList.toggle('rotate-180');
+    }
+
+    function toggleStamp(id, color, icon, label) {
+      state[`s${id}`] = !state[`s${id}`];
+      const done = state[`s${id}`];
+      const slot = document.getElementById(`stamp-slot-${id}`);
+      const stateEl = document.getElementById(`stamp-state-${id}`);
+      const btn = document.getElementById(`btn-stamp-${id}`);
+
+      if (done) {
+        slot.className = 'w-12 h-12 rounded-full bg-orange-500 text-white border border-orange-400 flex items-center justify-center mb-1.5 shadow-md scale-105 transition-all';
+        slot.innerHTML = `<span class="material-symbols-outlined text-[22px]">${icon}</span>`;
+        stateEl.textContent = '인증 완료';
+        stateEl.className = 'text-[10px] text-orange-600 font-bold mt-0.5';
+        if (btn) {
+          btn.className = 'px-3 py-1.5 rounded-lg bg-orange-500 text-white text-[12px] font-bold flex items-center gap-1 shadow-xs';
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> 완료 (취소)';
+        }
+      } else {
+        slot.className = 'w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs';
+        slot.innerHTML = `<span class="material-symbols-outlined text-[22px] text-slate-400">${icon}</span>`;
+        stateEl.textContent = '미션 대기';
+        stateEl.className = 'text-[10px] text-slate-500 mt-0.5';
+        if (btn) {
+          btn.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
+          btn.innerHTML = `<span class="material-symbols-outlined text-[16px]">verified</span> 미션 ${id} 인증하기`;
+        }
+      }
+
+      const total = Object.values(state).filter(Boolean).length;
+      const countBadge = document.getElementById('stamp-count-badge');
+      if (countBadge) countBadge.textContent = `${total} / 3 완주`;
+
+      const certText = document.getElementById('cert-status-text');
+      if (certText) certText.textContent = total === 3 ? '★ 3대 미션 모두 완주 완료! ★' : `스탬프 진행도: ${total} / 3 완주 중`;
+
+      const certBanner = document.getElementById('diplomat-cert');
+      if (total === 3) {
+        if (certBanner) certBanner.classList.remove('hidden');
+      } else {
+        if (certBanner) certBanner.classList.add('hidden');
+      }
+    }
+
+    const placeInfo = {
+      route0: { title: "서울 강서구청 ➔ 설봉공원", sub: "약 78km (70~80분 소요)", desc: "중부고속도로 직결 코스로 주말 07:30 출발 시 막힘 없이 편안하게 도착할 수 있습니다." },
+      seolbong: { title: "설봉국제조각공원 & 설봉호", sub: "경기도 이천시 관고동 418-2", desc: "제1주차장 무료 이용 가능. 90여 점의 야외 조각과 호수 둘레길이 완비되어 있습니다." },
+      museum: { title: "이천시립박물관", sub: "경기도 이천시 경충대로2697번길 172", desc: "조각공원에서 도보 5분 연결. 무료 관람이며 선사시대부터 고려·조선 도자기 역사까지 볼 수 있습니다." },
+      woljeon: { title: "이천시립월전미술관", sub: "경기도 이천시 엑스포길 48", desc: "차량 3분 이동. 월전 장우성 화백의 먹과 여백의 미를 감상할 수 있는 고즈넉한 미술관입니다. (3인 4,600원)" },
+      earth: { title: "얼쓰갤러리카페 (점심 추천)", sub: "경기도 이천시 신둔면 원적로 115", desc: "통창 논뷰와 야외 잔디를 갖춘 갤러리 카페. 파니니 브런치와 피자를 편안하게 즐길 수 있습니다." },
+      eungam: { title: "응암리막국수", sub: "경기도 이천시 부발읍 경충대로 1928", desc: "자가제면 메밀국수와 편육 전문점. 회전율이 빨라 대기가 적습니다." },
+      kang: { title: "강민주의들밥", sub: "경기도 이천시 마장면 지산로22번길 17", desc: "이천 쌀밥 정식 맛집. 주말에는 11시 전 테이블링 원격 대기가 필수입니다." },
+      seohee: { title: "서희테마파크 (80분 풀코스)", sub: "경기도 이천시 부발읍 서희로 49", desc: "입장료 무료, 주차 100대 가능. 애니메이션 영상실, 토론 퀴즈, 고려 관복 체험, 30여 점 역사산책로." },
+      cafe1: { title: "함께 걷는 길", sub: "경기도 이천시 관고동", desc: "설봉공원 입구 도보권 정원 카페. 핸드드립 커피와 수제 과일에이드 추천." },
+      cafe2: { title: "한옥카페 문", sub: "경기도 이천시 신둔면 도자예술촌", desc: "고즈넉한 서까래 처마 아래에서 즐기는 쑥라떼와 인절미 와플." },
+      cafe3: { title: "흥만소", sub: "경기도 이천시 부발읍", desc: "이천 쌀 100% 쌀크림빵 전문점. 귀갓길 차 안 간식으로 포장하기 제격입니다." },
+      serapia: { title: "이천세라피아 (도자미술관)", sub: "경기도 이천시 경충대로2697번길 167", desc: "우천·폭염 시 100% 실내 관람 및 도자 체험이 가능한 대체 코스입니다." }
+    };
+
+    function openModal(type, placeKey) {
+      if (type === 'map' && placeKey && placeInfo[placeKey]) {
+        document.getElementById('map-modal-title').textContent = placeInfo[placeKey].title;
+        document.getElementById('map-modal-sub').textContent = placeInfo[placeKey].sub;
+        document.getElementById('map-modal-desc').textContent = placeInfo[placeKey].desc;
+      }
+      const el = document.getElementById(`modal-${type}`);
+      if (el) el.classList.remove('hidden');
+    }
+
+    function closeModal(type) {
+      const el = document.getElementById(`modal-${type}`);
+      if (el) el.classList.add('hidden');
+    }
+
+    function copyText(txt) {
+      navigator.clipboard ? navigator.clipboard.writeText(txt).then(() => alert('주소가 복사되었습니다.')) : alert(txt);
+    }
+
+    function copyCurrentLink() {
+      navigator.clipboard ? navigator.clipboard.writeText(window.location.href).then(() => alert('링크가 복사되었습니다.')) : alert('링크 복사 완료');
+    }
+  </script>
+</body></html>
