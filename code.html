@@ -89,6 +89,91 @@
     }
     body.edit-mode main:focus { outline-color: #ea580c; }
     body.edit-mode main *::selection { background: rgba(251, 146, 60, 0.32); }
+    html { scroll-behavior: smooth; }
+    section[id] { scroll-margin-top: 108px; }
+    .nav-slider-shell {
+      position: relative;
+      padding: 0 38px 10px;
+      isolation: isolate;
+    }
+    .nav-slider-shell::before,
+    .nav-slider-shell::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 10px;
+      z-index: 1;
+      width: 24px;
+      pointer-events: none;
+    }
+    .nav-slider-shell::before {
+      left: 30px;
+      background: linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,0));
+    }
+    .nav-slider-shell::after {
+      right: 30px;
+      background: linear-gradient(270deg, rgba(255,255,255,.98), rgba(255,255,255,0));
+    }
+    .nav-slider {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-behavior: smooth;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      cursor: grab;
+      touch-action: pan-x;
+      user-select: none;
+    }
+    .nav-slider:active { cursor: grabbing; }
+    .nav-slider::-webkit-scrollbar { display: none; }
+    .nav-slide {
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      padding: 6px 12px;
+      border: 1px solid #E8DFD5;
+      border-radius: 999px;
+      background: #fff;
+      color: #64748b;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, .04);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+      transition: color .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+    .nav-slide:hover { color: #c2410c; border-color: rgba(234, 88, 12, .35); }
+    .nav-slide:focus-visible { outline: 2px solid #fb923c; outline-offset: 2px; }
+    .nav-slide.is-active {
+      border-color: #ea580c;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #fff;
+      box-shadow: 0 5px 14px rgba(234, 88, 12, .26);
+      transform: translateY(-1px);
+    }
+    .nav-slider-button {
+      position: absolute;
+      top: 1px;
+      z-index: 3;
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border: 1px solid #E8DFD5;
+      border-radius: 999px;
+      background: rgba(255,255,255,.98);
+      color: #c2410c;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, .09);
+      transition: opacity .2s ease, transform .2s ease, background .2s ease;
+    }
+    .nav-slider-button:hover:not(:disabled) { background: #fff7ed; transform: scale(1.05); }
+    .nav-slider-button:active:not(:disabled) { transform: scale(.94); }
+    .nav-slider-button:disabled { opacity: .28; cursor: default; }
+    .nav-slider-prev { left: 6px; }
+    .nav-slider-next { right: 6px; }
+    .nav-slider-button .material-symbols-outlined { font-size: 18px; }
     @media (max-width: 360px) {
       #editor-toolbar { gap: 4px; padding: 6px; }
       #editor-toolbar button { padding: 0 7px; font-size: 10px; }
@@ -115,14 +200,22 @@
 </button>
 </div>
 </div>
-<!-- Jump Navigation Chips -->
-<div class="flex items-center gap-2 px-4 pb-2.5 overflow-x-auto no-scrollbar text-[12px]">
-<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#summary">코스 요약</a>
-<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#route">오늘의 코스</a>
-<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#missions">3대 미션</a>
-<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#timeline">상세 일정표</a>
-<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#food">맛집&amp;카페</a>
-<a class="shrink-0 px-2.5 py-1 rounded-full bg-white border border-[#E8DFD5] text-slate-600 font-medium hover:text-orange-600 hover:border-orange-500/40 shadow-xs" href="#rewards">가족 보상</a>
+<!-- Top Section Slider -->
+<div class="nav-slider-shell">
+<button aria-label="이전 메뉴" class="nav-slider-button nav-slider-prev" id="top-nav-prev" onclick="slideTopNav(-1)" type="button">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<nav aria-label="페이지 주요 구간" class="nav-slider" id="top-nav-slider">
+<a class="nav-slide is-active" data-section="summary" href="#summary">코스 요약</a>
+<a class="nav-slide" data-section="route" href="#route">오늘의 코스</a>
+<a class="nav-slide" data-section="missions" href="#missions">3대 미션</a>
+<a class="nav-slide" data-section="timeline" href="#timeline">상세 일정표</a>
+<a class="nav-slide" data-section="food" href="#food">맛집&amp;카페</a>
+<a class="nav-slide" data-section="rewards" href="#rewards">가족 보상</a>
+</nav>
+<button aria-label="다음 메뉴" class="nav-slider-button nav-slider-next" id="top-nav-next" onclick="slideTopNav(1)" type="button">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
 </div>
 </header>
 <main class="flex flex-col pb-24">
@@ -1132,6 +1225,109 @@
     const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
     let editModeEnabled = false;
     let editorSaveTimer;
+    let activeTopNavSection = '';
+
+    function updateTopNavControls() {
+      const slider = document.getElementById('top-nav-slider');
+      const prev = document.getElementById('top-nav-prev');
+      const next = document.getElementById('top-nav-next');
+      if (!slider || !prev || !next) return;
+
+      const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
+      prev.disabled = slider.scrollLeft <= 3;
+      next.disabled = slider.scrollLeft >= maxScroll - 3;
+    }
+
+    function slideTopNav(direction) {
+      const slider = document.getElementById('top-nav-slider');
+      if (!slider) return;
+      const distance = Math.max(150, Math.round(slider.clientWidth * .72));
+      slider.scrollBy({ left: distance * direction, behavior: 'smooth' });
+    }
+
+    function setActiveTopNav(sectionId, center = true) {
+      const slider = document.getElementById('top-nav-slider');
+      if (!slider || !sectionId || activeTopNavSection === sectionId) return;
+      activeTopNavSection = sectionId;
+
+      slider.querySelectorAll('.nav-slide').forEach((link) => {
+        const isActive = link.dataset.section === sectionId;
+        link.classList.toggle('is-active', isActive);
+        if (isActive) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+        if (isActive && center) {
+          link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
+      window.setTimeout(updateTopNavControls, 260);
+    }
+
+    function initializeTopNavSlider() {
+      const slider = document.getElementById('top-nav-slider');
+      if (!slider) return;
+      const links = [...slider.querySelectorAll('.nav-slide')];
+      const visibleSections = new Map();
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartScroll = 0;
+      let dragged = false;
+
+      links.forEach((link) => {
+        link.addEventListener('click', (event) => {
+          if (dragged) {
+            event.preventDefault();
+            return;
+          }
+          const sectionId = link.dataset.section;
+          const target = document.getElementById(sectionId);
+          if (!target) return;
+          event.preventDefault();
+          setActiveTopNav(sectionId);
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', `#${sectionId}`);
+        });
+      });
+
+      slider.addEventListener('scroll', updateTopNavControls, { passive: true });
+      slider.addEventListener('pointerdown', (event) => {
+        if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('a')) return;
+        isDragging = true;
+        dragged = false;
+        dragStartX = event.clientX;
+        dragStartScroll = slider.scrollLeft;
+        slider.setPointerCapture(event.pointerId);
+      });
+      slider.addEventListener('pointermove', (event) => {
+        if (!isDragging) return;
+        const delta = event.clientX - dragStartX;
+        if (Math.abs(delta) > 4) dragged = true;
+        slider.scrollLeft = dragStartScroll - delta;
+      });
+      const finishDrag = () => {
+        isDragging = false;
+        window.setTimeout(() => { dragged = false; }, 0);
+      };
+      slider.addEventListener('pointerup', finishDrag);
+      slider.addEventListener('pointercancel', finishDrag);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => visibleSections.set(entry.target.id, entry.intersectionRatio));
+        const best = [...visibleSections.entries()]
+          .filter(([, ratio]) => ratio > 0)
+          .sort((a, b) => b[1] - a[1])[0];
+        if (best) setActiveTopNav(best[0]);
+      }, { rootMargin: '-18% 0px -62% 0px', threshold: [0, .15, .35, .6, 1] });
+
+      links.forEach((link) => {
+        const section = document.getElementById(link.dataset.section);
+        if (section) observer.observe(section);
+      });
+
+      const initialSection = location.hash.slice(1);
+      setActiveTopNav(links.some((link) => link.dataset.section === initialSection) ? initialSection : 'summary', false);
+      updateTopNavControls();
+      window.addEventListener('resize', updateTopNavControls, { passive: true });
+    }
 
     function setEditorStatus(message) {
       const status = document.getElementById('editor-save-state');
@@ -1207,6 +1403,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
+      initializeTopNavSlider();
       const main = document.querySelector('main');
       if (!main) return;
 
