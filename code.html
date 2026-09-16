@@ -33,7 +33,42 @@
     }
   </script>
 <style>
-    body { background-color: #FAF7F2; color: #1E293B; -webkit-tap-highlight-color: transparent; }
+    html {
+      min-height: 100%;
+      background: #EEE8E1;
+    }
+    body {
+      width: min(100%, 390px);
+      min-height: 100dvh;
+      margin: 0 auto;
+      position: relative;
+      background-color: #FAF7F2;
+      color: #1E293B;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body > header,
+    body > main {
+      width: 100%;
+      margin-inline: auto;
+    }
+    body > nav.fixed {
+      right: auto !important;
+      left: 50% !important;
+      width: min(100vw, 390px);
+      margin-inline: 0 !important;
+      transform: translateX(-50%);
+    }
+    #modal-map,
+    #modal-cert {
+      align-items: center !important;
+      padding: clamp(16px, 4vw, 24px) !important;
+    }
+    #modal-map > div,
+    #modal-cert > div {
+      margin: auto;
+      border-radius: 1rem !important;
+      max-height: calc(100dvh - 32px);
+    }
     ::-webkit-scrollbar { display: none; }
     .watermark-step {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -1161,7 +1196,7 @@
 <span>#초등역사체험</span>
 <span>#가족당일치기</span>
 </div>
-<button class="mt-6 flex items-center gap-1 text-[12px] text-slate-500 hover:text-slate-900 transition-colors" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+<button class="mt-6 mx-auto flex items-center justify-center gap-1 text-[12px] text-slate-500 hover:text-slate-900 transition-colors" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 <span class="material-symbols-outlined text-[16px]">arrow_upward</span>
 <span>코스 최상단으로 돌아가기</span>
 </button>
@@ -1216,7 +1251,7 @@
           </p>
 </div>
 <div class="grid grid-cols-2 gap-2">
-<a class="p-2.5 rounded-xl bg-[#03C75A]/10 text-[#029b46] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#03C75A]/30" href="https://map.naver.com" target="_blank">
+<a class="p-2.5 rounded-xl bg-[#03C75A]/10 text-[#029b46] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#03C75A]/30" href="https://map.naver.com" id="map-modal-naver" rel="noopener noreferrer" target="_blank">
 <span>N</span> 네이버 지도
           </a>
 <a class="p-2.5 rounded-xl bg-[#FEE500]/40 text-[#4c3500] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#FEE500]/60" href="https://map.kakao.com" target="_blank">
@@ -1550,7 +1585,12 @@
     }
 
     const placeInfo = {
-      route0: { title: "서울 강서구청 ➔ 설봉공원", sub: "약 78km (70~80분 소요)", desc: "중부고속도로 직결 코스로 주말 07:30 출발 시 막힘 없이 편안하게 도착할 수 있습니다." },
+      route0: {
+        title: "서울 강서구청 ➔ 설봉공원",
+        sub: "약 78km (70~80분 소요)",
+        desc: "중부고속도로 직결 코스로 주말 07:30 출발 시 막힘 없이 편안하게 도착할 수 있습니다.",
+        naverUrl: "https://map.naver.com/p/directions/14120837.554749016,4516181.051550312,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/14185113.762691524,4478060.949016208,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90,13179963,PLACE_POI/-/car?c=15.00,0,0,0,dh"
+      },
       seolbong: { title: "설봉국제조각공원 & 설봉호", sub: "경기도 이천시 관고동 418-2", desc: "제1주차장 무료 이용 가능. 90여 점의 야외 조각과 호수 둘레길이 완비되어 있습니다." },
       museum: { title: "이천시립박물관", sub: "경기도 이천시 경충대로2697번길 172", desc: "조각공원에서 도보 5분 연결. 무료 관람이며 선사시대부터 고려·조선 도자기 역사까지 볼 수 있습니다." },
       woljeon: { title: "이천시립월전미술관", sub: "경기도 이천시 엑스포길 48", desc: "차량 3분 이동. 월전 장우성 화백의 먹과 여백의 미를 감상할 수 있는 고즈넉한 미술관입니다. (3인 4,600원)" },
@@ -1569,6 +1609,8 @@
         document.getElementById('map-modal-title').textContent = placeInfo[placeKey].title;
         document.getElementById('map-modal-sub').textContent = placeInfo[placeKey].sub;
         document.getElementById('map-modal-desc').textContent = placeInfo[placeKey].desc;
+        const naverLink = document.getElementById('map-modal-naver');
+        if (naverLink) naverLink.href = placeInfo[placeKey].naverUrl || 'https://map.naver.com';
       }
       const el = document.getElementById(`modal-${type}`);
       if (el) el.classList.remove('hidden');
