@@ -174,10 +174,59 @@
     .nav-slider-prev { left: 6px; }
     .nav-slider-next { right: 6px; }
     .nav-slider-button .material-symbols-outlined { font-size: 18px; }
+
+    /* Spacious reading rhythm */
+    header > div:first-child { padding-inline: 20px !important; }
+    main > #summary {
+      min-height: 520px;
+      padding-inline: 28px !important;
+      padding-bottom: 56px !important;
+    }
+    main > section:not(#summary) {
+      padding-inline: 24px !important;
+      margin-bottom: 64px !important;
+    }
+    main > section:nth-of-type(2) { margin-top: 28px !important; }
+    main section[id] { scroll-margin-top: 116px; }
+    main p { line-height: 1.75; }
+
+    main .rounded-xl.p-2\.5,
+    main .rounded-2xl.p-2\.5 { padding: 16px !important; }
+    main .rounded-xl.p-3,
+    main .rounded-2xl.p-3 { padding: 18px !important; }
+    main .rounded-xl.p-4,
+    main .rounded-2xl.p-4 { padding: 22px !important; }
+    main .rounded-xl.p-5,
+    main .rounded-2xl.p-5 { padding: 26px !important; }
+
+    main .grid.gap-2,
+    main .grid.gap-2\.5,
+    main .grid.gap-3 { gap: 14px !important; }
+    main .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 14px !important; }
+    main .space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 16px !important; }
+    main .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 18px !important; }
+    main .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 24px !important; }
+
+    main .mb-2 { margin-bottom: 12px !important; }
+    main .mb-3 { margin-bottom: 18px !important; }
+    main .mb-4 { margin-bottom: 26px !important; }
+    main .mb-5 { margin-bottom: 32px !important; }
+    main .mb-6 { margin-bottom: 40px !important; }
+    main .mt-2 { margin-top: 12px !important; }
+    main .mt-2\.5 { margin-top: 16px !important; }
+    main .mt-3 { margin-top: 18px !important; }
+    main .mt-4 { margin-top: 26px !important; }
+    main .mt-5 { margin-top: 32px !important; }
+
     @media (max-width: 360px) {
       #editor-toolbar { gap: 4px; padding: 6px; }
       #editor-toolbar button { padding: 0 7px; font-size: 10px; }
       #editor-save-state { display: none; }
+      main > #summary { padding-inline: 22px !important; }
+      main > section:not(#summary) {
+        padding-inline: 20px !important;
+        margin-bottom: 52px !important;
+      }
     }
   </style>
 </head>
