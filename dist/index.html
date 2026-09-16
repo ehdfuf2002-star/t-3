@@ -1010,7 +1010,7 @@
 <h2 class="text-[22px] font-extrabold text-slate-900 mb-3">가성비 로컬 맛집 &amp; 힐링 카페</h2>
 <div class="space-y-3">
 <!-- Cafe 1 -->
-<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe1')">
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between gap-3 cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe1')">
 <div class="min-w-0 pr-2">
 <div class="flex items-center gap-2 mb-1">
 <span class="text-[15px] font-bold text-slate-900">함께 걷는 길</span>
@@ -1019,12 +1019,12 @@
 <p class="text-[12px] text-slate-500 truncate">조각공원 산책 후 들르기 좋은 따뜻한 원목 인테리어와 정원</p>
 <div class="text-[11px] text-orange-600 mt-1 font-medium">핸드드립 &amp; 계절 수제과일에이드</div>
 </div>
-<div class="w-10 h-10 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-center text-slate-600 shrink-0">
-<span class="material-symbols-outlined text-[20px]">yard</span>
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E8DFD5] shrink-0 shadow-sm">
+<img alt="이천 카페 함께 걷는 길의 정원과 건물 외관" class="w-full h-full object-cover" decoding="async" loading="lazy" src="assets/food/together-walk.jpg"/>
 </div>
 </div>
 <!-- Cafe 2 -->
-<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe2')">
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between gap-3 cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe2')">
 <div class="min-w-0 pr-2">
 <div class="flex items-center gap-2 mb-1">
 <span class="text-[15px] font-bold text-slate-900">한옥카페 문</span>
@@ -1033,12 +1033,12 @@
 <p class="text-[12px] text-slate-500 truncate">한국 전통 서까래 처마 아래에서 즐기는 쑥라떼와 인절미 와플</p>
 <div class="text-[11px] text-orange-600 mt-1 font-medium">도자예술마을 예스파크 인접</div>
 </div>
-<div class="w-10 h-10 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-center text-slate-600 shrink-0">
-<span class="material-symbols-outlined text-[20px]">roofing</span>
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E8DFD5] shrink-0 shadow-sm">
+<img alt="이천 한옥카페 문의 목조 서까래와 실내 좌석" class="w-full h-full object-cover" decoding="async" loading="lazy" src="assets/food/hanok-cafe-mun.jpg"/>
 </div>
 </div>
 <!-- Cafe 3 -->
-<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe3')">
+<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between gap-3 cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe3')">
 <div class="min-w-0 pr-2">
 <div class="flex items-center gap-2 mb-1">
 <span class="text-[15px] font-bold text-slate-900">흥만소 (이천 쌀빵 명소)</span>
@@ -1047,8 +1047,8 @@
 <p class="text-[12px] text-slate-500 truncate">이천 쌀 100%로 구워낸 쌀크림빵, 서울 귀갓길 가족 차내 간식 최고</p>
 <div class="text-[11px] text-orange-600 mt-1 font-medium">시그니처 쌀크림빵 4,000원대</div>
 </div>
-<div class="w-10 h-10 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] flex items-center justify-center text-slate-600 shrink-0">
-<span class="material-symbols-outlined text-[20px]">bakery_dining</span>
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E8DFD5] shrink-0 shadow-sm">
+<img alt="이천 쌀 베이커리카페 흥만소의 외관과 캐릭터 조형물" class="w-full h-full object-cover" decoding="async" loading="lazy" src="assets/food/heungmanso.jpg"/>
 </div>
 </div>
 </div>
@@ -1315,6 +1315,8 @@
 <script>
     const state = { s1: false, s2: false, s3: false };
     const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
+    const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
+    const EDITOR_CONTENT_VERSION = '2026-09-food-images-v1';
     let editModeEnabled = false;
     let editorSaveTimer;
     let activeTopNavSection = '';
@@ -1430,8 +1432,29 @@
       const saved = localStorage.getItem(EDITOR_STORAGE_KEY);
       const main = document.querySelector('main');
       if (saved && main) {
-        main.innerHTML = saved;
-        setEditorStatus('저장본 불러옴');
+        const savedVersion = localStorage.getItem(EDITOR_CONTENT_VERSION_KEY);
+        if (savedVersion !== EDITOR_CONTENT_VERSION) {
+          const latestFoodSection = main.querySelector('#food')?.cloneNode(true);
+          const savedDocument = new DOMParser().parseFromString(`<main>${saved}</main>`, 'text/html');
+          const savedMain = savedDocument.querySelector('main');
+          const savedFoodSection = savedMain?.querySelector('#food');
+
+          if (latestFoodSection && savedMain && savedFoodSection) {
+            savedFoodSection.replaceWith(latestFoodSection);
+            main.innerHTML = savedMain.innerHTML;
+            localStorage.setItem(EDITOR_STORAGE_KEY, main.innerHTML);
+            setEditorStatus('새 사진 반영됨');
+          } else {
+            main.innerHTML = saved;
+            setEditorStatus('저장본 불러옴');
+          }
+          localStorage.setItem(EDITOR_CONTENT_VERSION_KEY, EDITOR_CONTENT_VERSION);
+        } else {
+          main.innerHTML = saved;
+          setEditorStatus('저장본 불러옴');
+        }
+      } else {
+        localStorage.setItem(EDITOR_CONTENT_VERSION_KEY, EDITOR_CONTENT_VERSION);
       }
     }
 
