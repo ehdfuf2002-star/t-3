@@ -272,6 +272,50 @@
       word-break: keep-all;
       overflow-wrap: anywhere;
     }
+    #quick-stats .quick-stats-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+      gap: 12px !important;
+    }
+    #quick-stats .quick-stat-card {
+      min-width: 0;
+      min-height: 108px;
+      padding: 16px 12px !important;
+      box-sizing: border-box;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center;
+    }
+    #quick-stats .quick-stat-content {
+      display: flex;
+      width: 100%;
+      min-width: 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    #quick-stats .quick-stat-label,
+    #quick-stats .quick-stat-value {
+      width: 100%;
+      max-width: 100%;
+      text-align: center;
+      white-space: normal !important;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    #quick-stats .quick-stat-label {
+      color: #64748b !important;
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      line-height: 1.4 !important;
+    }
+    #quick-stats .quick-stat-value {
+      color: #0f172a !important;
+      font-size: 16px !important;
+      font-weight: 800 !important;
+      line-height: 1.4 !important;
+    }
     main > section:not(#summary) {
       padding-inline: var(--layout-gutter) !important;
       margin-bottom: var(--section-space) !important;
@@ -532,42 +576,30 @@
 </div>
 </section>
 <!-- 2. QUICK STATS 4-GRID -->
-<section class="px-4 -mt-2 mb-6">
-<div class="grid grid-cols-2 gap-2.5">
-<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
-<div class="w-9 h-9 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 border border-sky-200">
-<span class="material-symbols-outlined text-[19px]">payments</span>
-</div>
-<div class="min-w-0">
-<div class="text-[11px] text-slate-500">3인 총 관람료</div>
-<div class="text-[14px] font-extrabold text-slate-900 truncate">단 4,600원</div>
+<section class="px-4 -mt-2 mb-6" id="quick-stats">
+<div class="quick-stats-grid grid grid-cols-2 gap-2.5">
+<div class="quick-stat-card rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
+<div class="quick-stat-content min-w-0">
+<div class="quick-stat-label text-[11px] text-slate-500">3인 총 관람료</div>
+<div class="quick-stat-value text-[14px] font-extrabold text-slate-900">단 4,600원</div>
 </div>
 </div>
-<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 cursor-pointer hover:border-orange-500/50 transition-colors shadow-sm" onclick="openModal('map')">
-<div class="w-9 h-9 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 border border-orange-200">
-<span class="material-symbols-outlined text-[19px]">directions_car</span>
-</div>
-<div class="min-w-0">
-<div class="text-[11px] text-orange-600 font-bold flex items-center gap-0.5">스팟 간 이동 <span class="material-symbols-outlined text-[12px]">open_in_new</span></div>
-<div class="text-[14px] font-extrabold text-slate-900 truncate">자차 3~15분</div>
+<div class="quick-stat-card rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 cursor-pointer hover:border-orange-500/50 transition-colors shadow-sm" onclick="openModal('map')">
+<div class="quick-stat-content min-w-0">
+<div class="quick-stat-label text-[11px] text-orange-600 font-bold">스팟 간 이동</div>
+<div class="quick-stat-value text-[14px] font-extrabold text-slate-900">자차 3~15분</div>
 </div>
 </div>
-<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
-<div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-200">
-<span class="material-symbols-outlined text-[19px]">schedule</span>
-</div>
-<div class="min-w-0">
-<div class="text-[11px] text-slate-500">총 소요 시간</div>
-<div class="text-[14px] font-extrabold text-slate-900 truncate">약 8시간 소요</div>
+<div class="quick-stat-card rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
+<div class="quick-stat-content min-w-0">
+<div class="quick-stat-label text-[11px] text-slate-500">총 소요 시간</div>
+<div class="quick-stat-value text-[14px] font-extrabold text-slate-900">약 8시간 소요</div>
 </div>
 </div>
-<div class="rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
-<div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-200">
-<span class="material-symbols-outlined text-[19px]">school</span>
-</div>
-<div class="min-w-0">
-<div class="text-[11px] text-slate-500">학습 연계</div>
-<div class="text-[14px] font-extrabold text-slate-900 truncate">초5-2 역사 외교</div>
+<div class="quick-stat-card rounded-xl bg-white border border-[#E8DFD5] p-3 flex items-center gap-3 shadow-sm">
+<div class="quick-stat-content min-w-0">
+<div class="quick-stat-label text-[11px] text-slate-500">학습 연계</div>
+<div class="quick-stat-value text-[14px] font-extrabold text-slate-900">초5-2 역사 외교</div>
 </div>
 </div>
 </div>
@@ -1739,6 +1771,49 @@
       link.classList.add('no-underline', 'text-inherit');
     }
 
+    function normalizeQuickStatsCards() {
+      let section = document.getElementById('quick-stats');
+      if (!section) {
+        const label = [...document.querySelectorAll('main div')]
+          .find((element) => element.textContent.trim() === '3인 총 관람료');
+        section = label?.closest('section');
+      }
+      if (!section) {
+        const grid = [...document.querySelectorAll('main > section > .grid.grid-cols-2')]
+          .find((element) => element.children.length === 4
+            && element.querySelector('.material-symbols-outlined'));
+        section = grid?.closest('section');
+      }
+      if (!section) return;
+
+      section.id = 'quick-stats';
+      const grid = section.querySelector('.grid');
+      if (!grid) return;
+      grid.classList.add('quick-stats-grid');
+
+      [...grid.children].slice(0, 4).forEach((card) => {
+        card.classList.add('quick-stat-card');
+        card.querySelectorAll('.material-symbols-outlined').forEach((icon) => {
+          const wrapper = icon.parentElement;
+          icon.remove();
+          if (wrapper && wrapper !== card && !wrapper.textContent.trim() && !wrapper.children.length) {
+            wrapper.remove();
+          }
+        });
+
+        const content = [...card.children]
+          .find((element) => element.classList.contains('min-w-0'));
+        if (!content) return;
+        content.classList.add('quick-stat-content');
+        const textRows = [...content.children].filter((element) => element.textContent.trim());
+        if (textRows[0]) textRows[0].classList.add('quick-stat-label');
+        if (textRows[1]) {
+          textRows[1].classList.remove('truncate');
+          textRows[1].classList.add('quick-stat-value');
+        }
+      });
+    }
+
     function keepHeroKickerTextInsideBadge() {
       const kicker = document.querySelector('#summary .hero-kicker')
         || document.querySelector('#summary > .relative.z-10 > .inline-flex:first-child');
@@ -1839,6 +1914,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
       keepHeroKickerTextInsideBadge();
+      normalizeQuickStatsCards();
       wireSmartRoadmapLink();
       wireHanokCafeMunLink();
       wireHeungmansoLink();
