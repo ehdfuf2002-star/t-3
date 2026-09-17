@@ -1966,12 +1966,31 @@
     }
 
     function removeLocationViewButtons() {
-      [...document.querySelectorAll('main button, main a, main [role="button"]')].forEach((control) => {
+      const missionBody = document.getElementById('mission-body-1');
+      const controls = new Set(document.querySelectorAll('main button, main a, main [role="button"]'));
+
+      missionBody?.querySelectorAll('.material-symbols-outlined').forEach((icon) => {
+        if (!['place', 'location_on'].includes(icon.textContent?.trim() || '')) return;
+
+        let candidate = icon.parentElement;
+        while (candidate && candidate !== missionBody) {
+          const candidateLabel = candidate.cloneNode(true);
+          candidateLabel.querySelectorAll('.material-symbols-outlined').forEach((symbol) => symbol.remove());
+          const text = candidateLabel.textContent?.replace(/\s+/g, ' ').trim() || '';
+          if (['위치 보기', '정보'].includes(text)) {
+            controls.add(candidate);
+            break;
+          }
+          candidate = candidate.parentElement;
+        }
+      });
+
+      [...controls].forEach((control) => {
         const labelNode = control.cloneNode(true);
         labelNode.querySelectorAll('.material-symbols-outlined').forEach((icon) => icon.remove());
         const label = labelNode.textContent?.replace(/\s+/g, ' ').trim() || '';
         const isSculptureLocationControl = control.closest('#mission-body-1')
-          && control.getAttribute('onclick')?.includes('seolbong');
+          && (label === '정보' || control.getAttribute('onclick')?.includes('seolbong'));
         if (label !== '위치 보기' && !isSculptureLocationControl) return;
 
         const wrapper = control.parentElement;
