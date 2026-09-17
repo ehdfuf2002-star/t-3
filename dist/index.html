@@ -628,17 +628,6 @@
 <span class="px-2.5 py-1 rounded-full bg-white/90 border border-slate-200 text-slate-900 text-[11px] font-bold shadow-xs">
               이천 반나절 스마트 로드맵
             </span>
-<span class="px-2.5 py-0.5 rounded bg-orange-500 text-white text-[11px] font-black shadow-xs">
-              총 주행 22km
-            </span>
-</div>
-<div class="flex items-end justify-between">
-<div class="text-[12px] text-slate-100">
-<span class="text-orange-200 font-semibold">설봉공원 ➔ 월전미술관 ➔ 얼쓰갤러리 ➔ 서희테마파크</span>
-</div>
-<span class="px-3 py-1.5 rounded-lg bg-orange-500 text-white font-extrabold text-[12px] flex items-center gap-1 shadow-md shadow-orange-500/30">
-<span class="material-symbols-outlined text-[15px]">map</span> 상세 지도
-            </span>
 </div>
 </div>
 </a>
@@ -1705,6 +1694,16 @@
       link.rel = 'noopener noreferrer';
       link.setAttribute('aria-label', '네이버 지도에서 이천 반나절 전체 경로 열기');
       link.classList.add('block', 'no-underline', 'text-inherit');
+
+      const topRow = [...link.querySelectorAll('div')]
+        .find((element) => element.classList.contains('justify-between')
+          && element.classList.contains('items-center'));
+      if (topRow) [...topRow.children].slice(1).forEach((element) => element.remove());
+
+      const routeRow = [...link.querySelectorAll('div')]
+        .find((element) => element.classList.contains('justify-between')
+          && element.classList.contains('items-end'));
+      if (routeRow) routeRow.remove();
     }
 
     function wireHeungmansoLink() {
