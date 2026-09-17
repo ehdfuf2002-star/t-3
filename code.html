@@ -1026,9 +1026,6 @@
 <div class="px-4 pb-4 space-y-3" id="step-body-1">
 <div class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200">
 <img alt="설봉국제조각공원 잔디마당 조각상" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzQJ5ZzG9TM1mE8Bf2Bald10wts4Okrl8Du9VtEH4hGhnAZplpkh61rZGP7aefeu6yfLuABd6n8x8SaJGJGP0PwsB1GQtpLFiT6DFOOG7Ch-3Ru3Ni5-xiR1wPH83RBIeUAGU9IFssXm-Wb2T21WdGMYogO-nbHBcJrHw97mvlN4f6nQrMm7PdmEZFNk0XeSlmDGdwvzdRukyW28wl_ZiQ2y9sdXAaPRB8kgAVkPv7Nxrax08Cil41CA"/>
-<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-black/70 text-white text-[11px] font-medium backdrop-blur-sm">
-              설봉호 둘레길 조각 정원
-            </div>
 </div>
 <div class="grid grid-cols-2 gap-2 text-[12px]">
 <div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
@@ -2029,6 +2026,13 @@
       }
     }
 
+    function removeSculptureGardenPhotoLabel() {
+      [...document.querySelectorAll('#route .absolute')].forEach((element) => {
+        const label = element.textContent?.replace(/\s+/g, ' ').trim() || '';
+        if (/^[설솔]봉호\s*둘레길\s*조각\s*정원$/.test(label)) element.remove();
+      });
+    }
+
     function saveEditedContent() {
       const main = document.querySelector('main');
       if (!main) return;
@@ -2090,6 +2094,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
+      removeSculptureGardenPhotoLabel();
       keepHeroKickerTextInsideBadge();
       normalizeQuickStatsCards();
       normalizeMissionAccordionCards();
