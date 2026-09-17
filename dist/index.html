@@ -998,7 +998,7 @@
           </p>
 <div class="flex items-center justify-between text-[12px] text-slate-500 pt-2 border-t border-[#E8DFD5]">
 <span>예상 이동 거리: 약 78km</span>
-<a aria-label="네이버 지도에서 서울 강서구청부터 설봉공원까지 길찾기 열기" class="text-orange-600 font-bold hover:underline flex items-center gap-0.5" href="https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh" id="departure-navigation-link" rel="noopener noreferrer" target="_blank">
+<a aria-label="네이버 지도에서 서울 강서구청부터 설봉공원까지 길찾기 열기" class="text-orange-600 font-bold underline underline-offset-4 cursor-pointer flex items-center gap-0.5" href="https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh" id="departure-navigation-link" rel="noopener noreferrer" target="_blank">
 <span>내비 연동 안내</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span>
 </a>
 </div>
@@ -1822,7 +1822,7 @@
     function wireDepartureNavigationLink() {
       let control = document.getElementById('departure-navigation-link');
       if (!control) {
-        control = [...document.querySelectorAll('#timeline button, #timeline a')]
+        control = [...document.querySelectorAll('main button, main a')]
           .find((element) => element.textContent.includes('내비 연동 안내')
             || element.getAttribute('onclick')?.includes("openModal('map', 'route0')"));
       }
@@ -1844,6 +1844,8 @@
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
       link.setAttribute('aria-label', '네이버 지도에서 서울 강서구청부터 설봉공원까지 길찾기 열기');
+      link.classList.remove('hover:underline');
+      link.classList.add('underline', 'underline-offset-4', 'cursor-pointer');
     }
 
     function wireHeungmansoLink() {
