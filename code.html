@@ -126,6 +126,7 @@
     }
     body.edit-mode main:focus { outline-color: #ea580c; }
     body.edit-mode main *::selection { background: rgba(251, 146, 60, 0.32); }
+    #mission-body-1 [onclick*="seolbong"] { display: none !important; }
     html { scroll-behavior: smooth; }
     section[id] { scroll-margin-top: 108px; }
     .nav-slider-shell {
@@ -1965,14 +1966,16 @@
     }
 
     function removeLocationViewButtons() {
-      [...document.querySelectorAll('main button')].forEach((button) => {
-        const labelNode = button.cloneNode(true);
+      [...document.querySelectorAll('main button, main a, main [role="button"]')].forEach((control) => {
+        const labelNode = control.cloneNode(true);
         labelNode.querySelectorAll('.material-symbols-outlined').forEach((icon) => icon.remove());
         const label = labelNode.textContent?.replace(/\s+/g, ' ').trim() || '';
-        if (label !== '위치 보기') return;
+        const isSculptureLocationControl = control.closest('#mission-body-1')
+          && control.getAttribute('onclick')?.includes('seolbong');
+        if (label !== '위치 보기' && !isSculptureLocationControl) return;
 
-        const wrapper = button.parentElement;
-        button.remove();
+        const wrapper = control.parentElement;
+        control.remove();
         if (!wrapper) return;
 
         if (!wrapper.children.length && !wrapper.textContent.trim()) {
