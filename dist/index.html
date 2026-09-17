@@ -2348,7 +2348,7 @@
         document.getElementById('map-modal-desc').textContent = placeInfo[placeKey].desc;
         const naverLink = document.getElementById('map-modal-naver');
         if (naverLink) naverLink.href = placeInfo[placeKey].naverUrl || 'https://map.naver.com';
-        const useNaverOnly = ['earth', 'eungam', 'kang'].includes(placeKey);
+        const useNaverOnly = ['earth', 'eungam', 'kang', 'cafe1', 'cafe2', 'cafe3'].includes(placeKey);
         const providerActions = document.getElementById('map-modal-provider-actions');
         const kakaoLink = document.getElementById('map-modal-kakao');
         const copyAddressButton = document.getElementById('map-modal-copy-address');
