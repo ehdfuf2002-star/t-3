@@ -1046,7 +1046,6 @@
 <span class="text-[12px] text-slate-500 font-medium">09:40 ~ 10:20 (40분)</span>
 </div>
 <div class="flex items-center gap-1">
-<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold">도보 5분 · 무료</span>
 <span class="material-symbols-outlined text-slate-400 transition-transform" id="step-arrow-2">expand_more</span>
 </div>
 </div>
@@ -2034,6 +2033,21 @@
       });
     }
 
+    function removeMuseumWalkBadge() {
+      const timeline = document.getElementById('timeline');
+      if (!timeline) return;
+
+      const museumHeading = [...timeline.querySelectorAll('h3')]
+        .find((heading) => heading.textContent?.includes('이천시립박물관'));
+      const museumCard = museumHeading?.closest('.relative.rounded-2xl');
+      if (!museumCard) return;
+
+      [...museumCard.querySelectorAll('button, span, [role="button"]')].forEach((control) => {
+        const label = control.textContent?.replace(/\s+/g, ' ').trim() || '';
+        if (/^도보\s*5분(?:\s*·\s*무료)?$/.test(label)) control.remove();
+      });
+    }
+
     function wireSeolbongWalkingDirectionsLink() {
       const stepBody = document.getElementById('step-body-1');
       if (!stepBody) return;
@@ -2156,6 +2170,7 @@
       } else {
         removeHeroKicker();
         removeLocationViewButtons();
+        removeMuseumWalkBadge();
         saveEditedContent();
       }
     }
@@ -2188,6 +2203,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
       removeLocationViewButtons();
+      removeMuseumWalkBadge();
       removeSculptureGardenPhotoLabel();
       removeTimelineParkingGuide();
       wireSeolbongWalkingDirectionsLink();
