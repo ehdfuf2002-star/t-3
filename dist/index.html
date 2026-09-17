@@ -1043,11 +1043,6 @@
 <span class="text-[12px] text-sky-800 font-medium">미션 1: 조각 작품명 짓기 수행처</span>
 <button class="text-[12px] text-sky-600 underline font-bold" onclick="toggleMissionDetail(1); document.getElementById('missions').scrollIntoView({behavior:'smooth'});">미션 가이드</button>
 </div>
-<div class="flex justify-end pt-1">
-<button class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs" onclick="openModal('map', 'seolbong')">
-<span class="material-symbols-outlined text-[15px] text-sky-600">location_on</span> 길찾기 / 주차정보
-            </button>
-</div>
 </div>
 </div>
 <!-- STEP 02 (이천시립박물관) -->
@@ -2033,6 +2028,18 @@
       });
     }
 
+    function removeTimelineParkingGuide() {
+      [...document.querySelectorAll('#route button')].forEach((button) => {
+        const label = button.textContent?.replace(/\s+/g, ' ').trim() || '';
+        const action = button.getAttribute('onclick') || '';
+        if (label === '길찾기 / 주차정보' || (action.includes("openModal('map', 'seolbong')") && label.includes('주차정보'))) {
+          const wrapper = button.parentElement;
+          if (wrapper && wrapper.children.length === 1) wrapper.remove();
+          else button.remove();
+        }
+      });
+    }
+
     function saveEditedContent() {
       const main = document.querySelector('main');
       if (!main) return;
@@ -2095,6 +2102,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
       removeSculptureGardenPhotoLabel();
+      removeTimelineParkingGuide();
       keepHeroKickerTextInsideBadge();
       normalizeQuickStatsCards();
       normalizeMissionAccordionCards();
