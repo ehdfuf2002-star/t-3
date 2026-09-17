@@ -909,9 +909,9 @@
           </p>
 <div class="flex items-center justify-between text-[12px] text-slate-500 pt-2 border-t border-[#E8DFD5]">
 <span>예상 이동 거리: 약 78km</span>
-<button class="text-orange-600 font-bold hover:underline flex items-center gap-0.5" onclick="openModal('map', 'route0')">
+<a aria-label="네이버 지도에서 서울 강서구청부터 설봉공원까지 길찾기 열기" class="text-orange-600 font-bold hover:underline flex items-center gap-0.5" href="https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh" id="departure-navigation-link" rel="noopener noreferrer" target="_blank">
 <span>내비 연동 안내</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-</button>
+</a>
 </div>
 </div>
 </div>
@@ -1521,6 +1521,7 @@
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
     const EDITOR_CONTENT_VERSION = '2026-09-history-culture-honor-v1';
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
+    const NAVER_DEPARTURE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh';
     const HANOK_CAFE_MUN_NAVER_URL = 'https://map.naver.com/p/search/%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8/place/1615322024?c=15.00,0,0,0,dh&placePath=%2Freview%3Fbk_query%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26entry%3Dbmp%26fromPanelNum%3D2%26locale%3Dko%26searchText%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26svcName%3Dmap_pcv5%26timestamp%3D202609171546';
     const HEUNGMANSO_NAVER_URL = 'https://map.naver.com/p/entry/place/1705838287?c=15.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609171534%26locale%3Dko%26svcName%3Dmap_pcv5';
     let editModeEnabled = false;
@@ -1727,6 +1728,33 @@
             .forEach((className) => element.classList.remove(className));
         });
       });
+    }
+
+    function wireDepartureNavigationLink() {
+      let control = document.getElementById('departure-navigation-link');
+      if (!control) {
+        control = [...document.querySelectorAll('#timeline button, #timeline a')]
+          .find((element) => element.textContent.includes('내비 연동 안내')
+            || element.getAttribute('onclick')?.includes("openModal('map', 'route0')"));
+      }
+      if (!control) return;
+
+      let link = control;
+      if (control.tagName !== 'A') {
+        link = document.createElement('a');
+        [...control.attributes].forEach((attribute) => {
+          if (attribute.name !== 'onclick') link.setAttribute(attribute.name, attribute.value);
+        });
+        while (control.firstChild) link.appendChild(control.firstChild);
+        control.replaceWith(link);
+      }
+
+      link.removeAttribute('onclick');
+      link.id = 'departure-navigation-link';
+      link.href = NAVER_DEPARTURE_URL;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', '네이버 지도에서 서울 강서구청부터 설봉공원까지 길찾기 열기');
     }
 
     function wireHeungmansoLink() {
@@ -1946,6 +1974,7 @@
       normalizeQuickStatsCards();
       wireSmartRoadmapLink();
       disableRouteStepperLinks();
+      wireDepartureNavigationLink();
       wireHanokCafeMunLink();
       wireHeungmansoLink();
       initializeTopNavSlider();
