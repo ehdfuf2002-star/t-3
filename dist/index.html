@@ -1819,37 +1819,33 @@
         || document.querySelector('#summary > .relative.z-10 > .inline-flex:first-child');
       if (!kicker) return;
 
+      const labelParts = [];
+      [...kicker.childNodes].forEach((node) => {
+        const isIcon = node.nodeType === Node.ELEMENT_NODE
+          && node.classList.contains('material-symbols-outlined');
+        if (isIcon) return;
+
+        const text = node.textContent?.replace(/\s+/g, ' ').trim();
+        if (text) labelParts.push(text);
+        node.remove();
+      });
+
       let sibling = kicker.nextSibling;
       while (sibling) {
         if (sibling.nodeType === Node.ELEMENT_NODE && sibling.matches('h1')) break;
         const nextSibling = sibling.nextSibling;
-        const isText = sibling.nodeType === Node.TEXT_NODE;
-        const isInlineTextElement = sibling.nodeType === Node.ELEMENT_NODE
-          && ['SPAN', 'B', 'STRONG', 'EM'].includes(sibling.tagName);
-        const text = (isText || isInlineTextElement)
-          ? sibling.textContent.replace(/\s+/g, ' ').trim()
-          : '';
-
-        if (text) kicker.append(document.createTextNode(` ${text}`));
-        if (isText || isInlineTextElement) sibling.remove();
+        const text = sibling.textContent?.replace(/\s+/g, ' ').trim();
+        if (text) labelParts.push(text);
+        sibling.remove();
         sibling = nextSibling;
       }
 
-      if (!kicker.querySelector('.hero-kicker-label')) {
-        const textNodes = [...kicker.childNodes]
-          .filter((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
-        const labelText = textNodes
-          .map((node) => node.textContent.replace(/\s+/g, ' ').trim())
-          .join(' ')
-          .trim();
-
-        if (labelText) {
-          const label = document.createElement('span');
-          label.className = 'hero-kicker-label';
-          label.textContent = labelText;
-          textNodes[0].before(label);
-          textNodes.forEach((node) => node.remove());
-        }
+      const labelText = labelParts.join(' ').replace(/\s+/g, ' ').trim();
+      if (labelText) {
+        const label = document.createElement('span');
+        label.className = 'hero-kicker-label';
+        label.textContent = labelText;
+        kicker.appendChild(label);
       }
     }
 
@@ -1882,6 +1878,7 @@
         main.focus({ preventScroll: true });
         setEditorStatus('화면을 클릭해 수정');
       } else {
+        keepHeroKickerTextInsideBadge();
         saveEditedContent();
       }
     }
