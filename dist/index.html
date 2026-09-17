@@ -127,6 +127,7 @@
     body.edit-mode main:focus { outline-color: #ea580c; }
     body.edit-mode main *::selection { background: rgba(251, 146, 60, 0.32); }
     #mission-body-1 [onclick*="seolbong"] { display: none !important; }
+    #mission-body-2 [onclick*="museum"] { display: none !important; }
     html { scroll-behavior: smooth; }
     section[id] { scroll-margin-top: 108px; }
     .nav-slider-shell {
@@ -1966,32 +1967,39 @@
     }
 
     function removeLocationViewButtons() {
-      const missionBody = document.getElementById('mission-body-1');
+      const missionBodies = ['mission-body-1', 'mission-body-2']
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
       const controls = new Set(document.querySelectorAll('main button, main a, main [role="button"]'));
 
-      missionBody?.querySelectorAll('.material-symbols-outlined').forEach((icon) => {
-        if (!['place', 'location_on'].includes(icon.textContent?.trim() || '')) return;
+      missionBodies.forEach((missionBody) => {
+        missionBody.querySelectorAll('.material-symbols-outlined').forEach((icon) => {
+          if (!['place', 'location_on'].includes(icon.textContent?.trim() || '')) return;
 
-        let candidate = icon.parentElement;
-        while (candidate && candidate !== missionBody) {
-          const candidateLabel = candidate.cloneNode(true);
-          candidateLabel.querySelectorAll('.material-symbols-outlined').forEach((symbol) => symbol.remove());
-          const text = candidateLabel.textContent?.replace(/\s+/g, ' ').trim() || '';
-          if (['위치 보기', '정보'].includes(text)) {
-            controls.add(candidate);
-            break;
+          let candidate = icon.parentElement;
+          while (candidate && candidate !== missionBody) {
+            const candidateLabel = candidate.cloneNode(true);
+            candidateLabel.querySelectorAll('.material-symbols-outlined').forEach((symbol) => symbol.remove());
+            const text = candidateLabel.textContent?.replace(/\s+/g, ' ').trim() || '';
+            if (['위치 보기', '정보'].includes(text)) {
+              controls.add(candidate);
+              break;
+            }
+            candidate = candidate.parentElement;
           }
-          candidate = candidate.parentElement;
-        }
+        });
       });
 
       [...controls].forEach((control) => {
         const labelNode = control.cloneNode(true);
         labelNode.querySelectorAll('.material-symbols-outlined').forEach((icon) => icon.remove());
         const label = labelNode.textContent?.replace(/\s+/g, ' ').trim() || '';
-        const isSculptureLocationControl = control.closest('#mission-body-1')
-          && (label === '정보' || control.getAttribute('onclick')?.includes('seolbong'));
-        if (label !== '위치 보기' && !isSculptureLocationControl) return;
+        const missionBody = control.closest('#mission-body-1, #mission-body-2');
+        const action = control.getAttribute('onclick') || '';
+        const isMissionLocationControl = missionBody && (label === '정보'
+          || (missionBody.id === 'mission-body-1' && action.includes('seolbong'))
+          || (missionBody.id === 'mission-body-2' && action.includes('museum')));
+        if (label !== '위치 보기' && !isMissionLocationControl) return;
 
         const wrapper = control.parentElement;
         control.remove();
