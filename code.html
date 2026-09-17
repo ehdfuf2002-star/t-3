@@ -580,7 +580,7 @@
 <span class="text-[11px] text-slate-500">*위치를 클릭해 보세요!</span>
 </div>
 <!-- Interactive Visual Map Card -->
-<div class="relative w-full h-44 rounded-2xl overflow-hidden border border-[#E8DFD5] bg-white mb-4 cursor-pointer group shadow-sm" onclick="openModal('map')">
+<a aria-label="네이버 지도에서 이천 반나절 전체 경로 열기" class="relative block w-full h-44 rounded-2xl overflow-hidden border border-[#E8DFD5] bg-white mb-4 cursor-pointer group shadow-sm no-underline text-inherit" href="https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh" id="route-map-link" rel="noopener noreferrer" target="_blank">
 <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCcuvPKXAM4_gkXDdWv3Hx2RXuRFO3wVSMR7xbPp_4TP7FdHBMCc1UIue1GX7E1WEHVkQZqvp6aWEZfc8AYa_aCNf4FjW4JB46WUuWSZtDfkrBiAlRghT_lhcFipucgRJT2xMQiUJ4LRNVFTt62ELceN8Z6hr_AOTbSzqv5M3EiEF7MRUW4gtzuA1yrWJmD3EGLLAvtN7H0MY_PtkATXxPunJoRRklzWa38Gxx8t3JsTVmEBSqrOU1vZg');"></div>
 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/40 to-transparent flex flex-col justify-between p-3.5">
 <div class="flex justify-between items-center">
@@ -600,7 +600,7 @@
             </span>
 </div>
 </div>
-</div>
+</a>
 <!-- Vertical Node Stepper -->
 <div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
 <div class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200">
@@ -1490,6 +1490,7 @@
     const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
     const EDITOR_CONTENT_VERSION = '2026-09-history-culture-honor-v1';
+    const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
     let editModeEnabled = false;
     let editorSaveTimer;
     let activeTopNavSection = '';
@@ -1636,6 +1637,33 @@
       }
     }
 
+    function wireSmartRoadmapLink() {
+      let card = document.getElementById('route-map-link');
+      if (!card) {
+        card = [...document.querySelectorAll('#route [onclick]')]
+          .find((element) => element.getAttribute('onclick')?.includes("openModal('map')"));
+      }
+      if (!card) return;
+
+      let link = card;
+      if (card.tagName !== 'A') {
+        link = document.createElement('a');
+        [...card.attributes].forEach((attribute) => {
+          if (attribute.name !== 'onclick') link.setAttribute(attribute.name, attribute.value);
+        });
+        while (card.firstChild) link.appendChild(card.firstChild);
+        card.replaceWith(link);
+      }
+
+      link.removeAttribute('onclick');
+      link.id = 'route-map-link';
+      link.href = NAVER_ROUTE_URL;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', '네이버 지도에서 이천 반나절 전체 경로 열기');
+      link.classList.add('block', 'no-underline', 'text-inherit');
+    }
+
     function saveEditedContent() {
       const main = document.querySelector('main');
       if (!main) return;
@@ -1696,6 +1724,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
+      wireSmartRoadmapLink();
       initializeTopNavSlider();
       const main = document.querySelector('main');
       if (!main) return;
@@ -1790,7 +1819,7 @@
         title: "서울 강서구청 ➔ 설봉공원",
         sub: "약 78km (70~80분 소요)",
         desc: "중부고속도로 직결 코스로 주말 07:30 출발 시 막힘 없이 편안하게 도착할 수 있습니다.",
-        naverUrl: "https://map.naver.com/p/directions/14120837.554749016,4516181.051550312,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/14185113.762691524,4478060.949016208,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90,13179963,PLACE_POI/-/car?c=15.00,0,0,0,dh"
+        naverUrl: NAVER_ROUTE_URL
       },
       seolbong: { title: "설봉국제조각공원 & 설봉호", sub: "경기도 이천시 관고동 418-2", desc: "제1주차장 무료 이용 가능. 90여 점의 야외 조각과 호수 둘레길이 완비되어 있습니다." },
       museum: { title: "이천시립박물관", sub: "경기도 이천시 경충대로2697번길 172", desc: "조각공원에서 도보 5분 연결. 무료 관람이며 선사시대부터 고려·조선 도자기 역사까지 볼 수 있습니다." },
