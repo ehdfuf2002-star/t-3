@@ -237,6 +237,32 @@
       padding-inline: var(--layout-gutter) !important;
       padding-bottom: 64px !important;
     }
+    #summary .hero-kicker,
+    #summary > .relative.z-10 > .inline-flex:first-child {
+      display: inline-flex !important;
+      width: fit-content;
+      max-width: 100%;
+      min-height: 36px;
+      margin-inline: auto;
+      padding: 7px 14px !important;
+      box-sizing: border-box;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-wrap: wrap;
+      gap: 8px !important;
+      line-height: 1.35 !important;
+      text-align: center;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    #summary .hero-kicker .material-symbols-outlined,
+    #summary > .relative.z-10 > .inline-flex:first-child .material-symbols-outlined {
+      flex: 0 0 18px;
+      width: 18px;
+      line-height: 1;
+      text-align: center;
+    }
     main > section:not(#summary) {
       padding-inline: var(--layout-gutter) !important;
       margin-bottom: var(--section-space) !important;
@@ -363,6 +389,11 @@
         --section-space: 72px;
         --card-inset: 18px;
       }
+      #summary .hero-kicker,
+      #summary > .relative.z-10 > .inline-flex:first-child {
+        width: 100%;
+        padding-inline: 12px !important;
+      }
       #editor-toolbar { gap: 4px; padding: 6px; }
       #editor-toolbar button { padding: 0 7px; font-size: 10px; }
       #editor-save-state { display: none; }
@@ -415,7 +446,7 @@
 <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20"></div>
 </div>
 <div class="relative z-10 flex flex-col items-center text-center max-w-sm mx-auto">
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/25 border border-orange-400/50 text-orange-200 text-[12px] font-bold mb-3 backdrop-blur-md">
+<div class="hero-kicker inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/25 border border-orange-400/50 text-orange-200 text-[12px] font-bold mb-3 backdrop-blur-md">
 <span class="material-symbols-outlined text-[15px]">verified</span>
           10년 차 기획자가 엄선한
         </div>
