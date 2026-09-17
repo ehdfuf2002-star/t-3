@@ -643,10 +643,6 @@
 <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20"></div>
 </div>
 <div class="relative z-10 flex flex-col items-center text-center max-w-sm mx-auto">
-<div class="hero-kicker inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/25 border border-orange-400/50 text-orange-200 text-[12px] font-bold mb-3 backdrop-blur-md">
-<span class="material-symbols-outlined text-[15px]">verified</span>
-<span class="hero-kicker-label">10년 차 기획자가 엄선한</span>
-        </div>
 <h1 class="text-[30px] sm:text-[34px] font-black tracking-tight text-white leading-tight drop-shadow-md">
           교과서 밖 초등고학년<br/>
 <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-amber-300 to-yellow-200">
@@ -1974,39 +1970,10 @@
       }
     }
 
-    function keepHeroKickerTextInsideBadge() {
+    function removeHeroKicker() {
       const kicker = document.querySelector('#summary .hero-kicker')
         || document.querySelector('#summary > .relative.z-10 > .inline-flex:first-child');
-      if (!kicker) return;
-
-      const labelParts = [];
-      [...kicker.childNodes].forEach((node) => {
-        const isIcon = node.nodeType === Node.ELEMENT_NODE
-          && node.classList.contains('material-symbols-outlined');
-        if (isIcon) return;
-
-        const text = node.textContent?.replace(/\s+/g, ' ').trim();
-        if (text) labelParts.push(text);
-        node.remove();
-      });
-
-      let sibling = kicker.nextSibling;
-      while (sibling) {
-        if (sibling.nodeType === Node.ELEMENT_NODE && sibling.matches('h1')) break;
-        const nextSibling = sibling.nextSibling;
-        const text = sibling.textContent?.replace(/\s+/g, ' ').trim();
-        if (text) labelParts.push(text);
-        sibling.remove();
-        sibling = nextSibling;
-      }
-
-      const labelText = labelParts.join(' ').replace(/\s+/g, ' ').trim();
-      if (labelText) {
-        const label = document.createElement('span');
-        label.className = 'hero-kicker-label';
-        label.textContent = labelText;
-        kicker.appendChild(label);
-      }
+      if (kicker) kicker.remove();
     }
 
     function removeSculptureGardenPhotoLabel() {
@@ -2148,7 +2115,7 @@
         main.focus({ preventScroll: true });
         setEditorStatus('화면을 클릭해 수정');
       } else {
-        keepHeroKickerTextInsideBadge();
+        removeHeroKicker();
         saveEditedContent();
       }
     }
@@ -2201,7 +2168,7 @@
         iconColorClass: 'text-sky-600',
         ariaLabel: '네이버 지도에서 설봉공원 제1주차장부터 이천시립월전미술관까지 차량 길찾기 열기'
       });
-      keepHeroKickerTextInsideBadge();
+      removeHeroKicker();
       normalizeQuickStatsCards();
       normalizeMissionAccordionCards();
       wireSmartRoadmapLink();
