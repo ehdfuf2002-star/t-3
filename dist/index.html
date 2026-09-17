@@ -388,6 +388,75 @@
       font-size: 12px !important;
       line-height: 1.35 !important;
     }
+    #missions .mission-accordion-header {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center !important;
+      gap: 14px;
+      min-height: 158px;
+      padding: 18px !important;
+      box-sizing: border-box;
+    }
+    #missions .mission-accordion-main {
+      display: grid !important;
+      grid-template-columns: 38px minmax(0, 1fr);
+      align-items: center !important;
+      gap: 12px !important;
+      min-width: 0;
+    }
+    #missions .mission-accordion-icon {
+      width: 38px !important;
+      height: 38px !important;
+      flex: 0 0 38px;
+    }
+    #missions .mission-accordion-copy {
+      width: 100%;
+      min-width: 0;
+    }
+    #missions .mission-accordion-title,
+    #missions .mission-accordion-hint {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    #missions .mission-accordion-title {
+      font-size: 15px !important;
+      line-height: 1.5 !important;
+    }
+    #missions .mission-accordion-hint {
+      margin-top: 6px;
+      font-size: 13px !important;
+      line-height: 1.45 !important;
+    }
+    #missions .mission-accordion-meta {
+      display: grid !important;
+      grid-template-columns: 76px 20px;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+    #missions .mission-accordion-badge {
+      display: flex !important;
+      width: 76px;
+      min-height: 44px;
+      padding: 6px 8px !important;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+      font-size: 12px !important;
+      line-height: 1.35 !important;
+    }
+    #missions .mission-accordion-arrow {
+      width: 20px;
+      line-height: 1;
+      text-align: center;
+    }
     main .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 16px !important; }
     main .space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 16px !important; }
     main .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 20px !important; }
@@ -500,6 +569,26 @@
       #missions .mission-slot-card,
       #missions [id^="slot-card-"] {
         min-height: 172px;
+        padding-inline: 6px !important;
+      }
+      #missions .mission-accordion-header {
+        gap: 10px;
+        padding: 16px 14px !important;
+      }
+      #missions .mission-accordion-main {
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 10px !important;
+      }
+      #missions .mission-accordion-icon {
+        width: 34px !important;
+        height: 34px !important;
+      }
+      #missions .mission-accordion-meta {
+        grid-template-columns: 66px 18px;
+        gap: 5px !important;
+      }
+      #missions .mission-accordion-badge {
+        width: 66px;
         padding-inline: 6px !important;
       }
       #editor-toolbar { gap: 4px; padding: 6px; }
@@ -1874,6 +1963,35 @@
       });
     }
 
+    function normalizeMissionAccordionCards() {
+      for (let index = 1; index <= 3; index += 1) {
+        const body = document.getElementById(`mission-body-${index}`);
+        const card = body?.parentElement;
+        const header = body?.previousElementSibling;
+        if (!card || !header) continue;
+
+        card.classList.add('mission-accordion-card');
+        header.classList.add('mission-accordion-header');
+        const main = header.children[0];
+        const meta = header.children[1];
+        if (main) {
+          main.classList.add('mission-accordion-main');
+          main.children[0]?.classList.add('mission-accordion-icon');
+          const copy = main.children[1];
+          if (copy) {
+            copy.classList.add('mission-accordion-copy');
+            copy.children[0]?.classList.add('mission-accordion-title');
+            copy.children[1]?.classList.add('mission-accordion-hint');
+          }
+        }
+        if (meta) {
+          meta.classList.add('mission-accordion-meta');
+          meta.children[0]?.classList.add('mission-accordion-badge');
+          meta.children[1]?.classList.add('mission-accordion-arrow');
+        }
+      }
+    }
+
     function keepHeroKickerTextInsideBadge() {
       const kicker = document.querySelector('#summary .hero-kicker')
         || document.querySelector('#summary > .relative.z-10 > .inline-flex:first-child');
@@ -1972,6 +2090,7 @@
       restoreEditedContent();
       keepHeroKickerTextInsideBadge();
       normalizeQuickStatsCards();
+      normalizeMissionAccordionCards();
       wireSmartRoadmapLink();
       disableRouteStepperLinks();
       wireDepartureNavigationLink();
