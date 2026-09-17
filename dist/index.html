@@ -2369,15 +2369,17 @@
         const naverLink = document.getElementById('map-modal-naver');
         if (naverLink) naverLink.href = placeInfo[placeKey].naverUrl || 'https://map.naver.com';
         const useNaverOnly = ['earth', 'eungam', 'kang', 'cafe1', 'cafe2', 'cafe3'].includes(placeKey);
+        const showTipsOnly = placeKey === 'seohee';
         const providerActions = document.getElementById('map-modal-provider-actions');
         const kakaoLink = document.getElementById('map-modal-kakao');
         const copyAddressButton = document.getElementById('map-modal-copy-address');
         if (providerActions) {
+          providerActions.classList.toggle('hidden', showTipsOnly);
           providerActions.classList.toggle('grid-cols-1', useNaverOnly);
           providerActions.classList.toggle('grid-cols-2', !useNaverOnly);
         }
-        if (kakaoLink) kakaoLink.classList.toggle('hidden', useNaverOnly);
-        if (copyAddressButton) copyAddressButton.classList.toggle('hidden', useNaverOnly);
+        if (kakaoLink) kakaoLink.classList.toggle('hidden', useNaverOnly || showTipsOnly);
+        if (copyAddressButton) copyAddressButton.classList.toggle('hidden', useNaverOnly || showTipsOnly);
       }
       const el = document.getElementById(`modal-${type}`);
       if (el) el.classList.remove('hidden');
