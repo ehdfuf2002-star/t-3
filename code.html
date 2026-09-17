@@ -1611,6 +1611,7 @@
     const SEOLBONG_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAAW1,2AzXSZ,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5%EC%9E%85%EA%B5%AC,635317101,PLACE_POI/walk?c=17.00,0,0,0,dh';
     const MUSEUM_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAvyj,2AzO4k,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EB%B0%95%EB%AC%BC%EA%B4%80,11620568,PLACE_POI/-/walk?c=16.00,0,0,0,dh';
     const WOLJEON_DRIVING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcv,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI/-/car?c=16.00,0,0,0,dh';
+    const KANG_DEULBAP_NAVER_URL = 'https://map.naver.com/p/search/%EA%B0%95%EB%AF%BC%EC%A3%BC%EC%9D%98%20%EB%93%A4%EB%B0%A5/place/1521633811?placePath=?bk_query=%EA%B0%95%EB%AF%BC%EC%A3%BC%EC%9D%98%20%EB%93%A4%EB%B0%A5&entry=pll&from=nx&fromNxList=true&searchType=place';
     const HANOK_CAFE_MUN_NAVER_URL = 'https://map.naver.com/p/search/%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8/place/1615322024?c=15.00,0,0,0,dh&placePath=%2Freview%3Fbk_query%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26entry%3Dbmp%26fromPanelNum%3D2%26locale%3Dko%26searchText%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26svcName%3Dmap_pcv5%26timestamp%3D202609171546';
     const HEUNGMANSO_NAVER_URL = 'https://map.naver.com/p/entry/place/1705838287?c=15.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609171534%26locale%3Dko%26svcName%3Dmap_pcv5';
     let editModeEnabled = false;
@@ -2330,7 +2331,7 @@
       woljeon: { title: "이천시립월전미술관", sub: "경기도 이천시 엑스포길 48", desc: "차량 3분 이동. 월전 장우성 화백의 먹과 여백의 미를 감상할 수 있는 고즈넉한 미술관입니다. (3인 4,600원)" },
       earth: { title: "얼쓰갤러리카페 (점심 추천)", sub: "경기도 이천시 신둔면 원적로 115", desc: "통창 논뷰와 야외 잔디를 갖춘 갤러리 카페. 파니니 브런치와 피자를 편안하게 즐길 수 있습니다." },
       eungam: { title: "응암리막국수", sub: "경기도 이천시 부발읍 경충대로 1928", desc: "자가제면 메밀국수와 편육 전문점. 회전율이 빨라 대기가 적습니다." },
-      kang: { title: "강민주의들밥", sub: "경기도 이천시 마장면 지산로22번길 17", desc: "이천 쌀밥 정식 맛집. 주말에는 11시 전 테이블링 원격 대기가 필수입니다." },
+      kang: { title: "강민주의들밥", sub: "경기도 이천시 마장면 지산로22번길 17", desc: "이천 쌀밥 정식 맛집. 주말에는 11시 전 테이블링 원격 대기가 필수입니다.", naverUrl: KANG_DEULBAP_NAVER_URL },
       seohee: { title: "서희테마파크 (80분 풀코스)", sub: "경기도 이천시 부발읍 서희로 49", desc: "입장료 무료, 주차 100대 가능. 애니메이션 영상실, 토론 퀴즈, 고려 관복 체험, 30여 점 역사산책로." },
       cafe1: { title: "함께 걷는 길", sub: "경기도 이천시 관고동", desc: "설봉공원 입구 도보권 정원 카페. 핸드드립 커피와 수제 과일에이드 추천." },
       cafe2: { title: "한옥카페 문", sub: "경기도 이천시 신둔면 도자예술촌", desc: "고즈넉한 서까래 처마 아래에서 즐기는 쑥라떼와 인절미 와플.", naverUrl: HANOK_CAFE_MUN_NAVER_URL },
