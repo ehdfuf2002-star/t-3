@@ -1091,9 +1091,9 @@
 </div>
 </div>
 <div class="flex justify-end pt-1">
-<button class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs" onclick="openModal('map', 'museum')">
-<span class="material-symbols-outlined text-[15px] text-orange-600">location_on</span> 위치 상세
-            </button>
+<a aria-label="네이버 지도에서 설봉국제조각공원부터 이천시립박물관까지 도보 길찾기 열기" class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs no-underline" href="https://map.naver.com/p/directions/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAvyj,2AzO4k,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EB%B0%95%EB%AC%BC%EA%B4%80,11620568,PLACE_POI/-/walk?c=16.00,0,0,0,dh" id="museum-directions-link" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[15px] text-sky-600">location_on</span> 길찾기
+</a>
 </div>
 </div>
 </div>
@@ -1134,9 +1134,9 @@
 <button class="text-[12px] text-orange-600 underline font-bold" onclick="toggleMissionDetail(2); document.getElementById('missions').scrollIntoView({behavior:'smooth'});">미션 인증</button>
 </div>
 <div class="flex justify-end pt-1">
-<button class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs" onclick="openModal('map', 'woljeon')">
+<a aria-label="네이버 지도에서 설봉공원 제1주차장부터 이천시립월전미술관까지 차량 길찾기 열기" class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs no-underline" href="https://map.naver.com/p/directions/3zAyPR,2AzYcv,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI/-/car?c=16.00,0,0,0,dh" id="woljeon-directions-link" rel="noopener noreferrer" target="_blank">
 <span class="material-symbols-outlined text-[15px] text-orange-600">location_on</span> 위치 상세
-            </button>
+</a>
 </div>
 </div>
 </div>
@@ -1609,6 +1609,8 @@
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
     const NAVER_DEPARTURE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh';
     const SEOLBONG_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAAW1,2AzXSZ,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5%EC%9E%85%EA%B5%AC,635317101,PLACE_POI/walk?c=17.00,0,0,0,dh';
+    const MUSEUM_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAvyj,2AzO4k,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EB%B0%95%EB%AC%BC%EA%B4%80,11620568,PLACE_POI/-/walk?c=16.00,0,0,0,dh';
+    const WOLJEON_DRIVING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcv,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI/-/car?c=16.00,0,0,0,dh';
     const HANOK_CAFE_MUN_NAVER_URL = 'https://map.naver.com/p/search/%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8/place/1615322024?c=15.00,0,0,0,dh&placePath=%2Freview%3Fbk_query%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26entry%3Dbmp%26fromPanelNum%3D2%26locale%3Dko%26searchText%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26svcName%3Dmap_pcv5%26timestamp%3D202609171546';
     const HEUNGMANSO_NAVER_URL = 'https://map.naver.com/p/entry/place/1705838287?c=15.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609171534%26locale%3Dko%26svcName%3Dmap_pcv5';
     let editModeEnabled = false;
@@ -2090,6 +2092,53 @@
       link.classList.add('no-underline');
     }
 
+    function wireTimelinePlaceDirectionsLink({ stepBodyId, linkId, placeKey, url, label, iconColorClass, ariaLabel }) {
+      const stepBody = document.getElementById(stepBodyId);
+      if (!stepBody) return;
+
+      let link = document.getElementById(linkId);
+      if (!link) {
+        const control = [...stepBody.querySelectorAll('a, button')].find((element) => {
+          const action = element.getAttribute('onclick') || '';
+          if (action.includes(`'${placeKey}'`)) return true;
+          const copy = element.cloneNode(true);
+          copy.querySelectorAll('.material-symbols-outlined').forEach((icon) => icon.remove());
+          return ['길찾기', '위치 상세'].includes(copy.textContent?.replace(/\s+/g, ' ').trim() || '');
+        });
+
+        if (control) {
+          if (control.tagName === 'A') {
+            link = control;
+          } else {
+            link = document.createElement('a');
+            [...control.attributes].forEach((attribute) => {
+              if (attribute.name !== 'onclick') link.setAttribute(attribute.name, attribute.value);
+            });
+            control.replaceWith(link);
+          }
+        } else {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'flex justify-end pt-1';
+          link = document.createElement('a');
+          link.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs no-underline';
+          wrapper.appendChild(link);
+          stepBody.appendChild(wrapper);
+        }
+      }
+
+      const icon = document.createElement('span');
+      icon.className = `material-symbols-outlined text-[15px] ${iconColorClass}`;
+      icon.textContent = 'location_on';
+      link.replaceChildren(icon, document.createTextNode(` ${label}`));
+      link.removeAttribute('onclick');
+      link.id = linkId;
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', ariaLabel);
+      link.classList.add('no-underline');
+    }
+
     function saveEditedContent() {
       const main = document.querySelector('main');
       if (!main) return;
@@ -2154,6 +2203,24 @@
       removeSculptureGardenPhotoLabel();
       removeTimelineParkingGuide();
       wireSeolbongWalkingDirectionsLink();
+      wireTimelinePlaceDirectionsLink({
+        stepBodyId: 'step-body-2',
+        linkId: 'museum-directions-link',
+        placeKey: 'museum',
+        url: MUSEUM_WALKING_DIRECTIONS_URL,
+        label: '길찾기',
+        iconColorClass: 'text-sky-600',
+        ariaLabel: '네이버 지도에서 설봉국제조각공원부터 이천시립박물관까지 도보 길찾기 열기'
+      });
+      wireTimelinePlaceDirectionsLink({
+        stepBodyId: 'step-body-3',
+        linkId: 'woljeon-directions-link',
+        placeKey: 'woljeon',
+        url: WOLJEON_DRIVING_DIRECTIONS_URL,
+        label: '위치 상세',
+        iconColorClass: 'text-orange-600',
+        ariaLabel: '네이버 지도에서 설봉공원 제1주차장부터 이천시립월전미술관까지 차량 길찾기 열기'
+      });
       keepHeroKickerTextInsideBadge();
       normalizeQuickStatsCards();
       normalizeMissionAccordionCards();
