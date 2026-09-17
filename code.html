@@ -263,6 +263,15 @@
       line-height: 1;
       text-align: center;
     }
+    #summary .hero-kicker-label {
+      display: block;
+      min-width: 0;
+      max-width: 100%;
+      text-align: center;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
     main > section:not(#summary) {
       padding-inline: var(--layout-gutter) !important;
       margin-bottom: var(--section-space) !important;
@@ -503,7 +512,7 @@
 <div class="relative z-10 flex flex-col items-center text-center max-w-sm mx-auto">
 <div class="hero-kicker inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/25 border border-orange-400/50 text-orange-200 text-[12px] font-bold mb-3 backdrop-blur-md">
 <span class="material-symbols-outlined text-[15px]">verified</span>
-          10년 차 기획자가 엄선한
+<span class="hero-kicker-label">10년 차 기획자가 엄선한</span>
         </div>
 <h1 class="text-[30px] sm:text-[34px] font-black tracking-tight text-white leading-tight drop-shadow-md">
           교과서 밖 초등고학년<br/>
@@ -1664,6 +1673,45 @@
       link.classList.add('block', 'no-underline', 'text-inherit');
     }
 
+    function keepHeroKickerTextInsideBadge() {
+      const kicker = document.querySelector('#summary .hero-kicker')
+        || document.querySelector('#summary > .relative.z-10 > .inline-flex:first-child');
+      if (!kicker) return;
+
+      let sibling = kicker.nextSibling;
+      while (sibling) {
+        if (sibling.nodeType === Node.ELEMENT_NODE && sibling.matches('h1')) break;
+        const nextSibling = sibling.nextSibling;
+        const isText = sibling.nodeType === Node.TEXT_NODE;
+        const isInlineTextElement = sibling.nodeType === Node.ELEMENT_NODE
+          && ['SPAN', 'B', 'STRONG', 'EM'].includes(sibling.tagName);
+        const text = (isText || isInlineTextElement)
+          ? sibling.textContent.replace(/\s+/g, ' ').trim()
+          : '';
+
+        if (text) kicker.append(document.createTextNode(` ${text}`));
+        if (isText || isInlineTextElement) sibling.remove();
+        sibling = nextSibling;
+      }
+
+      if (!kicker.querySelector('.hero-kicker-label')) {
+        const textNodes = [...kicker.childNodes]
+          .filter((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+        const labelText = textNodes
+          .map((node) => node.textContent.replace(/\s+/g, ' ').trim())
+          .join(' ')
+          .trim();
+
+        if (labelText) {
+          const label = document.createElement('span');
+          label.className = 'hero-kicker-label';
+          label.textContent = labelText;
+          textNodes[0].before(label);
+          textNodes.forEach((node) => node.remove());
+        }
+      }
+    }
+
     function saveEditedContent() {
       const main = document.querySelector('main');
       if (!main) return;
@@ -1724,6 +1772,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
+      keepHeroKickerTextInsideBadge();
       wireSmartRoadmapLink();
       initializeTopNavSlider();
       const main = document.querySelector('main');
