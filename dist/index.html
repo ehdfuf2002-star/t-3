@@ -1220,7 +1220,7 @@
 </div>
 </div>
 <!-- Cafe 3 -->
-<div class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between gap-3 cursor-pointer hover:border-orange-400 transition-all shadow-sm" onclick="openModal('map', 'cafe3')">
+<a aria-label="네이버 지도에서 흥만소 위치 열기" class="rounded-2xl bg-white border border-[#E8DFD5] p-3.5 flex items-center justify-between gap-3 cursor-pointer hover:border-orange-400 transition-all shadow-sm no-underline text-inherit" href="https://map.naver.com/p/entry/place/1705838287?c=15.00,0,0,0,dh&amp;placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609171534%26locale%3Dko%26svcName%3Dmap_pcv5" id="heungmanso-card" rel="noopener noreferrer" target="_blank">
 <div class="min-w-0 pr-2">
 <div class="flex items-center gap-2 mb-1">
 <span class="text-[15px] font-bold text-slate-900">흥만소 (이천 쌀빵 명소)</span>
@@ -1232,7 +1232,7 @@
 <div class="w-20 h-20 rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E8DFD5] shrink-0 shadow-sm">
 <img alt="이천 쌀 베이커리카페 흥만소의 외관과 캐릭터 조형물" class="w-full h-full object-cover" decoding="async" loading="lazy" src="assets/food/heungmanso.jpg"/>
 </div>
-</div>
+</a>
 </div>
 </section>
 <!-- 7. CHECK: RECOMMENDED FOR & PRECAUTIONS -->
@@ -1500,6 +1500,7 @@
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
     const EDITOR_CONTENT_VERSION = '2026-09-history-culture-honor-v1';
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
+    const HEUNGMANSO_NAVER_URL = 'https://map.naver.com/p/entry/place/1705838287?c=15.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609171534%26locale%3Dko%26svcName%3Dmap_pcv5';
     let editModeEnabled = false;
     let editorSaveTimer;
     let activeTopNavSection = '';
@@ -1673,6 +1674,38 @@
       link.classList.add('block', 'no-underline', 'text-inherit');
     }
 
+    function wireHeungmansoLink() {
+      let card = document.getElementById('heungmanso-card');
+      if (!card) {
+        const image = [...document.querySelectorAll('#food img')]
+          .find((element) => element.alt.includes('흥만소'));
+        card = image?.closest('[onclick], a');
+      }
+      if (!card) {
+        card = [...document.querySelectorAll('#food [onclick]')]
+          .find((element) => element.getAttribute('onclick')?.includes("'cafe3'"));
+      }
+      if (!card) return;
+
+      let link = card;
+      if (card.tagName !== 'A') {
+        link = document.createElement('a');
+        [...card.attributes].forEach((attribute) => {
+          if (attribute.name !== 'onclick') link.setAttribute(attribute.name, attribute.value);
+        });
+        while (card.firstChild) link.appendChild(card.firstChild);
+        card.replaceWith(link);
+      }
+
+      link.removeAttribute('onclick');
+      link.id = 'heungmanso-card';
+      link.href = HEUNGMANSO_NAVER_URL;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', '네이버 지도에서 흥만소 위치 열기');
+      link.classList.add('no-underline', 'text-inherit');
+    }
+
     function keepHeroKickerTextInsideBadge() {
       const kicker = document.querySelector('#summary .hero-kicker')
         || document.querySelector('#summary > .relative.z-10 > .inline-flex:first-child');
@@ -1774,6 +1807,7 @@
       restoreEditedContent();
       keepHeroKickerTextInsideBadge();
       wireSmartRoadmapLink();
+      wireHeungmansoLink();
       initializeTopNavSlider();
       const main = document.querySelector('main');
       if (!main) return;
@@ -1879,7 +1913,7 @@
       seohee: { title: "서희테마파크 (80분 풀코스)", sub: "경기도 이천시 부발읍 서희로 49", desc: "입장료 무료, 주차 100대 가능. 애니메이션 영상실, 토론 퀴즈, 고려 관복 체험, 30여 점 역사산책로." },
       cafe1: { title: "함께 걷는 길", sub: "경기도 이천시 관고동", desc: "설봉공원 입구 도보권 정원 카페. 핸드드립 커피와 수제 과일에이드 추천." },
       cafe2: { title: "한옥카페 문", sub: "경기도 이천시 신둔면 도자예술촌", desc: "고즈넉한 서까래 처마 아래에서 즐기는 쑥라떼와 인절미 와플." },
-      cafe3: { title: "흥만소", sub: "경기도 이천시 부발읍", desc: "이천 쌀 100% 쌀크림빵 전문점. 귀갓길 차 안 간식으로 포장하기 제격입니다." },
+      cafe3: { title: "흥만소", sub: "경기도 이천시 부발읍", desc: "이천 쌀 100% 쌀크림빵 전문점. 귀갓길 차 안 간식으로 포장하기 제격입니다.", naverUrl: HEUNGMANSO_NAVER_URL },
       serapia: { title: "이천세라피아 (도자미술관)", sub: "경기도 이천시 경충대로2697번길 167", desc: "우천·폭염 시 100% 실내 관람 및 도자 체험이 가능한 대체 코스입니다." }
     };
 
