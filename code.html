@@ -289,6 +289,52 @@
     main .grid.gap-2,
     main .grid.gap-2\.5,
     main .grid.gap-3 { gap: var(--content-gap) !important; }
+    #missions .mission-slot-grid,
+    #missions .grid.grid-cols-3 {
+      width: 100%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
+      gap: 12px !important;
+    }
+    #missions .mission-slot-card,
+    #missions [id^="slot-card-"] {
+      min-width: 0;
+      min-height: 178px;
+      padding: 14px 8px !important;
+      box-sizing: border-box;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+    #missions [id^="stamp-slot-"] {
+      flex: 0 0 52px;
+      width: 52px !important;
+      height: 52px !important;
+      margin-bottom: 12px !important;
+    }
+    #missions [id^="slot-card-"] > span:not(.material-symbols-outlined) {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    #missions [id^="slot-card-"] > span.font-bold {
+      min-height: 2.9em;
+      font-size: 14px !important;
+      line-height: 1.45 !important;
+    }
+    #missions [id^="stamp-state-"] {
+      min-height: 2.7em;
+      margin-top: auto !important;
+      padding-top: 8px;
+      font-size: 12px !important;
+      line-height: 1.35 !important;
+    }
     main .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 16px !important; }
     main .space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 16px !important; }
     main .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 20px !important; }
@@ -393,6 +439,15 @@
       #summary > .relative.z-10 > .inline-flex:first-child {
         width: 100%;
         padding-inline: 12px !important;
+      }
+      #missions .mission-slot-grid,
+      #missions .grid.grid-cols-3 {
+        gap: 8px !important;
+      }
+      #missions .mission-slot-card,
+      #missions [id^="slot-card-"] {
+        min-height: 172px;
+        padding-inline: 6px !important;
       }
       #editor-toolbar { gap: 4px; padding: 6px; }
       #editor-toolbar button { padding: 0 7px; font-size: 10px; }
@@ -637,22 +692,22 @@
           현장에서 자녀와 함께 카드를 터치해 가이드를 확인하고 도장을 찍어보세요! 3개를 모두 모으면 이천 역사문화 탐방 명예장이 수여됩니다.
         </p>
 <!-- 3 Slots Grid -->
-<div class="grid grid-cols-3 gap-2 mb-4">
-<div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-1" onclick="toggleMissionDetail(1)">
+<div class="mission-slot-grid grid grid-cols-3 gap-2 mb-4">
+<div class="mission-slot-card flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-1" onclick="toggleMissionDetail(1)">
 <div class="w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs" id="stamp-slot-1">
 <span class="material-symbols-outlined text-[22px] text-slate-400">brush</span>
 </div>
 <span class="text-[12px] font-bold text-slate-900 leading-tight">M1. 조각 큐레이터</span>
 <span class="text-[10px] text-slate-500 mt-0.5" id="stamp-state-1">미션 대기</span>
 </div>
-<div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-2" onclick="toggleMissionDetail(2)">
+<div class="mission-slot-card flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-2" onclick="toggleMissionDetail(2)">
 <div class="w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs" id="stamp-slot-2">
 <span class="material-symbols-outlined text-[22px] text-slate-400">search</span>
 </div>
 <span class="text-[12px] font-bold text-slate-900 leading-tight">M2. 문화 탐정</span>
 <span class="text-[10px] text-slate-500 mt-0.5" id="stamp-state-2">미션 대기</span>
 </div>
-<div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-3" onclick="toggleMissionDetail(3)">
+<div class="mission-slot-card flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-3" onclick="toggleMissionDetail(3)">
 <div class="w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs" id="stamp-slot-3">
 <span class="material-symbols-outlined text-[22px] text-slate-400">military_tech</span>
 </div>
