@@ -332,15 +332,6 @@
 <p class="text-[13px] text-slate-200 mt-2.5 leading-snug drop-shadow">
           07:30 서울 강서구 출발부터 15:30 귀가까지, 고려 외교 영웅 서희와 예술이 숨쉬는 완벽한 주말 가족 로드맵
         </p>
-<!-- Pill Badges -->
-<div class="flex items-center gap-2 mt-4">
-<div class="px-2.5 py-1 rounded-lg bg-white/90 text-[12px] text-slate-800 font-bold shadow-sm backdrop-blur-sm">
-            07:30 서울 강서구 출발
-          </div>
-<div class="px-2.5 py-1 rounded-lg bg-orange-500 text-[12px] text-white font-extrabold shadow-sm">
-            13:40 귀경 정체 회피
-          </div>
-</div>
 <!-- 3-Chevron Arrow Indicator -->
 <a class="mt-6 flex flex-col items-center text-amber-300 animate-bounce cursor-pointer" href="#route">
 <span class="material-symbols-outlined text-[18px] -mb-2">keyboard_arrow_down</span>
@@ -1316,7 +1307,7 @@
     const state = { s1: false, s2: false, s3: false };
     const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
-    const EDITOR_CONTENT_VERSION = '2026-09-food-images-v1';
+    const EDITOR_CONTENT_VERSION = '2026-09-hero-badges-v1';
     let editModeEnabled = false;
     let editorSaveTimer;
     let activeTopNavSection = '';
@@ -1434,16 +1425,21 @@
       if (saved && main) {
         const savedVersion = localStorage.getItem(EDITOR_CONTENT_VERSION_KEY);
         if (savedVersion !== EDITOR_CONTENT_VERSION) {
-          const latestFoodSection = main.querySelector('#food')?.cloneNode(true);
+          const latestSections = ['summary', 'food'].map((id) => ({
+            id,
+            section: main.querySelector(`#${id}`)?.cloneNode(true)
+          }));
           const savedDocument = new DOMParser().parseFromString(`<main>${saved}</main>`, 'text/html');
           const savedMain = savedDocument.querySelector('main');
-          const savedFoodSection = savedMain?.querySelector('#food');
 
-          if (latestFoodSection && savedMain && savedFoodSection) {
-            savedFoodSection.replaceWith(latestFoodSection);
+          if (savedMain) {
+            latestSections.forEach(({ id, section }) => {
+              const savedSection = savedMain.querySelector(`#${id}`);
+              if (section && savedSection) savedSection.replaceWith(section);
+            });
             main.innerHTML = savedMain.innerHTML;
             localStorage.setItem(EDITOR_STORAGE_KEY, main.innerHTML);
-            setEditorStatus('새 사진 반영됨');
+            setEditorStatus('최신 화면 반영됨');
           } else {
             main.innerHTML = saved;
             setEditorStatus('저장본 불러옴');
