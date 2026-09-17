@@ -1539,15 +1539,15 @@
             제1주차장이 잔디광장 및 호수 둘레길과 가장 가깝습니다. 주차비는 무료이며 산책로 평탄화가 잘 되어 있습니다.
           </p>
 </div>
-<div class="grid grid-cols-2 gap-2">
+<div class="grid grid-cols-2 gap-2" id="map-modal-provider-actions">
 <a class="p-2.5 rounded-xl bg-[#03C75A]/10 text-[#029b46] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#03C75A]/30" href="https://map.naver.com" id="map-modal-naver" rel="noopener noreferrer" target="_blank">
 <span>N</span> 네이버 지도
           </a>
-<a class="p-2.5 rounded-xl bg-[#FEE500]/40 text-[#4c3500] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#FEE500]/60" href="https://map.kakao.com" target="_blank">
+<a class="p-2.5 rounded-xl bg-[#FEE500]/40 text-[#4c3500] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#FEE500]/60" href="https://map.kakao.com" id="map-modal-kakao" target="_blank">
 <span>K</span> 카카오맵
           </a>
 </div>
-<button class="w-full py-2.5 rounded-xl bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 text-[12px] font-bold flex items-center justify-center gap-1 border border-[#E8DFD5]" onclick="copyText('경기도 이천시 관고동 418-2')">
+<button class="w-full py-2.5 rounded-xl bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 text-[12px] font-bold flex items-center justify-center gap-1 border border-[#E8DFD5]" id="map-modal-copy-address" onclick="copyText('경기도 이천시 관고동 418-2')">
 <span class="material-symbols-outlined text-[15px]">content_copy</span> 주소 복사하기
         </button>
 </div>
@@ -2345,6 +2345,16 @@
         document.getElementById('map-modal-desc').textContent = placeInfo[placeKey].desc;
         const naverLink = document.getElementById('map-modal-naver');
         if (naverLink) naverLink.href = placeInfo[placeKey].naverUrl || 'https://map.naver.com';
+        const useNaverOnly = ['earth', 'eungam', 'kang'].includes(placeKey);
+        const providerActions = document.getElementById('map-modal-provider-actions');
+        const kakaoLink = document.getElementById('map-modal-kakao');
+        const copyAddressButton = document.getElementById('map-modal-copy-address');
+        if (providerActions) {
+          providerActions.classList.toggle('grid-cols-1', useNaverOnly);
+          providerActions.classList.toggle('grid-cols-2', !useNaverOnly);
+        }
+        if (kakaoLink) kakaoLink.classList.toggle('hidden', useNaverOnly);
+        if (copyAddressButton) copyAddressButton.classList.toggle('hidden', useNaverOnly);
       }
       const el = document.getElementById(`modal-${type}`);
       if (el) el.classList.remove('hidden');
