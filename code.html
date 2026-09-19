@@ -1482,6 +1482,13 @@
 </div>
 </div>
 <!-- Modal: Certificate Dialog -->
+<div aria-hidden="true" aria-label="얼쓰갤러리카페 사진 전체화면" aria-modal="true" class="fixed inset-0 hidden bg-black flex items-center justify-center p-2" id="earth-gallery-fullscreen" onclick="closeEarthGalleryFullscreen()" role="dialog" style="z-index: 70;">
+<button aria-label="전체화면 닫기" class="absolute top-3 right-3 w-11 h-11 rounded-full bg-black/70 text-white flex items-center justify-center border border-white/30" id="earth-gallery-fullscreen-close" onclick="event.stopPropagation(); closeEarthGalleryFullscreen()" type="button"><span aria-hidden="true" class="material-symbols-outlined text-[28px]">close</span></button>
+<img alt="" class="max-w-full max-h-full object-contain" id="earth-gallery-fullscreen-image" onclick="event.stopPropagation()"/>
+<button aria-label="이전 사진" class="absolute left-3 w-12 h-12 rounded-full bg-black/70 text-white flex items-center justify-center border border-white/30" onclick="changeEarthGalleryFullscreenSlide(-1, event)" style="top: 50%; transform: translateY(-50%);" type="button"><span aria-hidden="true" class="material-symbols-outlined text-[30px]">chevron_left</span></button>
+<button aria-label="다음 사진" class="absolute right-3 w-12 h-12 rounded-full bg-black/70 text-white flex items-center justify-center border border-white/30" onclick="changeEarthGalleryFullscreenSlide(1, event)" style="top: 50%; transform: translateY(-50%);" type="button"><span aria-hidden="true" class="material-symbols-outlined text-[30px]">chevron_right</span></button>
+<span aria-live="polite" class="absolute bottom-4 px-3 py-1.5 rounded-full bg-black/70 text-white text-[12px] font-bold border border-white/20" id="earth-gallery-fullscreen-counter">1 / 4</span>
+</div>
 <div class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm p-0 sm:p-4" id="modal-cert">
 <div class="w-full max-w-md bg-white rounded-t-2xl sm:rounded-2xl p-4 shadow-2xl border-2 border-orange-400 max-h-[90vh] overflow-y-auto">
 <div class="flex items-center justify-between pb-2 border-b border-[#E8DFD5]">
@@ -1560,12 +1567,14 @@
     ];
     let woljeonSlideIndex = 0;
     const EARTH_GALLERY_SLIDES = [
-      { src: 'assets/earth-gallery-ground-latte.jpeg', alt: '얼쓰갤러리카페 그라운드 라떼', fit: 'contain' },
-      { src: 'assets/earth-gallery-forest-latte.jpeg', alt: '얼쓰갤러리카페 포레스트 라떼', fit: 'contain' },
-      { src: 'assets/earth-gallery-red-bean-bingsu.png', alt: '얼쓰갤러리카페 옛날 팥빙수', fit: 'contain' },
-      { src: 'assets/earth-gallery-earth-plate.jpg', alt: '얼쓰갤러리카페 얼쓰 플레이트', fit: 'contain' }
+      { src: 'assets/earth-gallery-ground-latte.jpeg', alt: '얼쓰갤러리카페 그라운드 라떼', fit: 'contain', orientation: 'portrait' },
+      { src: 'assets/earth-gallery-forest-latte.jpeg', alt: '얼쓰갤러리카페 포레스트 라떼', fit: 'contain', orientation: 'portrait' },
+      { src: 'assets/earth-gallery-red-bean-bingsu.png', alt: '얼쓰갤러리카페 옛날 팥빙수', fit: 'contain', orientation: 'portrait' },
+      { src: 'assets/earth-gallery-earth-plate.jpg', alt: '얼쓰갤러리카페 얼쓰 플레이트', fit: 'contain', orientation: 'landscape' }
     ];
     let earthGallerySlideIndex = 0;
+    let earthGalleryFullscreenIndex = 0;
+    let earthGalleryPreviousBodyOverflow = '';
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
     const NAVER_DEPARTURE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh';
     const SEOLBONG_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAAW1,2AzXSZ,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5%EC%9E%85%EA%B5%AC,635317101,PLACE_POI/walk?c=17.00,0,0,0,dh';
@@ -2104,6 +2113,12 @@
 
       const nextIndex = (index + slides.length) % slides.length;
       frame.dataset.slideIndex = String(nextIndex);
+      const activeConfig = EARTH_GALLERY_SLIDES[nextIndex];
+      const isPortrait = activeConfig?.orientation === 'portrait';
+      frame.style.height = isPortrait
+        ? 'min(72vh, calc((100vw - 2rem) * 1.42))'
+        : 'min(56vw, 18rem)';
+      frame.style.minHeight = isPortrait ? '18rem' : '12rem';
       const activeSlide = slides[nextIndex];
       if (activeSlide.dataset.src && !activeSlide.getAttribute('src')) {
         activeSlide.src = activeSlide.dataset.src;
@@ -2140,8 +2155,13 @@
             data-earth-gallery-modal-slide
             decoding="async"
             loading="lazy"
+            onclick="openEarthGalleryFullscreen(${index}, event)"
+            onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openEarthGalleryFullscreen(${index}, event); }"
+            role="button"
             ${index === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`}
             style="object-fit: contain; background-color: #0f172a;"
+            tabindex="0"
+            title="전체화면으로 보기"
           >
         `).join('')}
         <button aria-label="이전 사진" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGalleryModalSlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
@@ -2149,6 +2169,9 @@
         </button>
         <button aria-label="다음 사진" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGalleryModalSlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
           <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
+        <button aria-label="사진 전체화면 보기" class="absolute top-2 left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="openEarthGalleryFullscreen(undefined, event)" style="width: 2.25rem; height: 2.25rem;" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[20px]">fullscreen</span>
         </button>
         <div aria-label="사진 선택" class="absolute bottom-2 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
           ${EARTH_GALLERY_SLIDES.map((_, index) => `
@@ -2175,6 +2198,68 @@
       });
 
       showEarthGalleryModalSlide(0);
+    }
+
+    function showEarthGalleryFullscreenSlide(index) {
+      const image = document.getElementById('earth-gallery-fullscreen-image');
+      if (!image) return;
+      earthGalleryFullscreenIndex = (index + EARTH_GALLERY_SLIDES.length) % EARTH_GALLERY_SLIDES.length;
+      const slide = EARTH_GALLERY_SLIDES[earthGalleryFullscreenIndex];
+      image.src = slide.src;
+      image.alt = slide.alt;
+      const counter = document.getElementById('earth-gallery-fullscreen-counter');
+      if (counter) counter.textContent = `${earthGalleryFullscreenIndex + 1} / ${EARTH_GALLERY_SLIDES.length}`;
+    }
+
+    function changeEarthGalleryFullscreenSlide(delta, event) {
+      if (event) event.stopPropagation();
+      showEarthGalleryFullscreenSlide(earthGalleryFullscreenIndex + delta);
+    }
+
+    function openEarthGalleryFullscreen(index, event) {
+      if (event) event.stopPropagation();
+      const overlay = document.getElementById('earth-gallery-fullscreen');
+      if (!overlay) return;
+      const modalFrame = document.getElementById('earth-gallery-modal-slideshow');
+      const requestedIndex = Number.isInteger(index)
+        ? index
+        : Number(modalFrame?.dataset.slideIndex || 0);
+      earthGalleryPreviousBodyOverflow = document.body.style.overflow;
+      overlay.classList.remove('hidden');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      showEarthGalleryFullscreenSlide(requestedIndex);
+      requestAnimationFrame(() => document.getElementById('earth-gallery-fullscreen-close')?.focus());
+    }
+
+    function closeEarthGalleryFullscreen() {
+      const overlay = document.getElementById('earth-gallery-fullscreen');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      overlay.classList.add('hidden');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = earthGalleryPreviousBodyOverflow;
+    }
+
+    function initializeEarthGalleryFullscreen() {
+      const overlay = document.getElementById('earth-gallery-fullscreen');
+      if (!overlay) return;
+      let touchStartX = null;
+      overlay.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0]?.clientX ?? null;
+      }, { passive: true });
+      overlay.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+        const distance = touchEndX - touchStartX;
+        if (Math.abs(distance) >= 40) changeEarthGalleryFullscreenSlide(distance < 0 ? 1 : -1);
+        touchStartX = null;
+      }, { passive: true });
+      document.addEventListener('keydown', (event) => {
+        if (overlay.classList.contains('hidden')) return;
+        if (event.key === 'Escape') closeEarthGalleryFullscreen();
+        if (event.key === 'ArrowLeft') changeEarthGalleryFullscreenSlide(-1, event);
+        if (event.key === 'ArrowRight') changeEarthGalleryFullscreenSlide(1, event);
+      });
     }
 
     function wireSmartRoadmapLink() {
@@ -2699,6 +2784,7 @@
       initializeWoljeonSlideshow();
       initializeEarthGallerySlideshow();
       initializeEarthGalleryModalSlideshow();
+      initializeEarthGalleryFullscreen();
       removeLocationViewButtons();
       removeMuseumWalkBadge();
       renameSeoheeLocationButton();
