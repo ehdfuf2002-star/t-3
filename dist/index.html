@@ -1097,6 +1097,9 @@
           </p>
 </div>
 <div class="px-4 pb-4 space-y-3" id="step-body-4">
+<div aria-label="얼쓰갤러리카페 메뉴 사진 슬라이드" class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-900" id="earth-gallery-slideshow" tabindex="0">
+<img alt="얼쓰갤러리카페 그라운드 라떼" class="w-full h-full" decoding="async" id="earth-gallery-timeline-image" loading="lazy" src="assets/earth-gallery-ground-latte.jpeg" style="object-fit: contain; background-color: #0f172a;"/>
+</div>
 <div class="space-y-2">
 <div class="text-[12px] font-bold text-slate-800">가족 취향별 빠른 선택 (자차 5~10분 반경):</div>
 <div class="grid grid-cols-1 gap-2">
@@ -1562,6 +1565,13 @@
       { src: 'assets/woljeon-coin-machine.jpg', alt: '이천시립월전미술관 기념주화 체험기', fit: 'contain' }
     ];
     let woljeonSlideIndex = 0;
+    const EARTH_GALLERY_SLIDES = [
+      { src: 'assets/earth-gallery-ground-latte.jpeg', alt: '얼쓰갤러리카페 그라운드 라떼', fit: 'contain' },
+      { src: 'assets/earth-gallery-forest-latte.jpeg', alt: '얼쓰갤러리카페 포레스트 라떼', fit: 'contain' },
+      { src: 'assets/earth-gallery-red-bean-bingsu.png', alt: '얼쓰갤러리카페 옛날 팥빙수', fit: 'contain' },
+      { src: 'assets/earth-gallery-earth-plate.jpg', alt: '얼쓰갤러리카페 얼쓰 플레이트', fit: 'cover' }
+    ];
+    let earthGallerySlideIndex = 0;
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
     const NAVER_DEPARTURE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh';
     const SEOLBONG_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAAW1,2AzXSZ,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5%EC%9E%85%EA%B5%AC,635317101,PLACE_POI/walk?c=17.00,0,0,0,dh';
@@ -1997,6 +2007,97 @@
       });
 
       showWoljeonSlide(0);
+    }
+
+    function showEarthGallerySlide(index, event) {
+      if (event) event.stopPropagation();
+      const frame = document.getElementById('earth-gallery-slideshow');
+      if (!frame) return;
+      const slides = [...frame.querySelectorAll('[data-earth-gallery-slide]')];
+      const dots = [...frame.querySelectorAll('[data-earth-gallery-dot]')];
+      if (!slides.length) return;
+
+      earthGallerySlideIndex = (index + slides.length) % slides.length;
+      const activeSlide = slides[earthGallerySlideIndex];
+      if (activeSlide.dataset.src && !activeSlide.getAttribute('src')) {
+        activeSlide.src = activeSlide.dataset.src;
+      }
+
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('hidden', slideIndex !== earthGallerySlideIndex);
+      });
+      dots.forEach((dot, dotIndex) => {
+        const isCurrent = dotIndex === earthGallerySlideIndex;
+        dot.style.opacity = isCurrent ? '1' : '0.55';
+        dot.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+      });
+
+      const counter = document.getElementById('earth-gallery-slide-counter');
+      if (counter) counter.textContent = `${earthGallerySlideIndex + 1} / ${slides.length}`;
+    }
+
+    function changeEarthGallerySlide(delta, event) {
+      showEarthGallerySlide(earthGallerySlideIndex + delta, event);
+    }
+
+    function initializeEarthGallerySlideshow() {
+      const stepBody = document.getElementById('step-body-4');
+      if (!stepBody) return;
+
+      let frame = document.getElementById('earth-gallery-slideshow');
+      if (!frame) {
+        frame = document.createElement('div');
+        stepBody.prepend(frame);
+      }
+
+      frame.id = 'earth-gallery-slideshow';
+      frame.className = 'relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-900';
+      frame.setAttribute('aria-label', '얼쓰갤러리카페 메뉴 사진 슬라이드');
+      frame.setAttribute('tabindex', '0');
+      frame.innerHTML = `
+        ${EARTH_GALLERY_SLIDES.map((slide, index) => `
+          <img
+            alt="${slide.alt}"
+            class="w-full h-full${index === 0 ? '' : ' hidden'}"
+            data-earth-gallery-slide
+            decoding="async"
+            ${index === 0 ? 'id="earth-gallery-timeline-image"' : ''}
+            loading="lazy"
+            ${index === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`}
+            style="object-fit: ${slide.fit};${slide.fit === 'contain' ? ' background-color: #0f172a;' : ''}"
+          >
+        `).join('')}
+        <button aria-label="이전 사진" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGallerySlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_left</span>
+        </button>
+        <button aria-label="다음 사진" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGallerySlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
+        <div aria-label="사진 선택" class="absolute bottom-2 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
+          ${EARTH_GALLERY_SLIDES.map((_, index) => `
+            <button aria-label="${index + 1}번째 사진 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-earth-gallery-dot onclick="showEarthGallerySlide(${index}, event)" type="button"></button>
+          `).join('')}
+        </div>
+        <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="earth-gallery-slide-counter">1 / ${EARTH_GALLERY_SLIDES.length}</span>
+      `;
+
+      let touchStartX = null;
+      frame.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0]?.clientX ?? null;
+      }, { passive: true });
+      frame.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+        const distance = touchEndX - touchStartX;
+        if (Math.abs(distance) >= 40) changeEarthGallerySlide(distance < 0 ? 1 : -1);
+        touchStartX = null;
+      }, { passive: true });
+      frame.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') changeEarthGallerySlide(-1, event);
+        if (event.key === 'ArrowRight') changeEarthGallerySlide(1, event);
+      });
+
+      showEarthGallerySlide(0);
     }
 
     function wireSmartRoadmapLink() {
@@ -2500,6 +2601,7 @@
       initializeSeolbongSlideshow();
       initializeMuseumSlideshow();
       initializeWoljeonSlideshow();
+      initializeEarthGallerySlideshow();
       removeLocationViewButtons();
       removeMuseumWalkBadge();
       renameSeoheeLocationButton();
@@ -2631,7 +2733,7 @@
       seolbong: { title: "설봉국제조각공원 & 설봉호", sub: "경기도 이천시 관고동 418-2", desc: "제1주차장 무료 이용 가능. 90여 점의 야외 조각과 호수 둘레길이 완비되어 있습니다." },
       museum: { title: "이천시립박물관", sub: "경기도 이천시 경충대로2697번길 172", desc: "조각공원에서 도보 5분 연결. 무료 관람이며 선사시대부터 고려·조선 도자기 역사까지 볼 수 있습니다." },
       woljeon: { title: "이천시립월전미술관", sub: "경기도 이천시 엑스포길 48", desc: "차량 3분 이동. 월전 장우성 화백의 먹과 여백의 미를 감상할 수 있는 고즈넉한 미술관입니다. (3인 4,600원)" },
-      earth: { title: "얼쓰갤러리카페 (점심 추천)", sub: "경기 이천시 부발읍 중부대로1444번길 96-35 1, 2층", desc: "통창 논뷰와 야외 잔디를 갖춘 갤러리 카페. 파니니 브런치와 피자를 편안하게 즐길 수 있습니다.", naverUrl: EARTH_GALLERY_CAFE_NAVER_URL },
+      earth: { title: "얼쓰갤러리카페", sub: "경기 이천시 부발읍 중부대로1444번길 96-35 1, 2층", desc: "영업 : 11:00-22:00\n월요일 휴무\n주차가능\n문의 : 0507-1461-2115\n남/녀 화장실 구분\n포장, 배달 가능", tipBadge: "주차 가능", naverUrl: EARTH_GALLERY_CAFE_NAVER_URL },
       eungam: { title: "응암리막국수", sub: "경기도 이천시 부발읍 경충대로 1928", desc: "자가제면 메밀국수와 편육 전문점. 회전율이 빨라 대기가 적습니다.", naverUrl: EUNGAM_MAKGUKSU_NAVER_URL },
       kang: { title: "강민주의들밥", sub: "경기 이천시 경충대로 2717 1동 1층", desc: "• 캐치테이블 예약 가능\n• 가족 모임, 부모님과의 외식 장소로 추천\n• 재방문율 높은 맛집", tipBadge: "예약 추천", naverUrl: KANG_DEULBAP_NAVER_URL },
       seohee: { title: "서희테마파크 (80분 풀코스)", sub: "경기도 이천시 부발읍 서희로 49", desc: "입장료 무료, 주차 100대 가능. 애니메이션 영상실, 토론 퀴즈, 고려 관복 체험, 30여 점 역사산책로." },
