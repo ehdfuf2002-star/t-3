@@ -1007,6 +1007,9 @@
           </p>
 </div>
 <div class="px-4 pb-4 space-y-3" id="step-body-2">
+<div aria-label="이천시립박물관 사진 및 동영상 슬라이드" class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-100" id="museum-slideshow">
+<img alt="이천시립박물관 손을 주제로 한 전시 작품" class="w-full h-full object-cover" decoding="async" id="museum-timeline-image" loading="lazy" src="assets/icheon-city-museum-hands.jpg">
+</div>
 <div class="rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] p-3 space-y-1 text-[12px]">
 <div class="text-orange-700 font-bold flex items-center gap-1">
 <span class="material-symbols-outlined text-[16px]">lightbulb<span style="white-space: normal"><span style="font-weight: 700; font-size: 14px; font-family: &quot;Noto Sans KR&quot;, sans-serif;">&nbsp;역사 교과 연계 핵심 질문</span></span></span></div>
@@ -1545,6 +1548,14 @@
       { src: 'assets/seolbong-sculpture-stone-disc.png', alt: '설봉공원 타원형 돌 조각 작품', fit: 'contain' }
     ];
     let seolbongSlideIndex = 0;
+    const MUSEUM_SLIDES = [
+      { type: 'image', src: 'assets/icheon-city-museum-hands.jpg', alt: '이천시립박물관 손을 주제로 한 전시 작품', fit: 'cover' },
+      { type: 'image', src: 'assets/icheon-city-museum-pottery.jpg', alt: '이천시립박물관 도자기 체험 전시 공간', fit: 'cover' },
+      { type: 'image', src: 'assets/icheon-city-museum-dolmen.jpg', alt: '이천시립박물관 고인돌과 이천 전시', fit: 'contain' },
+      { type: 'image', src: 'assets/icheon-city-museum-gallery.jpg', alt: '이천시립박물관 상설 전시실', fit: 'cover' },
+      { type: 'video', src: 'assets/icheon-city-museum-tour.mp4', poster: 'assets/icheon-city-museum-hands.jpg', alt: '이천시립박물관 전시 영상' }
+    ];
+    let museumSlideIndex = 0;
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
     const NAVER_DEPARTURE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh';
     const SEOLBONG_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAAW1,2AzXSZ,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5%EC%9E%85%EA%B5%AC,635317101,PLACE_POI/walk?c=17.00,0,0,0,dh';
@@ -1746,21 +1757,22 @@
         ${SEOLBONG_SLIDES.map((slide, index) => `
           <img
             alt="${slide.alt}"
-            class="w-full h-full ${slide.fit === 'contain' ? 'object-contain bg-slate-900' : 'object-cover'}${index === 0 ? '' : ' hidden'}"
+            class="w-full h-full${index === 0 ? '' : ' hidden'}"
             data-seolbong-slide
             decoding="async"
             ${index === 0 ? 'id="seolbong-timeline-image"' : ''}
             loading="lazy"
             ${index === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`}
+            style="object-fit: ${slide.fit};${slide.fit === 'contain' ? ' background-color: #0f172a;' : ''}"
           >
         `).join('')}
-        <button aria-label="이전 사진" class="absolute left-2 top-1/2 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeolbongSlide(-1, event)" style="transform: translateY(-50%);" type="button">
+        <button aria-label="이전 사진" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeolbongSlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
           <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_left</span>
         </button>
-        <button aria-label="다음 사진" class="absolute right-2 top-1/2 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeolbongSlide(1, event)" style="transform: translateY(-50%);" type="button">
+        <button aria-label="다음 사진" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeolbongSlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
           <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
         </button>
-        <div aria-label="사진 선택" class="absolute bottom-2 left-1/2 flex gap-2" role="group" style="transform: translateX(-50%);">
+        <div aria-label="사진 선택" class="absolute bottom-2 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
           ${SEOLBONG_SLIDES.map((_, index) => `
             <button aria-label="${index + 1}번째 사진 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-seolbong-dot onclick="showSeolbongSlide(${index}, event)" type="button"></button>
           `).join('')}
@@ -1781,6 +1793,113 @@
       }, { passive: true });
 
       showSeolbongSlide(0);
+    }
+
+    function showMuseumSlide(index, event) {
+      if (event) event.stopPropagation();
+
+      const frame = document.getElementById('museum-slideshow');
+      if (!frame) return;
+      const slides = [...frame.querySelectorAll('[data-museum-slide]')];
+      const dots = [...frame.querySelectorAll('[data-museum-dot]')];
+      if (!slides.length) return;
+
+      museumSlideIndex = (index + slides.length) % slides.length;
+      const activeSlide = slides[museumSlideIndex];
+      if (activeSlide.dataset.src && !activeSlide.getAttribute('src')) {
+        activeSlide.src = activeSlide.dataset.src;
+        if (activeSlide.tagName === 'VIDEO') activeSlide.load();
+      }
+
+      slides.forEach((slide, slideIndex) => {
+        const isCurrent = slideIndex === museumSlideIndex;
+        slide.classList.toggle('hidden', !isCurrent);
+        if (!isCurrent && slide.tagName === 'VIDEO') slide.pause();
+      });
+      dots.forEach((dot, dotIndex) => {
+        const isCurrent = dotIndex === museumSlideIndex;
+        dot.style.opacity = isCurrent ? '1' : '0.55';
+        dot.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+      });
+
+      const counter = document.getElementById('museum-slide-counter');
+      if (counter) counter.textContent = `${museumSlideIndex + 1} / ${slides.length}`;
+    }
+
+    function changeMuseumSlide(delta, event) {
+      showMuseumSlide(museumSlideIndex + delta, event);
+    }
+
+    function initializeMuseumSlideshow() {
+      const stepBody = document.getElementById('step-body-2');
+      if (!stepBody) return;
+
+      let frame = document.getElementById('museum-slideshow');
+      if (!frame) {
+        frame = document.createElement('div');
+        stepBody.prepend(frame);
+      }
+
+      frame.id = 'museum-slideshow';
+      frame.className = 'relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-100';
+      frame.setAttribute('aria-label', '이천시립박물관 사진 및 동영상 슬라이드');
+      frame.setAttribute('tabindex', '0');
+      frame.innerHTML = `
+        ${MUSEUM_SLIDES.map((slide, index) => slide.type === 'video' ? `
+          <video
+            aria-label="${slide.alt}"
+            class="w-full h-full hidden"
+            controls
+            data-museum-slide
+            data-src="${slide.src}"
+            playsinline
+            poster="${slide.poster}"
+            preload="metadata"
+            style="object-fit: contain; background-color: #0f172a;"
+          ></video>
+        ` : `
+          <img
+            alt="${slide.alt}"
+            class="w-full h-full${index === 0 ? '' : ' hidden'}"
+            data-museum-slide
+            decoding="async"
+            ${index === 0 ? 'id="museum-timeline-image"' : ''}
+            loading="lazy"
+            ${index === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`}
+            style="object-fit: ${slide.fit};${slide.fit === 'contain' ? ' background-color: #0f172a;' : ''}"
+          >
+        `).join('')}
+        <button aria-label="이전 사진 또는 동영상" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeMuseumSlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_left</span>
+        </button>
+        <button aria-label="다음 사진 또는 동영상" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeMuseumSlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
+        <div aria-label="사진 및 동영상 선택" class="absolute bottom-2 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
+          ${MUSEUM_SLIDES.map((_, index) => `
+            <button aria-label="${index + 1}번째 사진 또는 동영상 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-museum-dot onclick="showMuseumSlide(${index}, event)" type="button"></button>
+          `).join('')}
+        </div>
+        <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="museum-slide-counter">1 / ${MUSEUM_SLIDES.length}</span>
+      `;
+
+      let touchStartX = null;
+      frame.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0]?.clientX ?? null;
+      }, { passive: true });
+      frame.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+        const distance = touchEndX - touchStartX;
+        if (Math.abs(distance) >= 40) changeMuseumSlide(distance < 0 ? 1 : -1);
+        touchStartX = null;
+      }, { passive: true });
+      frame.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') changeMuseumSlide(-1, event);
+        if (event.key === 'ArrowRight') changeMuseumSlide(1, event);
+      });
+
+      showMuseumSlide(0);
     }
 
     function wireSmartRoadmapLink() {
@@ -2255,6 +2374,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
       initializeSeolbongSlideshow();
+      initializeMuseumSlideshow();
       removeLocationViewButtons();
       removeMuseumWalkBadge();
       renameSeoheeLocationButton();
