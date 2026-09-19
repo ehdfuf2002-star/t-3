@@ -1404,7 +1404,7 @@
 <span class="material-symbols-outlined text-[17px]">link</span>
           링크 복사하기
         </button>
-<button class="w-full py-3 rounded-xl bg-[#FEE500] text-[#3C1E1E] text-[13px] font-extrabold flex items-center justify-center gap-2 active:scale-98 transition-all shadow-md" onclick="alert('가족 단톡방에 공유되었습니다!')">
+<button aria-label="카카오톡으로 이천 반나절 코스 공유하기" class="w-full py-3 rounded-xl bg-[#FEE500] text-[#3C1E1E] text-[13px] font-extrabold flex items-center justify-center gap-2 active:scale-98 transition-all shadow-md" onclick="shareKakao()" type="button">
 <span class="material-symbols-outlined text-[17px]">share</span>
           카카오톡으로 공유
         </button>
@@ -2343,6 +2343,37 @@
 
     function copyCurrentLink() {
       navigator.clipboard ? navigator.clipboard.writeText(window.location.href).then(() => alert('링크가 복사되었습니다.')) : alert('링크 복사 완료');
+    }
+
+    async function shareKakao() {
+      const shareUrl = window.location.href;
+      const shareText = '교과서 밖 역사탐방 · 초등고학년 이천 반나절 코스 & 힐링 가이드';
+      const shareData = {
+        title: '이천 반나절 역사·힐링 투어',
+        text: shareText,
+        url: shareUrl
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (error) {
+          if (error && error.name === 'AbortError') return;
+        }
+      }
+
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+          alert('공유 메뉴를 열 수 없어 카카오톡에 붙여넣을 내용과 링크를 복사했습니다.');
+          return;
+        } catch (error) {
+          // 클립보드 사용이 차단된 환경에서는 아래의 직접 복사 창을 표시합니다.
+        }
+      }
+
+      window.prompt('아래 링크를 복사해 카카오톡 대화방에 붙여넣어 주세요.', shareUrl);
     }
   </script>
 
