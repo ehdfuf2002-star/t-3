@@ -962,11 +962,8 @@
           </p>
 </div>
 <div class="px-4 pb-4 space-y-3" id="step-body-1">
-<div class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200">
-<img alt="설봉호 둘레길 목조 산책로와 호수 풍경" class="w-full h-full object-cover" decoding="async" id="seolbong-timeline-image" loading="lazy" src="assets/seolbong-lake-sculpture-garden.jpg">
-<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-black/70 text-white text-[11px] font-medium backdrop-blur-sm">
-              설봉호 둘레길 조각 정원
-            </div>
+<div class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200" id="seolbong-slideshow">
+<img alt="설봉호 둘레길 목조 다리와 호수 풍경" class="w-full h-full object-cover" decoding="async" id="seolbong-timeline-image" loading="lazy" src="assets/seolbong-lake-sculpture-garden.jpg">
 </div>
 <div class="grid grid-cols-2 gap-2 text-[12px]">
 <div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
@@ -1537,7 +1534,13 @@
     const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
     const EDITOR_CONTENT_VERSION = '2026-09-history-culture-honor-v1';
-    const SEOLBONG_TIMELINE_IMAGE_URL = 'assets/seolbong-lake-sculpture-garden.jpg';
+    const SEOLBONG_SLIDES = [
+      { src: 'assets/seolbong-lake-sculpture-garden.jpg', alt: '설봉호 둘레길 목조 다리와 호수 풍경' },
+      { src: 'assets/seolbong-lake-love-sculpture.png', alt: '설봉호 사랑 조형물과 호수 풍경' },
+      { src: 'assets/seolbong-park-tower-walk.png', alt: '설봉공원 산책로와 기념탑 풍경' },
+      { src: 'assets/seolbong-lake-walking-path.png', alt: '설봉호 둘레길 산책로와 호수 풍경' }
+    ];
+    let seolbongSlideIndex = 0;
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
     const NAVER_DEPARTURE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/-/car?c=9.00,0,0,0,dh';
     const SEOLBONG_WALKING_DIRECTIONS_URL = 'https://map.naver.com/p/directions/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAAW1,2AzXSZ,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5%EC%9E%85%EA%B5%AC,635317101,PLACE_POI/walk?c=17.00,0,0,0,dh';
@@ -1695,15 +1698,81 @@
       }
     }
 
-    function applySeolbongTimelineImageUpdate() {
-      const image = document.getElementById('seolbong-timeline-image') || document.querySelector('#step-body-1 img');
-      if (!image) return;
+    function showSeolbongSlide(index, event) {
+      if (event) event.stopPropagation();
 
-      image.id = 'seolbong-timeline-image';
-      image.src = SEOLBONG_TIMELINE_IMAGE_URL;
-      image.alt = '설봉호 둘레길 목조 산책로와 호수 풍경';
-      image.loading = 'lazy';
-      image.decoding = 'async';
+      const slides = [...document.querySelectorAll('[data-seolbong-slide]')];
+      const dots = [...document.querySelectorAll('[data-seolbong-dot]')];
+      if (!slides.length) return;
+
+      seolbongSlideIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('hidden', slideIndex !== seolbongSlideIndex);
+      });
+      dots.forEach((dot, dotIndex) => {
+        const isCurrent = dotIndex === seolbongSlideIndex;
+        dot.style.opacity = isCurrent ? '1' : '0.55';
+        dot.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+      });
+
+      const counter = document.getElementById('seolbong-slide-counter');
+      if (counter) counter.textContent = `${seolbongSlideIndex + 1} / ${slides.length}`;
+    }
+
+    function changeSeolbongSlide(delta, event) {
+      showSeolbongSlide(seolbongSlideIndex + delta, event);
+    }
+
+    function initializeSeolbongSlideshow() {
+      let frame = document.getElementById('seolbong-slideshow');
+      if (!frame) {
+        const savedImage = document.getElementById('seolbong-timeline-image') || document.querySelector('#step-body-1 img');
+        frame = savedImage?.parentElement;
+      }
+      if (!frame) return;
+
+      frame.id = 'seolbong-slideshow';
+      frame.className = 'relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-100';
+      frame.setAttribute('aria-label', '설봉호 둘레길 사진 슬라이드');
+      frame.innerHTML = `
+        ${SEOLBONG_SLIDES.map((slide, index) => `
+          <img
+            alt="${slide.alt}"
+            class="w-full h-full object-cover${index === 0 ? '' : ' hidden'}"
+            data-seolbong-slide
+            decoding="async"
+            ${index === 0 ? 'id="seolbong-timeline-image"' : ''}
+            loading="lazy"
+            src="${slide.src}"
+          >
+        `).join('')}
+        <button aria-label="이전 사진" class="absolute left-2 top-1/2 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeolbongSlide(-1, event)" style="transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_left</span>
+        </button>
+        <button aria-label="다음 사진" class="absolute right-2 top-1/2 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeolbongSlide(1, event)" style="transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
+        <div aria-label="사진 선택" class="absolute bottom-2 left-1/2 flex gap-2" role="group" style="transform: translateX(-50%);">
+          ${SEOLBONG_SLIDES.map((_, index) => `
+            <button aria-label="${index + 1}번째 사진 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-seolbong-dot onclick="showSeolbongSlide(${index}, event)" type="button"></button>
+          `).join('')}
+        </div>
+        <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="seolbong-slide-counter">1 / ${SEOLBONG_SLIDES.length}</span>
+      `;
+
+      let touchStartX = null;
+      frame.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0]?.clientX ?? null;
+      }, { passive: true });
+      frame.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+        const distance = touchEndX - touchStartX;
+        if (Math.abs(distance) >= 40) changeSeolbongSlide(distance < 0 ? 1 : -1);
+        touchStartX = null;
+      }, { passive: true });
+
+      showSeolbongSlide(0);
     }
 
     function wireSmartRoadmapLink() {
@@ -2177,7 +2246,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
-      applySeolbongTimelineImageUpdate();
+      initializeSeolbongSlideshow();
       removeLocationViewButtons();
       removeMuseumWalkBadge();
       renameSeoheeLocationButton();
