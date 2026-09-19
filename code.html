@@ -2273,6 +2273,32 @@
       });
     }
 
+    function removeEarthGalleryCafePhoto() {
+      const stepBody = document.getElementById('step-body-4');
+      if (!stepBody) return;
+
+      const image = [...stepBody.querySelectorAll('img')].find((candidate) => {
+        const alt = candidate.getAttribute('alt') || '';
+        const src = candidate.getAttribute('src') || '';
+        return alt.includes('얼쓰갤러리카페 내부 및 논뷰 풍경')
+          || src.includes('AB6AXuCcMlmkV4agVvhpA2eML9SwiTEGdK7kLVOI7WZ');
+      });
+      const caption = [...stepBody.querySelectorAll('div, span')].find((candidate) =>
+        candidate.textContent?.replace(/\s+/g, ' ').trim() === '얼쓰갤러리카페 전경');
+      const photoFrame = image?.closest('.relative') || caption?.closest('.relative');
+
+      if (photoFrame && photoFrame !== stepBody) photoFrame.remove();
+      else {
+        image?.remove();
+        caption?.remove();
+      }
+
+      if ((image || caption) && localStorage.getItem(EDITOR_STORAGE_KEY)) {
+        const main = document.querySelector('main');
+        if (main) localStorage.setItem(EDITOR_STORAGE_KEY, main.innerHTML);
+      }
+    }
+
     function removeTimelineParkingGuide() {
       [...document.querySelectorAll('#timeline button')].forEach((button) => {
         const label = button.textContent?.replace(/\s+/g, ' ').trim() || '';
@@ -2470,6 +2496,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
+      removeEarthGalleryCafePhoto();
       initializeSeolbongSlideshow();
       initializeMuseumSlideshow();
       initializeWoljeonSlideshow();
