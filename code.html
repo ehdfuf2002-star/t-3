@@ -2477,6 +2477,24 @@
       }
     }
 
+    function removeEungamMakguksuOption() {
+      const stepBody = document.getElementById('step-body-4');
+      if (!stepBody) return;
+
+      const detailButton = [...stepBody.querySelectorAll('button')].find((button) =>
+        (button.getAttribute('onclick') || '').includes("'eungam'"));
+      const title = [...stepBody.querySelectorAll('div')].find((element) =>
+        element.textContent?.replace(/\s+/g, ' ').trim() === '응암리막국수');
+      const optionCard = detailButton?.closest('.rounded-xl') || title?.closest('.rounded-xl');
+      if (!optionCard || optionCard === stepBody) return;
+
+      optionCard.remove();
+      if (localStorage.getItem(EDITOR_STORAGE_KEY)) {
+        const main = document.querySelector('main');
+        if (main) localStorage.setItem(EDITOR_STORAGE_KEY, main.innerHTML);
+      }
+    }
+
     function removeTimelineParkingGuide() {
       [...document.querySelectorAll('#timeline button')].forEach((button) => {
         const label = button.textContent?.replace(/\s+/g, ' ').trim() || '';
@@ -2675,6 +2693,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
       removeEarthGalleryCafePhoto();
+      removeEungamMakguksuOption();
       initializeSeolbongSlideshow();
       initializeMuseumSlideshow();
       initializeWoljeonSlideshow();
