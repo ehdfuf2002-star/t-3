@@ -1710,6 +1710,10 @@
       if (!slides.length) return;
 
       seolbongSlideIndex = (index + slides.length) % slides.length;
+      const activeSlide = slides[seolbongSlideIndex];
+      if (activeSlide.dataset.src && !activeSlide.getAttribute('src')) {
+        activeSlide.src = activeSlide.dataset.src;
+      }
       slides.forEach((slide, slideIndex) => {
         slide.classList.toggle('hidden', slideIndex !== seolbongSlideIndex);
       });
@@ -1747,7 +1751,7 @@
             decoding="async"
             ${index === 0 ? 'id="seolbong-timeline-image"' : ''}
             loading="lazy"
-            src="${slide.src}"
+            ${index === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`}
           >
         `).join('')}
         <button aria-label="이전 사진" class="absolute left-2 top-1/2 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeolbongSlide(-1, event)" style="transform: translateY(-50%);" type="button">
