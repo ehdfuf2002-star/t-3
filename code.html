@@ -1461,6 +1461,7 @@
 </button>
 </div>
 <div class="py-3 space-y-3">
+<div aria-label="얼쓰갤러리카페 메뉴 사진 슬라이드" class="relative w-full rounded-xl overflow-hidden border border-slate-200 bg-slate-900 hidden" id="earth-gallery-modal-slideshow" style="height: min(56vw, 18rem); min-height: 12rem;" tabindex="0"></div>
 <div class="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] text-[12px] space-y-2">
 <div class="flex justify-between items-center text-slate-900 font-bold">
 <span>주차 &amp; 현장 팁</span>
@@ -1569,7 +1570,7 @@
       { src: 'assets/earth-gallery-ground-latte.jpeg', alt: '얼쓰갤러리카페 그라운드 라떼', fit: 'contain' },
       { src: 'assets/earth-gallery-forest-latte.jpeg', alt: '얼쓰갤러리카페 포레스트 라떼', fit: 'contain' },
       { src: 'assets/earth-gallery-red-bean-bingsu.png', alt: '얼쓰갤러리카페 옛날 팥빙수', fit: 'contain' },
-      { src: 'assets/earth-gallery-earth-plate.jpg', alt: '얼쓰갤러리카페 얼쓰 플레이트', fit: 'cover' }
+      { src: 'assets/earth-gallery-earth-plate.jpg', alt: '얼쓰갤러리카페 얼쓰 플레이트', fit: 'contain' }
     ];
     let earthGallerySlideIndex = 0;
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
@@ -2100,6 +2101,89 @@
       showEarthGallerySlide(0);
     }
 
+    function showEarthGalleryModalSlide(index, event) {
+      if (event) event.stopPropagation();
+      const frame = document.getElementById('earth-gallery-modal-slideshow');
+      if (!frame) return;
+      const slides = [...frame.querySelectorAll('[data-earth-gallery-modal-slide]')];
+      const dots = [...frame.querySelectorAll('[data-earth-gallery-modal-dot]')];
+      if (!slides.length) return;
+
+      const nextIndex = (index + slides.length) % slides.length;
+      frame.dataset.slideIndex = String(nextIndex);
+      const activeSlide = slides[nextIndex];
+      if (activeSlide.dataset.src && !activeSlide.getAttribute('src')) {
+        activeSlide.src = activeSlide.dataset.src;
+      }
+
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('hidden', slideIndex !== nextIndex);
+      });
+      dots.forEach((dot, dotIndex) => {
+        const isCurrent = dotIndex === nextIndex;
+        dot.style.opacity = isCurrent ? '1' : '0.55';
+        dot.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+      });
+
+      const counter = document.getElementById('earth-gallery-modal-slide-counter');
+      if (counter) counter.textContent = `${nextIndex + 1} / ${slides.length}`;
+    }
+
+    function changeEarthGalleryModalSlide(delta, event) {
+      const frame = document.getElementById('earth-gallery-modal-slideshow');
+      const currentIndex = Number(frame?.dataset.slideIndex || 0);
+      showEarthGalleryModalSlide(currentIndex + delta, event);
+    }
+
+    function initializeEarthGalleryModalSlideshow() {
+      const frame = document.getElementById('earth-gallery-modal-slideshow');
+      if (!frame) return;
+
+      frame.innerHTML = `
+        ${EARTH_GALLERY_SLIDES.map((slide, index) => `
+          <img
+            alt="${slide.alt}"
+            class="w-full h-full${index === 0 ? '' : ' hidden'}"
+            data-earth-gallery-modal-slide
+            decoding="async"
+            loading="lazy"
+            ${index === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`}
+            style="object-fit: contain; background-color: #0f172a;"
+          >
+        `).join('')}
+        <button aria-label="이전 사진" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGalleryModalSlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_left</span>
+        </button>
+        <button aria-label="다음 사진" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGalleryModalSlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
+        <div aria-label="사진 선택" class="absolute bottom-2 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
+          ${EARTH_GALLERY_SLIDES.map((_, index) => `
+            <button aria-label="${index + 1}번째 사진 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-earth-gallery-modal-dot onclick="showEarthGalleryModalSlide(${index}, event)" type="button"></button>
+          `).join('')}
+        </div>
+        <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="earth-gallery-modal-slide-counter">1 / ${EARTH_GALLERY_SLIDES.length}</span>
+      `;
+
+      let touchStartX = null;
+      frame.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0]?.clientX ?? null;
+      }, { passive: true });
+      frame.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+        const distance = touchEndX - touchStartX;
+        if (Math.abs(distance) >= 40) changeEarthGalleryModalSlide(distance < 0 ? 1 : -1);
+        touchStartX = null;
+      }, { passive: true });
+      frame.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') changeEarthGalleryModalSlide(-1, event);
+        if (event.key === 'ArrowRight') changeEarthGalleryModalSlide(1, event);
+      });
+
+      showEarthGalleryModalSlide(0);
+    }
+
     function wireSmartRoadmapLink() {
       let card = document.getElementById('route-map-link');
       if (!card) {
@@ -2602,6 +2686,7 @@
       initializeMuseumSlideshow();
       initializeWoljeonSlideshow();
       initializeEarthGallerySlideshow();
+      initializeEarthGalleryModalSlideshow();
       removeLocationViewButtons();
       removeMuseumWalkBadge();
       renameSeoheeLocationButton();
@@ -2757,6 +2842,11 @@
         const providerActions = document.getElementById('map-modal-provider-actions');
         const kakaoLink = document.getElementById('map-modal-kakao');
         const copyAddressButton = document.getElementById('map-modal-copy-address');
+        const earthGalleryModalSlideshow = document.getElementById('earth-gallery-modal-slideshow');
+        if (earthGalleryModalSlideshow) {
+          earthGalleryModalSlideshow.classList.toggle('hidden', placeKey !== 'earth');
+          if (placeKey === 'earth') showEarthGalleryModalSlide(0);
+        }
         if (providerActions) {
           providerActions.classList.toggle('hidden', showTipsOnly);
           providerActions.classList.toggle('grid-cols-1', useNaverOnly);
