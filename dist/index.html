@@ -963,7 +963,7 @@
 </div>
 <div class="px-4 pb-4 space-y-3" id="step-body-1">
 <div class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200" id="seolbong-slideshow">
-<img alt="설봉호 둘레길 목조 다리와 호수 풍경" class="w-full h-full object-cover" decoding="async" id="seolbong-timeline-image" loading="lazy" src="assets/seolbong-lake-sculpture-garden.jpg">
+<img alt="설봉호 둘레길 목조 다리와 호수 풍경" class="w-full h-full object-cover" decoding="async" id="seolbong-timeline-image" loading="lazy" src="assets/seolbong-lake-wooden-bridge.png">
 </div>
 <div class="grid grid-cols-2 gap-2 text-[12px]">
 <div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5]">
@@ -1535,10 +1535,14 @@
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
     const EDITOR_CONTENT_VERSION = '2026-09-history-culture-honor-v1';
     const SEOLBONG_SLIDES = [
-      { src: 'assets/seolbong-lake-sculpture-garden.jpg', alt: '설봉호 둘레길 목조 다리와 호수 풍경' },
-      { src: 'assets/seolbong-lake-love-sculpture.png', alt: '설봉호 사랑 조형물과 호수 풍경' },
-      { src: 'assets/seolbong-park-tower-walk.png', alt: '설봉공원 산책로와 기념탑 풍경' },
-      { src: 'assets/seolbong-lake-walking-path.png', alt: '설봉호 둘레길 산책로와 호수 풍경' }
+      { src: 'assets/seolbong-lake-wooden-bridge.png', alt: '설봉호 둘레길 목조 다리와 호수 풍경', fit: 'cover' },
+      { src: 'assets/seolbong-park-tower-walk.png', alt: '설봉공원 산책로와 기념탑 풍경', fit: 'cover' },
+      { src: 'assets/seolbong-lake-walking-path.png', alt: '설봉호 둘레길 산책로와 호수 풍경', fit: 'cover' },
+      { src: 'assets/seolbong-sculpture-new-village.png', alt: '설봉공원 새마을지도자 동상', fit: 'contain' },
+      { src: 'assets/seolbong-sculpture-stone-sphere.png', alt: '설봉공원 돌구 형태 조각 작품', fit: 'contain' },
+      { src: 'assets/seolbong-sculpture-hands.png', alt: '설봉공원 두 손 형태 조각 작품', fit: 'contain' },
+      { src: 'assets/seolbong-sculpture-brick-circle.png', alt: '설봉공원 원형 벽돌 조각 작품', fit: 'cover' },
+      { src: 'assets/seolbong-sculpture-stone-disc.png', alt: '설봉공원 타원형 돌 조각 작품', fit: 'contain' }
     ];
     let seolbongSlideIndex = 0;
     const NAVER_ROUTE_URL = 'https://map.naver.com/p/directions/3zchec,2ALovf,%EA%B0%95%EC%84%9C%EA%B5%AC%EC%B2%AD,11627888,PLACE_POI/3zCMLl,2AzSQU,%EC%84%9C%ED%9D%AC%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC,36794637,PLACE_POI/3zAyPR,2AzYcw,%EC%84%A4%EB%B4%89%EA%B3%B5%EC%9B%90%EC%A0%9C1%EC%A3%BC%EC%B0%A8%EC%9E%A5,19064752,PLACE_POI:3zAors,2AA070,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EC%9B%94%EC%A0%84%EB%AF%B8%EC%88%A0%EA%B4%80,12411246,PLACE_POI:3zCuoB,2AzIrt,%EC%96%BC%EC%93%B0%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%B9%B4%ED%8E%98,1805814206,PLACE_POI/car?c=9.36,0,0,0,dh';
@@ -1738,7 +1742,7 @@
         ${SEOLBONG_SLIDES.map((slide, index) => `
           <img
             alt="${slide.alt}"
-            class="w-full h-full object-cover${index === 0 ? '' : ' hidden'}"
+            class="w-full h-full ${slide.fit === 'contain' ? 'object-contain bg-slate-900' : 'object-cover'}${index === 0 ? '' : ' hidden'}"
             data-seolbong-slide
             decoding="async"
             ${index === 0 ? 'id="seolbong-timeline-image"' : ''}
