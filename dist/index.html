@@ -638,7 +638,7 @@
 <!-- Visual Background with Dark Vignette for Text Legibility -->
 <div class="absolute inset-0 z-0">
 <img alt="이천 설봉공원 호수와 조각공원 가족 산책" class="w-full h-full object-cover object-center filter brightness-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCodsLsGaHImxdOmR5sXhW0eWyN0Yh9PLZpR8B2cskI0rwX-KExxBM-yKk-DhJ8G0FGs1GYJhA8UOA2bvdyC9iJiLT21Pa-7IEyrvS3EYhUwkjBv7hOyPzLAWp6gCKorzfhfq56Ml5sKwWDvKg0eSfWlUTps4vwTH6xqTE6Ygs6JsPBd-crfQ1rz0_1a46Osr8byFH9SIyWojcXzA0gnRlwhLyzs58XfQn-7Dpo4q-3P_d4M-DoyyrhPA"></div><div class="relative z-10 flex flex-col items-center text-center max-w-sm mx-auto"><h1 class="text-[30px] sm:text-[34px] font-black tracking-tight text-white leading-tight drop-shadow-md">교과서 밖 역사탐방&nbsp;</h1><h1 class="text-[30px] sm:text-[34px] font-black tracking-tight text-white leading-tight drop-shadow-md">초등고학년<br>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-amber-300 to-yellow-200">
+<span class="block whitespace-nowrap text-[18px] sm:text-[24px] tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-amber-300 to-yellow-200">
             이천 반나절 코스 &amp; 힐링 가이드
           </span>
 </h1>
@@ -1748,6 +1748,12 @@
       button.onclick = () => toggleStamp(1, 'sky', 'brush', '예술 발견가');
     }
 
+    function normalizeHeroRouteTitle() {
+      const title = document.querySelector('#summary h1 span');
+      if (!title) return;
+      title.classList.add('block', 'whitespace-nowrap', 'text-[18px]', 'sm:text-[24px]', 'tracking-[-0.04em]');
+    }
+
     function showSeolbongSlide(index, event) {
       if (event) event.stopPropagation();
 
@@ -2743,6 +2749,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
       initializeMissionOneButton();
+      normalizeHeroRouteTitle();
       removeEarthGalleryCafePhoto();
       removeEungamMakguksuOption();
       initializeSeolbongSlideshow();
