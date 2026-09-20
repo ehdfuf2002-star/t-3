@@ -2888,7 +2888,15 @@
         const tipBadge = document.getElementById('map-modal-tip-badge');
         if (tipBadge) tipBadge.textContent = placeInfo[placeKey].tipBadge || '무료 주차';
         const naverLink = document.getElementById('map-modal-naver');
-        if (naverLink) naverLink.href = placeInfo[placeKey].naverUrl || 'https://map.naver.com';
+        if (naverLink) {
+          naverLink.href = placeInfo[placeKey].naverUrl || 'https://map.naver.com';
+          naverLink.innerHTML = placeKey === 'earth'
+            ? '<span>N</span> 네이버 링크'
+            : '<span>N</span> 네이버 지도';
+          naverLink.setAttribute('aria-label', placeKey === 'earth'
+            ? '네이버에서 얼쓰갤러리카페 정보 열기'
+            : '네이버 지도 열기');
+        }
         const useNaverOnly = ['earth', 'eungam', 'kang', 'cafe1', 'cafe2', 'cafe3'].includes(placeKey);
         const showTipsOnly = placeKey === 'seohee';
         const providerActions = document.getElementById('map-modal-provider-actions');
