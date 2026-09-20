@@ -1737,6 +1737,15 @@
       }
     }
 
+    function initializeMissionOneButton() {
+      state.s1 = false;
+      const button = document.getElementById('btn-stamp-1');
+      if (!button) return;
+
+      button.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
+      button.innerHTML = '<span class="material-symbols-outlined text-[16px]">verified</span> 미션 1 인증하기';
+    }
+
     function showSeolbongSlide(index, event) {
       if (event) event.stopPropagation();
 
@@ -2731,6 +2740,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       restoreEditedContent();
+      initializeMissionOneButton();
       removeEarthGalleryCafePhoto();
       removeEungamMakguksuOption();
       initializeSeolbongSlideshow();
