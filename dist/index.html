@@ -1097,9 +1097,6 @@
           </p>
 </div>
 <div class="px-4 pb-4 space-y-3" id="step-body-4">
-<div aria-label="얼쓰갤러리카페 메뉴 사진 슬라이드" class="relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-900" id="earth-gallery-slideshow" tabindex="0">
-<img alt="얼쓰갤러리카페 그라운드 라떼" class="w-full h-full" decoding="async" id="earth-gallery-timeline-image" loading="lazy" src="assets/earth-gallery-ground-latte.jpeg" style="object-fit: contain; background-color: #0f172a;"/>
-</div>
 <div class="space-y-2">
 <div class="text-[12px] font-bold text-slate-800">가족 취향별 빠른 선택 (자차 5~10분 반경):</div>
 <div class="grid grid-cols-1 gap-2">
@@ -2054,61 +2051,14 @@
     function initializeEarthGallerySlideshow() {
       const stepBody = document.getElementById('step-body-4');
       if (!stepBody) return;
+      const frame = stepBody.querySelector('#earth-gallery-slideshow');
+      if (!frame) return;
 
-      let frame = document.getElementById('earth-gallery-slideshow');
-      if (!frame) {
-        frame = document.createElement('div');
-        stepBody.prepend(frame);
+      frame.remove();
+      if (localStorage.getItem(EDITOR_STORAGE_KEY)) {
+        const main = document.querySelector('main');
+        if (main) localStorage.setItem(EDITOR_STORAGE_KEY, main.innerHTML);
       }
-
-      frame.id = 'earth-gallery-slideshow';
-      frame.className = 'relative w-full h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-900';
-      frame.setAttribute('aria-label', '얼쓰갤러리카페 메뉴 사진 슬라이드');
-      frame.setAttribute('tabindex', '0');
-      frame.innerHTML = `
-        ${EARTH_GALLERY_SLIDES.map((slide, index) => `
-          <img
-            alt="${slide.alt}"
-            class="w-full h-full${index === 0 ? '' : ' hidden'}"
-            data-earth-gallery-slide
-            decoding="async"
-            ${index === 0 ? 'id="earth-gallery-timeline-image"' : ''}
-            loading="lazy"
-            ${index === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`}
-            style="object-fit: ${slide.fit};${slide.fit === 'contain' ? ' background-color: #0f172a;' : ''}"
-          >
-        `).join('')}
-        <button aria-label="이전 사진" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGallerySlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
-          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_left</span>
-        </button>
-        <button aria-label="다음 사진" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeEarthGallerySlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
-          <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
-        </button>
-        <div aria-label="사진 선택" class="absolute bottom-2 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
-          ${EARTH_GALLERY_SLIDES.map((_, index) => `
-            <button aria-label="${index + 1}번째 사진 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-earth-gallery-dot onclick="showEarthGallerySlide(${index}, event)" type="button"></button>
-          `).join('')}
-        </div>
-        <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="earth-gallery-slide-counter">1 / ${EARTH_GALLERY_SLIDES.length}</span>
-      `;
-
-      let touchStartX = null;
-      frame.addEventListener('touchstart', (event) => {
-        touchStartX = event.changedTouches[0]?.clientX ?? null;
-      }, { passive: true });
-      frame.addEventListener('touchend', (event) => {
-        if (touchStartX === null) return;
-        const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
-        const distance = touchEndX - touchStartX;
-        if (Math.abs(distance) >= 40) changeEarthGallerySlide(distance < 0 ? 1 : -1);
-        touchStartX = null;
-      }, { passive: true });
-      frame.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowLeft') changeEarthGallerySlide(-1, event);
-        if (event.key === 'ArrowRight') changeEarthGallerySlide(1, event);
-      });
-
-      showEarthGallerySlide(0);
     }
 
     function showEarthGalleryModalSlide(index, event) {
