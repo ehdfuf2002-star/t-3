@@ -1487,7 +1487,7 @@
 <img alt="" class="max-w-full max-h-full object-contain" id="earth-gallery-fullscreen-image" onclick="event.stopPropagation()"/>
 <button aria-label="이전 사진" class="absolute left-3 w-12 h-12 rounded-full bg-black/70 text-white flex items-center justify-center border border-white/30" onclick="changeEarthGalleryFullscreenSlide(-1, event)" style="top: 50%; transform: translateY(-50%);" type="button"><span aria-hidden="true" class="material-symbols-outlined text-[30px]">chevron_left</span></button>
 <button aria-label="다음 사진" class="absolute right-3 w-12 h-12 rounded-full bg-black/70 text-white flex items-center justify-center border border-white/30" onclick="changeEarthGalleryFullscreenSlide(1, event)" style="top: 50%; transform: translateY(-50%);" type="button"><span aria-hidden="true" class="material-symbols-outlined text-[30px]">chevron_right</span></button>
-<span aria-live="polite" class="absolute bottom-4 px-3 py-1.5 rounded-full bg-black/70 text-white text-[12px] font-bold border border-white/20" id="earth-gallery-fullscreen-counter">1 / 4</span>
+<span aria-live="polite" class="absolute bottom-4 px-3 py-1.5 rounded-full bg-black/70 text-white text-[12px] font-bold border border-white/20" id="earth-gallery-fullscreen-counter">1 / 9</span>
 </div>
 <div class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center bg-slate-900/60 backdrop-blur-sm p-0 sm:p-4" id="modal-cert">
 <div class="w-full max-w-md bg-white rounded-t-2xl sm:rounded-2xl p-4 shadow-2xl border-2 border-orange-400 max-h-[90vh] overflow-y-auto">
@@ -1571,6 +1571,14 @@
       { src: 'assets/earth-gallery-forest-latte.jpeg', alt: '얼쓰갤러리카페 포레스트 라떼', fit: 'contain', orientation: 'portrait' },
       { src: 'assets/earth-gallery-red-bean-bingsu.png', alt: '얼쓰갤러리카페 옛날 팥빙수', fit: 'contain', orientation: 'portrait' },
       { src: 'assets/earth-gallery-earth-plate.jpg', alt: '얼쓰갤러리카페 얼쓰 플레이트', fit: 'contain', orientation: 'landscape' }
+    ];
+    const EARTH_GALLERY_DETAIL_SLIDES = [
+      ...EARTH_GALLERY_SLIDES,
+      { src: 'assets/earth-gallery-interior-walk.png', alt: '얼쓰갤러리카페 갤러리 전시 공간', fit: 'contain', orientation: 'portrait' },
+      { src: 'assets/earth-gallery-exhibition-hall.png', alt: '얼쓰갤러리카페 회화 전시 공간', fit: 'contain', orientation: 'square' },
+      { src: 'assets/earth-gallery-pasta.png', alt: '얼쓰갤러리카페 파스타', fit: 'contain', orientation: 'square' },
+      { src: 'assets/earth-gallery-drinks.png', alt: '얼쓰갤러리카페 따뜻한 음료', fit: 'contain', orientation: 'landscape' },
+      { src: 'assets/earth-gallery-dessert-table.png', alt: '얼쓰갤러리카페 음료와 디저트', fit: 'contain', orientation: 'portrait' }
     ];
     let earthGallerySlideIndex = 0;
     let earthGalleryFullscreenIndex = 0;
@@ -2113,12 +2121,15 @@
 
       const nextIndex = (index + slides.length) % slides.length;
       frame.dataset.slideIndex = String(nextIndex);
-      const activeConfig = EARTH_GALLERY_SLIDES[nextIndex];
+      const activeConfig = EARTH_GALLERY_DETAIL_SLIDES[nextIndex];
       const isPortrait = activeConfig?.orientation === 'portrait';
+      const isSquare = activeConfig?.orientation === 'square';
       frame.style.height = isPortrait
         ? 'min(72vh, calc((100vw - 2rem) * 1.42))'
-        : 'min(56vw, 18rem)';
-      frame.style.minHeight = isPortrait ? '18rem' : '12rem';
+        : isSquare
+          ? 'min(78vw, 26rem)'
+          : 'min(56vw, 18rem)';
+      frame.style.minHeight = isPortrait || isSquare ? '18rem' : '12rem';
       const activeSlide = slides[nextIndex];
       if (activeSlide.dataset.src && !activeSlide.getAttribute('src')) {
         activeSlide.src = activeSlide.dataset.src;
@@ -2148,7 +2159,7 @@
       if (!frame) return;
 
       frame.innerHTML = `
-        ${EARTH_GALLERY_SLIDES.map((slide, index) => `
+        ${EARTH_GALLERY_DETAIL_SLIDES.map((slide, index) => `
           <img
             alt="${slide.alt}"
             class="w-full h-full${index === 0 ? '' : ' hidden'}"
@@ -2174,11 +2185,11 @@
           <span aria-hidden="true" class="material-symbols-outlined text-[20px]">fullscreen</span>
         </button>
         <div aria-label="사진 선택" class="absolute bottom-2 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
-          ${EARTH_GALLERY_SLIDES.map((_, index) => `
+          ${EARTH_GALLERY_DETAIL_SLIDES.map((_, index) => `
             <button aria-label="${index + 1}번째 사진 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-earth-gallery-modal-dot onclick="showEarthGalleryModalSlide(${index}, event)" type="button"></button>
           `).join('')}
         </div>
-        <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="earth-gallery-modal-slide-counter">1 / ${EARTH_GALLERY_SLIDES.length}</span>
+        <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="earth-gallery-modal-slide-counter">1 / ${EARTH_GALLERY_DETAIL_SLIDES.length}</span>
       `;
 
       let touchStartX = null;
@@ -2203,12 +2214,12 @@
     function showEarthGalleryFullscreenSlide(index) {
       const image = document.getElementById('earth-gallery-fullscreen-image');
       if (!image) return;
-      earthGalleryFullscreenIndex = (index + EARTH_GALLERY_SLIDES.length) % EARTH_GALLERY_SLIDES.length;
-      const slide = EARTH_GALLERY_SLIDES[earthGalleryFullscreenIndex];
+      earthGalleryFullscreenIndex = (index + EARTH_GALLERY_DETAIL_SLIDES.length) % EARTH_GALLERY_DETAIL_SLIDES.length;
+      const slide = EARTH_GALLERY_DETAIL_SLIDES[earthGalleryFullscreenIndex];
       image.src = slide.src;
       image.alt = slide.alt;
       const counter = document.getElementById('earth-gallery-fullscreen-counter');
-      if (counter) counter.textContent = `${earthGalleryFullscreenIndex + 1} / ${EARTH_GALLERY_SLIDES.length}`;
+      if (counter) counter.textContent = `${earthGalleryFullscreenIndex + 1} / ${EARTH_GALLERY_DETAIL_SLIDES.length}`;
     }
 
     function changeEarthGalleryFullscreenSlide(delta, event) {
