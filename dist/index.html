@@ -1744,6 +1744,8 @@
 
       button.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
       button.innerHTML = '<span class="material-symbols-outlined text-[16px]">verified</span> 미션 1 인증하기';
+      button.setAttribute('aria-pressed', 'false');
+      button.onclick = () => toggleStamp(1, 'sky', 'brush', '예술 발견가');
     }
 
     function showSeolbongSlide(index, event) {
@@ -2836,22 +2838,32 @@
       const btn = document.getElementById(`btn-stamp-${id}`);
 
       if (done) {
-        slot.className = 'w-12 h-12 rounded-full bg-orange-500 text-white border border-orange-400 flex items-center justify-center mb-1.5 shadow-md scale-105 transition-all';
-        slot.innerHTML = `<span class="material-symbols-outlined text-[22px]">${icon}</span>`;
-        stateEl.textContent = '인증 완료';
-        stateEl.className = 'text-[10px] text-orange-600 font-bold mt-0.5';
+        if (slot) {
+          slot.className = 'w-12 h-12 rounded-full bg-orange-500 text-white border border-orange-400 flex items-center justify-center mb-1.5 shadow-md scale-105 transition-all';
+          slot.innerHTML = `<span class="material-symbols-outlined text-[22px]">${icon}</span>`;
+        }
+        if (stateEl) {
+          stateEl.textContent = '인증 완료';
+          stateEl.className = 'text-[10px] text-orange-600 font-bold mt-0.5';
+        }
         if (btn) {
           btn.className = 'px-3 py-1.5 rounded-lg bg-orange-500 text-white text-[12px] font-bold flex items-center gap-1 shadow-xs';
           btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> 완료 (취소)';
+          btn.setAttribute('aria-pressed', 'true');
         }
       } else {
-        slot.className = 'w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs';
-        slot.innerHTML = `<span class="material-symbols-outlined text-[22px] text-slate-400">${icon}</span>`;
-        stateEl.textContent = '미션 대기';
-        stateEl.className = 'text-[10px] text-slate-500 mt-0.5';
+        if (slot) {
+          slot.className = 'w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs';
+          slot.innerHTML = `<span class="material-symbols-outlined text-[22px] text-slate-400">${icon}</span>`;
+        }
+        if (stateEl) {
+          stateEl.textContent = '미션 대기';
+          stateEl.className = 'text-[10px] text-slate-500 mt-0.5';
+        }
         if (btn) {
           btn.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
           btn.innerHTML = `<span class="material-symbols-outlined text-[16px]">verified</span> 미션 ${id} 인증하기`;
+          btn.setAttribute('aria-pressed', 'false');
         }
       }
 
