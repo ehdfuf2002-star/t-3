@@ -846,15 +846,15 @@
 </div>
 <div class="px-3 pb-3 pt-1 space-y-2 border-t border-[#E8DFD5]" id="mission-body-2">
 <p class="text-[12px] text-slate-700 leading-relaxed">
-                청자와 백자의 흙 빛깔 차이나 월전 장우성 화백 그림 속 '비어있는 공간(여백)'이 무엇을 상상하게 만드는지 부모님께 브리핑합니다.
+                전시 유물 한 점을 골라 쓰임새를 추리하고, 이천에서 도자 문화가 발달한 까닭을 가족에게 1분 도슨트처럼 설명합니다.
               </p>
 <div class="bg-white rounded-lg p-2.5 border border-[#E8DFD5] text-[12px] space-y-1">
 <div class="text-orange-800 font-semibold flex items-center gap-1">
 <span class="material-symbols-outlined text-[14px]">psychology_alt</span> 부모와 아이 대화 질문 힌트
                 </div>
-<p class="text-slate-600">"하얀 여백은 왜 그냥 남겨두었을까? 바람일까, 구름일까, 아니면 보는 사람의 몫일까?"</p>
+<p class="text-slate-600">"이 유물은 누가, 언제, 무엇을 위해 사용했을까? 이천의 흙·땔감·물길과는 어떤 관련이 있을까?"</p>
 <div class="text-emerald-700 font-medium text-[11px] pt-0.5 flex items-center gap-1">
-<span class="material-symbols-outlined text-[13px]">check_circle</span> 성공 기준: 월전미술관 한 점을 골라 아이가 도슨트처럼 1분 설명
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 성공 기준: 이천시립박물관 유물 한 점을 골라 아이가 도슨트처럼 1분 설명
                 </div>
 </div>
 <div class="flex items-center pt-1 justify-end">
@@ -1028,6 +1028,10 @@
 <div class="font-bold text-slate-900 mt-0.5">물품보관함 / 정수기</div>
 <p class="text-slate-500 text-[11px] mt-0.5">유모차 및 휠체어&nbsp;</p><p class="text-slate-500 text-[11px] mt-0.5">대여 가능</p>
 </div>
+</div>
+<div class="p-2.5 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-between gap-2" id="museum-mission-guide">
+<span class="text-[12px] text-sky-800 font-medium">미션 2: 박물관 문화 탐정 수행처</span>
+<button class="shrink-0 text-[12px] text-sky-600 underline font-bold" onclick="openMissionGuide(2)" type="button">미션 가이드</button>
 </div>
 <div class="flex justify-end pt-1">
 <a class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-slate-200 text-slate-700 border border-[#E8DFD5] text-[12px] font-semibold flex items-center gap-1 shadow-xs no-underline" id="museum-directions-link" href="https://map.naver.com/p/directions/3zAvW7,2AzTUp,%EC%84%A4%EB%B4%89%EA%B5%AD%EC%A0%9C%EC%A1%B0%EA%B0%81%EA%B3%B5%EC%9B%90,1702134191,PLACE_POI/3zAvyj,2AzO4k,%EC%9D%B4%EC%B2%9C%EC%8B%9C%EB%A6%BD%EB%B0%95%EB%AC%BC%EA%B4%80,11620568,PLACE_POI/-/walk?c=16.00,0,0,0,dh" target="_blank" rel="noopener noreferrer" aria-label="네이버 지도에서 설봉국제조각공원부터 이천시립박물관까지 도보 길찾기 열기"><span class="material-symbols-outlined text-[15px] text-sky-600">location_on</span> 길찾기</a>
@@ -1752,6 +1756,33 @@
       const title = document.querySelector('#summary h1 span');
       if (!title) return;
       title.classList.add('block', 'whitespace-nowrap', 'text-[18px]', 'sm:text-[24px]', 'tracking-[-0.04em]');
+    }
+
+    function normalizeMuseumMissionGuide() {
+      const missionBody = document.getElementById('mission-body-2');
+      if (missionBody) {
+        const introduction = missionBody.querySelector(':scope > p');
+        const hint = missionBody.querySelector('.bg-white p');
+        const success = missionBody.querySelector('.text-emerald-700');
+        if (introduction) introduction.textContent = '전시 유물 한 점을 골라 쓰임새를 추리하고, 이천에서 도자 문화가 발달한 까닭을 가족에게 1분 도슨트처럼 설명합니다.';
+        if (hint) hint.textContent = '"이 유물은 누가, 언제, 무엇을 위해 사용했을까? 이천의 흙·땔감·물길과는 어떤 관련이 있을까?"';
+        if (success) success.innerHTML = '<span class="material-symbols-outlined text-[13px]">check_circle</span> 성공 기준: 이천시립박물관 유물 한 점을 골라 아이가 도슨트처럼 1분 설명';
+      }
+
+      const stepBody = document.getElementById('step-body-2');
+      if (!stepBody) return;
+
+      let guide = document.getElementById('museum-mission-guide');
+      if (!guide) {
+        guide = document.createElement('div');
+        guide.id = 'museum-mission-guide';
+        const directions = document.getElementById('museum-directions-link')?.parentElement;
+        if (directions) stepBody.insertBefore(guide, directions);
+        else stepBody.appendChild(guide);
+      }
+
+      guide.className = 'p-2.5 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-between gap-2';
+      guide.innerHTML = '<span class="text-[12px] text-sky-800 font-medium">미션 2: 박물관 문화 탐정 수행처</span><button class="shrink-0 text-[12px] text-sky-600 underline font-bold" onclick="openMissionGuide(2)" type="button">미션 가이드</button>';
     }
 
     function showSeolbongSlide(index, event) {
@@ -2750,6 +2781,7 @@
       restoreEditedContent();
       initializeMissionOneButton();
       normalizeHeroRouteTitle();
+      normalizeMuseumMissionGuide();
       removeEarthGalleryCafePhoto();
       removeEungamMakguksuOption();
       initializeSeolbongSlideshow();
@@ -2835,6 +2867,14 @@
       if (!b) return;
       b.classList.toggle('hidden');
       if (a) a.classList.toggle('rotate-180');
+    }
+
+    function openMissionGuide(num) {
+      const body = document.getElementById(`mission-body-${num}`);
+      const arrow = document.getElementById(`mission-arrow-${num}`);
+      if (body) body.classList.remove('hidden');
+      if (arrow) arrow.classList.add('rotate-180');
+      document.getElementById('missions')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function toggleStamp(id, color, icon, label) {
