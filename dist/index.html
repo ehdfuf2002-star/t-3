@@ -1775,13 +1775,16 @@
     }
 
     function normalizeMuseumStepChevron() {
-      const arrow = document.getElementById('step-arrow-2');
-      if (!arrow) return;
+      const arrows = [...document.querySelectorAll('#step-arrow-2')];
+      if (!arrows.length) return;
 
-      const isExpanded = arrow.classList.contains('rotate-180');
+      const arrow = arrows[0];
+      const body = document.getElementById('step-body-2');
+      const isExpanded = body ? !body.classList.contains('hidden') : arrow.classList.contains('rotate-180');
       arrow.className = `museum-step-chevron${isExpanded ? ' rotate-180' : ''}`;
       arrow.textContent = '';
       arrow.setAttribute('aria-hidden', 'true');
+      arrows.slice(1).forEach((duplicate) => duplicate.remove());
     }
 
     function normalizeMuseumMissionGuide() {
