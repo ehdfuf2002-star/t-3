@@ -1784,8 +1784,12 @@
     }
 
     function removeKakaoShareButton() {
-      document.querySelectorAll('main button[onclick="shareKakao()"], main button[aria-label="카카오톡으로 이천 반나절 코스 공유하기"]')
-        .forEach((button) => button.remove());
+      document.querySelectorAll('main button').forEach((button) => {
+        const label = button.textContent?.replace(/\s+/g, ' ').trim() || '';
+        if (label.includes('카카오톡으로 공유') || button.getAttribute('aria-label')?.includes('카카오톡으로 이천 반나절 코스 공유하기')) {
+          button.remove();
+        }
+      });
     }
 
     function normalizeMuseumMissionGuide() {
