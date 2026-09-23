@@ -1311,7 +1311,7 @@
 </div>
 </section>
 <!-- 8. WEATHER BACKUP & CHECKLIST -->
-<section class="px-4 mb-8 space-y-3">
+<section class="px-4 mb-8 space-y-3" id="packing-checklist">
 <div class="rounded-2xl bg-white border border-[#E8DFD5] p-4 shadow-sm">
 <div class="flex items-center gap-2 mb-1.5">
 <span class="material-symbols-outlined text-sky-600 text-[20px]">umbrella</span>
@@ -1332,19 +1332,19 @@
 </div>
 <div class="grid grid-cols-2 gap-2 text-[12px] text-slate-800">
 <label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
-<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox">
+<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" id="packing-item-1" name="packing-item" type="checkbox" value="shoes">
 <span>편안한&nbsp; &nbsp; &nbsp; 운동화</span>
 </label>
 <label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
-<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox">
+<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" id="packing-item-2" name="packing-item" type="checkbox" value="battery">
 <span>보조배터리 (사진용)</span>
 </label>
 <label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
-<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox">
+<input checked="" class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" id="packing-item-3" name="packing-item" type="checkbox" value="notes">
 <span>필기도구 &amp; 노트</span>
 </label>
 <label class="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer select-none">
-<input class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" type="checkbox">
+<input class="rounded border-slate-300 bg-white text-orange-500 focus:ring-orange-500 w-4 h-4" id="packing-item-4" name="packing-item" type="checkbox" value="sun-protection">
 <span>모자/자외선 차단제</span>
 </label>
 </div>
@@ -1815,6 +1815,29 @@
       rewards.forEach((reward) => {
         reward.addEventListener('change', () => {
           if (reward.checked) selectOnly(reward);
+        });
+      });
+    }
+
+    function initializePackingChecklist() {
+      let section = document.getElementById('packing-checklist');
+      if (!section) {
+        const heading = [...document.querySelectorAll('h3')].find((candidate) =>
+          candidate.textContent?.replace(/\s+/g, ' ').trim() === '초등 탐험 준비물 체크리스트');
+        section = heading?.closest('section');
+        if (section) section.id = 'packing-checklist';
+      }
+      if (!section) return;
+
+      const values = ['shoes', 'battery', 'notes', 'sun-protection'];
+      [...section.querySelectorAll('input')].slice(0, 4).forEach((item, index) => {
+        item.type = 'checkbox';
+        item.id = `packing-item-${index + 1}`;
+        item.name = 'packing-item';
+        item.value = values[index] || `item-${index + 1}`;
+        item.toggleAttribute('checked', item.checked);
+        item.addEventListener('change', () => {
+          item.toggleAttribute('checked', item.checked);
         });
       });
     }
@@ -3009,6 +3032,7 @@
       removeKakaoShareButton();
       initializeMissionOneButton();
       initializeFamilyRewardSelection();
+      initializePackingChecklist();
       normalizeHeroRouteTitle();
       normalizeMuseumStepChevron();
       normalizeMuseumMissionGuide();
