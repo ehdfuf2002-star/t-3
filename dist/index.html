@@ -2748,6 +2748,28 @@
       });
     }
 
+    function removeSeoheeQuickMissionButton() {
+      const stepBody = document.getElementById('step-body-5');
+      if (!stepBody) return;
+
+      const button = [...stepBody.querySelectorAll('button')].find((candidate) => {
+        const label = candidate.textContent?.replace(/\s+/g, ' ').trim() || '';
+        const action = candidate.getAttribute('onclick') || '';
+        return label === '미션 3 즉시 인증'
+          || (action.includes('toggleStamp(3') && label.includes('즉시 인증'));
+      });
+      if (!button) return;
+
+      const wrapper = button.parentElement;
+      button.remove();
+      if (wrapper && !wrapper.children.length && !wrapper.textContent.trim()) wrapper.remove();
+
+      if (localStorage.getItem(EDITOR_STORAGE_KEY)) {
+        const main = document.querySelector('main');
+        if (main) localStorage.setItem(EDITOR_STORAGE_KEY, main.innerHTML);
+      }
+    }
+
     function removeMuseumWalkBadge() {
       const timeline = document.getElementById('timeline');
       if (!timeline) return;
@@ -2955,6 +2977,7 @@
       renameSeoheeLocationButton();
       removeSculptureGardenPhotoLabel();
       removeTimelineParkingGuide();
+      removeSeoheeQuickMissionButton();
       wireSeolbongWalkingDirectionsLink();
       wireTimelinePlaceDirectionsLink({
         stepBodyId: 'step-body-2',
