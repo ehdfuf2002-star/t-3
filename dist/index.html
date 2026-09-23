@@ -1158,7 +1158,7 @@
           </p>
 </div>
 <div class="px-4 pb-4 space-y-3 hidden" id="step-body-5">
-<div aria-label="서희테마파크 사진 및 동영상 슬라이드" class="relative w-full h-56 rounded-xl overflow-hidden border border-slate-200 bg-slate-900" id="seohee-slideshow" tabindex="0">
+<div aria-label="서희테마파크 사진 슬라이드" class="relative w-full h-56 rounded-xl overflow-hidden border border-slate-200 bg-slate-900" id="seohee-slideshow" tabindex="0">
 <img alt="장위공 서희 역사산책로 안내도" class="w-full h-full object-contain" src="assets/seohee/seohee-history-walk-map.jpg">
 </div>
 <!-- 4-Phase Experience Sub-steps -->
@@ -1571,8 +1571,7 @@
       { type: 'image', src: 'assets/seohee/seohee-history-walk-map.jpg', alt: '장위공 서희 역사산책로 안내도', caption: '장위공 서희 역사산책로 안내도' },
       { type: 'image', src: 'assets/seohee/seohee-envoys-walking.jpg', alt: '거란으로 향하는 서희 일행 조형물', caption: '거란으로 향하는 서희 일행' },
       { type: 'image', src: 'assets/seohee/seohee-father-and-child-statue.jpg', alt: '가족을 지키는 서희 조형물', caption: '가족을 지키는 서희' },
-      { type: 'image', src: 'assets/seohee/seohee-diplomat-photo-zone.jpg', alt: '서희역사관 외교관 임명 전자방명록 체험', caption: '외교관 임명 전자방명록 체험' },
-      { type: 'video', src: 'https://raw.githubusercontent.com/ehdfuf2002-star/t-3/51621dd7d897fa4f89d3965d129bfc8afbd32481/assets/seohee/seohee-immersive-tour.mp4', poster: 'assets/seohee/seohee-history-walk-map.jpg', alt: '서희테마파크 현장 탐방 영상', caption: '서희테마파크 현장 탐방 영상' }
+      { type: 'image', src: 'assets/seohee/seohee-diplomat-photo-zone.jpg', alt: '서희역사관 외교관 임명 전자방명록 체험', caption: '외교관 임명 전자방명록 체험' }
     ];
     let seoheeSlideIndex = 0;
     const WOLJEON_SLIDES = [
@@ -2070,7 +2069,7 @@
 
       frame.id = 'seohee-slideshow';
       frame.className = 'relative w-full h-56 rounded-xl overflow-hidden border border-slate-200 bg-slate-900';
-      frame.setAttribute('aria-label', '서희테마파크 사진 및 동영상 슬라이드');
+      frame.setAttribute('aria-label', '서희테마파크 사진 슬라이드');
       frame.setAttribute('tabindex', '0');
       frame.innerHTML = `
         ${SEOHEE_SLIDES.map((slide, index) => slide.type === 'video' ? `
@@ -2096,15 +2095,15 @@
             style="object-fit: contain; background-color: #0f172a;"
           >
         `).join('')}
-        <button aria-label="이전 사진 또는 동영상" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeoheeSlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+        <button aria-label="이전 사진" class="absolute left-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeoheeSlide(-1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
           <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_left</span>
         </button>
-        <button aria-label="다음 사진 또는 동영상" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeoheeSlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
+        <button aria-label="다음 사진" class="absolute right-2 rounded-full bg-black/70 text-white flex items-center justify-center shadow-lg" onclick="changeSeoheeSlide(1, event)" style="top: 50%; width: 2.25rem; height: 2.25rem; transform: translateY(-50%);" type="button">
           <span aria-hidden="true" class="material-symbols-outlined text-[22px]">chevron_right</span>
         </button>
-        <div aria-label="사진 및 동영상 선택" class="absolute top-3 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
+        <div aria-label="사진 선택" class="absolute top-3 flex gap-2" role="group" style="left: 50%; transform: translateX(-50%);">
           ${SEOHEE_SLIDES.map((_, index) => `
-            <button aria-label="${index + 1}번째 사진 또는 동영상 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-seohee-dot onclick="showSeoheeSlide(${index}, event)" type="button"></button>
+            <button aria-label="${index + 1}번째 사진 보기" class="w-2.5 h-2.5 rounded-full bg-white border border-white shadow" data-seohee-dot onclick="showSeoheeSlide(${index}, event)" type="button"></button>
           `).join('')}
         </div>
         <span aria-live="polite" class="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold" id="seohee-slide-counter">1 / ${SEOHEE_SLIDES.length}</span>
