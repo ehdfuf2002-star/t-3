@@ -1481,9 +1481,6 @@
 <a class="p-2.5 rounded-xl bg-[#03C75A]/10 text-[#029b46] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#03C75A]/30" href="https://map.naver.com" id="map-modal-naver" rel="noopener noreferrer" target="_blank">
 <span>N</span> 네이버 지도
           </a>
-<a class="hidden p-2.5 rounded-xl bg-[#03C75A]/10 text-[#029b46] font-extrabold text-[12px] items-center justify-center gap-1.5 border border-[#03C75A]/30" href="https://map.naver.com" id="map-modal-yespark" rel="noopener noreferrer" target="_blank">
-<span>N</span> 예스파크 네이버 지도
-          </a>
 <a class="p-2.5 rounded-xl bg-[#FEE500]/40 text-[#4c3500] font-extrabold text-[12px] flex items-center justify-center gap-1.5 border border-[#FEE500]/60" href="https://map.kakao.com" id="map-modal-kakao" target="_blank">
 <span>K</span> 카카오맵
           </a>
@@ -1611,7 +1608,6 @@
     const HANOK_CAFE_MUN_NAVER_URL = 'https://map.naver.com/p/search/%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8/place/1615322024?c=15.00,0,0,0,dh&placePath=%2Freview%3Fbk_query%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26entry%3Dbmp%26fromPanelNum%3D2%26locale%3Dko%26searchText%3D%ED%95%9C%EC%98%A5%EC%B9%B4%ED%8E%98%20%EB%AC%B8%26svcName%3Dmap_pcv5%26timestamp%3D202609171546';
     const HEUNGMANSO_NAVER_URL = 'https://map.naver.com/p/entry/place/1705838287?c=8.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609172148%26locale%3Dko%26svcName%3Dmap_pcv5';
     const ICHEON_CERAPIA_NAVER_URL = 'https://map.naver.com/p/entry/place/19801855?lng=127.4232406&lat=37.2753704&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609231415%26locale%3Dko%26svcName%3Dmap_pcv5&entry=plt&searchType=place&c=15.00,0,0,0,dh';
-    const YESPARK_NAVER_DIRECTIONS_URL = 'https://map.naver.com/p/directions/-/3zywY1,2zXODJ,%EC%98%88%EC%8A%A4%ED%8C%8C%ED%81%AC,38242536,PLACE_POI/-/car?c=15.00,0,0,0,dh';
     let editModeEnabled = false;
     let editorSaveTimer;
     let activeTopNavSection = '';
@@ -2987,7 +2983,7 @@
       cafe1: { title: "함께 걷는 길", sub: "경기 이천시 부발읍 중부대로1444번길 35-57 1~2층", desc: "이천에 위치한 넓고 쾌적한 카페입니다.\n\n• 1, 2층으로 구성되어 자리도 많고 디저트 종류도 다양해 선택의 폭이 넓습니다.\n\n• 통창으로 보이는 뷰가 아름답고, 조용한 분위기 덕분에 책이나 과제를 하기에도 적합합니다.", naverUrl: WALK_TOGETHER_NAVER_URL },
       cafe2: { title: "한옥카페 문", sub: "경기 이천시 구만리로 336", desc: "매장 앞 전용 주차장을 무료로 이용할 수 있습니다. 넉넉한 한옥 실내에서 전통차와 음료를 여유롭게 즐기기 좋습니다.", tipBadge: "무료 주차", naverUrl: HANOK_CAFE_MUN_NAVER_URL },
       cafe3: { title: "흥만소", sub: "경기 이천시 향교로 3 흥만소", desc: "전용 주차장이 없어 매장 인근 갓길 또는 도보 2~3분 거리의 이천시립도서관 공영주차장을 이용하세요. 이천 쌀크림빵은 포장 간식으로 좋습니다.", tipBadge: "인근 주차", naverUrl: HEUNGMANSO_NAVER_URL },
-      serapia: { title: "이천세라피아 (도자미술관)", sub: "경기도 이천시 경충대로2697번길 167", desc: "우천·폭염 시 100% 실내 관람 및 도자 체험이 가능한 대체 코스입니다.", naverUrl: ICHEON_CERAPIA_NAVER_URL, yesparkUrl: YESPARK_NAVER_DIRECTIONS_URL }
+      serapia: { title: "이천세라피아 (도자미술관)", sub: "경기도 이천시 경충대로2697번길 167", desc: "우천·폭염 시 100% 실내 관람 및 도자 체험이 가능한 대체 코스입니다.", naverUrl: ICHEON_CERAPIA_NAVER_URL }
     };
 
     function openModal(type, placeKey) {
@@ -3006,14 +3002,6 @@
           naverLink.setAttribute('aria-label', placeKey === 'earth'
             ? '네이버에서 얼쓰갤러리카페 정보 열기'
             : '네이버 지도 열기');
-        }
-        const yesparkLink = document.getElementById('map-modal-yespark');
-        if (yesparkLink) {
-          const showYesparkLink = Boolean(placeInfo[placeKey].yesparkUrl);
-          yesparkLink.href = placeInfo[placeKey].yesparkUrl || 'https://map.naver.com';
-          yesparkLink.classList.toggle('hidden', !showYesparkLink);
-          yesparkLink.classList.toggle('flex', showYesparkLink);
-          yesparkLink.setAttribute('aria-label', '네이버 지도에서 예스파크 차량 길찾기 열기');
         }
         const useNaverOnly = ['earth', 'eungam', 'kang', 'cafe1', 'cafe2', 'cafe3', 'serapia'].includes(placeKey);
         const showTipsOnly = placeKey === 'seohee';
