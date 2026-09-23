@@ -1546,6 +1546,8 @@
 </aside>
 <script>
     const state = { s1: false, s2: false, s3: false };
+    const MISSION_STATE_STORAGE_KEY = 'icheon-tour-mission-state-v1';
+    const MISSION_ICONS = { 1: 'brush', 2: 'search', 3: 'stars' };
     const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
     const EDITOR_CONTENT_VERSION = '2026-09-locked-checklist-v2';
@@ -1765,31 +1767,8 @@
     }
 
     function initializeMissionOneButton() {
-      state.s1 = false;
       const button = document.getElementById('btn-stamp-1');
-      const slot = document.getElementById('stamp-slot-1');
-      const card = document.getElementById('slot-card-1');
-      let stateEl = document.getElementById('stamp-state-1');
-
-      if (slot) {
-        slot.className = 'w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs';
-        slot.innerHTML = '<span class="material-symbols-outlined text-[22px] text-slate-400">brush</span>';
-      }
-      if (!stateEl && card) {
-        const directSpans = [...card.children].filter((child) => child.tagName === 'SPAN');
-        stateEl = directSpans[2] || document.createElement('span');
-        if (!stateEl.parentElement) card.appendChild(stateEl);
-      }
-      if (stateEl) {
-        stateEl.id = 'stamp-state-1';
-        stateEl.textContent = '미션 대기';
-        stateEl.className = 'text-[10px] text-slate-500 mt-0.5';
-      }
       if (!button) return;
-
-      button.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
-      button.innerHTML = '<span class="material-symbols-outlined text-[16px]">verified</span> 미션 1 인증하기';
-      button.setAttribute('aria-pressed', 'false');
       button.onclick = () => toggleStamp(1, 'sky', 'brush', '예술 발견가');
     }
 
@@ -3151,61 +3130,76 @@
       if (certBanner) certBanner.classList.toggle('hidden', total !== 3);
     }
 
-    function syncMissionProgressFromUI() {
-      for (let id = 1; id <= 3; id += 1) {
-        const status = document.getElementById(`stamp-state-${id}`)?.textContent.replace(/\s+/g, ' ').trim();
-        const button = document.getElementById(`btn-stamp-${id}`);
+    function readStoredMissionState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(MISSION_STATE_STORAGE_KEY));
+        if ([1, 2, 3].every((id) => typeof saved?.[`s${id}`] === 'boolean')) return saved;
+      } catch (error) {
+        console.warn('저장된 미션 상태를 불러오지 못했습니다.', error);
+      }
+      return null;
+    }
 
-        if (status === '인증 완료') {
-          state[`s${id}`] = true;
-        } else if (status === '미션 대기') {
-          state[`s${id}`] = false;
-        } else {
-          state[`s${id}`] = button?.getAttribute('aria-pressed') === 'true'
-            || button?.textContent.includes('완료 (취소)') === true;
-        }
+    function saveMissionState() {
+      localStorage.setItem(MISSION_STATE_STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function missionIsCompleteInUI(id) {
+      const status = document.getElementById(`stamp-state-${id}`)?.textContent.replace(/\s+/g, ' ').trim();
+      const button = document.getElementById(`btn-stamp-${id}`);
+      const slot = document.getElementById(`stamp-slot-${id}`);
+
+      return status === '인증 완료'
+        || button?.getAttribute('aria-pressed') === 'true'
+        || button?.textContent.includes('완료 (취소)') === true
+        || slot?.classList.contains('bg-orange-500') === true;
+    }
+
+    function renderMissionStamp(id, done) {
+      const icon = MISSION_ICONS[id];
+      const slot = document.getElementById(`stamp-slot-${id}`);
+      const stateEl = document.getElementById(`stamp-state-${id}`);
+      const button = document.getElementById(`btn-stamp-${id}`);
+
+      if (slot) {
+        slot.className = done
+          ? 'w-12 h-12 rounded-full bg-orange-500 text-white border border-orange-400 flex items-center justify-center mb-1.5 shadow-md scale-105 transition-all'
+          : 'w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs';
+        slot.innerHTML = `<span class="material-symbols-outlined text-[22px]${done ? '' : ' text-slate-400'}">${icon}</span>`;
+      }
+      if (stateEl) {
+        stateEl.textContent = done ? '인증 완료' : '미션 대기';
+        stateEl.className = done
+          ? 'text-[10px] text-orange-600 font-bold mt-0.5'
+          : 'text-[10px] text-slate-500 mt-0.5';
+      }
+      if (button) {
+        button.className = done
+          ? 'px-3 py-1.5 rounded-lg bg-orange-500 text-white text-[12px] font-bold flex items-center gap-1 shadow-xs'
+          : 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
+        button.innerHTML = done
+          ? '<span class="material-symbols-outlined text-[16px]">check</span> 완료 (취소)'
+          : `<span class="material-symbols-outlined text-[16px]">verified</span> 미션 ${id} 인증하기`;
+        button.setAttribute('aria-pressed', String(done));
+      }
+    }
+
+    function syncMissionProgressFromUI() {
+      const savedState = readStoredMissionState();
+      for (let id = 1; id <= 3; id += 1) {
+        state[`s${id}`] = savedState ? savedState[`s${id}`] : missionIsCompleteInUI(id);
+        renderMissionStamp(id, state[`s${id}`]);
       }
 
+      saveMissionState();
       updateMissionProgress();
     }
 
     function toggleStamp(id, color, icon, label) {
-      state[`s${id}`] = !state[`s${id}`];
+      state[`s${id}`] = !missionIsCompleteInUI(id);
       const done = state[`s${id}`];
-      const slot = document.getElementById(`stamp-slot-${id}`);
-      const stateEl = document.getElementById(`stamp-state-${id}`);
-      const btn = document.getElementById(`btn-stamp-${id}`);
-
-      if (done) {
-        if (slot) {
-          slot.className = 'w-12 h-12 rounded-full bg-orange-500 text-white border border-orange-400 flex items-center justify-center mb-1.5 shadow-md scale-105 transition-all';
-          slot.innerHTML = `<span class="material-symbols-outlined text-[22px]">${icon}</span>`;
-        }
-        if (stateEl) {
-          stateEl.textContent = '인증 완료';
-          stateEl.className = 'text-[10px] text-orange-600 font-bold mt-0.5';
-        }
-        if (btn) {
-          btn.className = 'px-3 py-1.5 rounded-lg bg-orange-500 text-white text-[12px] font-bold flex items-center gap-1 shadow-xs';
-          btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> 완료 (취소)';
-          btn.setAttribute('aria-pressed', 'true');
-        }
-      } else {
-        if (slot) {
-          slot.className = 'w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs';
-          slot.innerHTML = `<span class="material-symbols-outlined text-[22px] text-slate-400">${icon}</span>`;
-        }
-        if (stateEl) {
-          stateEl.textContent = '미션 대기';
-          stateEl.className = 'text-[10px] text-slate-500 mt-0.5';
-        }
-        if (btn) {
-          btn.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
-          btn.innerHTML = `<span class="material-symbols-outlined text-[16px]">verified</span> 미션 ${id} 인증하기`;
-          btn.setAttribute('aria-pressed', 'false');
-        }
-      }
-
+      renderMissionStamp(id, done);
+      saveMissionState();
       updateMissionProgress();
     }
 
