@@ -3084,6 +3084,7 @@
       wireHanokCafeMunLink();
       wireHeungmansoLink();
       initializeTopNavSlider();
+      syncMissionProgressFromUI();
       const main = document.querySelector('main');
       if (!main) return;
 
@@ -3138,6 +3139,36 @@
       document.getElementById('missions')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+    function updateMissionProgress() {
+      const total = [1, 2, 3].filter((id) => state[`s${id}`]).length;
+      const countBadge = document.getElementById('stamp-count-badge');
+      if (countBadge) countBadge.textContent = `${total} / 3 완주`;
+
+      const certText = document.getElementById('cert-status-text');
+      if (certText) certText.textContent = total === 3 ? '★ 3대 미션 모두 완주 완료! ★' : `스탬프 진행도: ${total} / 3 완주 중`;
+
+      const certBanner = document.getElementById('diplomat-cert');
+      if (certBanner) certBanner.classList.toggle('hidden', total !== 3);
+    }
+
+    function syncMissionProgressFromUI() {
+      for (let id = 1; id <= 3; id += 1) {
+        const status = document.getElementById(`stamp-state-${id}`)?.textContent.replace(/\s+/g, ' ').trim();
+        const button = document.getElementById(`btn-stamp-${id}`);
+
+        if (status === '인증 완료') {
+          state[`s${id}`] = true;
+        } else if (status === '미션 대기') {
+          state[`s${id}`] = false;
+        } else {
+          state[`s${id}`] = button?.getAttribute('aria-pressed') === 'true'
+            || button?.textContent.includes('완료 (취소)') === true;
+        }
+      }
+
+      updateMissionProgress();
+    }
+
     function toggleStamp(id, color, icon, label) {
       state[`s${id}`] = !state[`s${id}`];
       const done = state[`s${id}`];
@@ -3175,19 +3206,7 @@
         }
       }
 
-      const total = Object.values(state).filter(Boolean).length;
-      const countBadge = document.getElementById('stamp-count-badge');
-      if (countBadge) countBadge.textContent = `${total} / 3 완주`;
-
-      const certText = document.getElementById('cert-status-text');
-      if (certText) certText.textContent = total === 3 ? '★ 3대 미션 모두 완주 완료! ★' : `스탬프 진행도: ${total} / 3 완주 중`;
-
-      const certBanner = document.getElementById('diplomat-cert');
-      if (total === 3) {
-        if (certBanner) certBanner.classList.remove('hidden');
-      } else {
-        if (certBanner) certBanner.classList.add('hidden');
-      }
+      updateMissionProgress();
     }
 
     const placeInfo = {
