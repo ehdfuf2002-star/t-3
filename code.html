@@ -79,52 +79,6 @@
       color: rgba(0, 0, 0, 0.05);
       user-select: none;
     }
-    #editor-toolbar {
-      position: fixed;
-      left: 50%;
-      bottom: 76px;
-      z-index: 90;
-      width: min(366px, calc(100vw - 24px));
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px;
-      border: 1px solid rgba(234, 88, 12, 0.24);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
-      backdrop-filter: blur(16px);
-    }
-    #editor-toolbar button {
-      min-height: 36px;
-      padding: 0 10px;
-      border-radius: 10px;
-      border: 1px solid #E8DFD5;
-      background: #FAF7F2;
-      color: #334155;
-      font-size: 11px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-    #editor-toolbar button:hover { border-color: #fb923c; color: #c2410c; }
-    #editor-toolbar .editor-primary { background: #ea580c; border-color: #ea580c; color: white; }
-    #editor-toolbar .editor-primary:hover { background: #c2410c; color: white; }
-    #editor-save-state {
-      margin-left: auto;
-      color: #64748b;
-      font-size: 10px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    body.edit-mode main {
-      outline: 3px dashed rgba(234, 88, 12, 0.65);
-      outline-offset: -3px;
-      caret-color: #ea580c;
-      cursor: text;
-    }
-    body.edit-mode main:focus { outline-color: #ea580c; }
-    body.edit-mode main *::selection { background: rgba(251, 146, 60, 0.32); }
     #mission-body-1 [onclick*="seolbong"] { display: none !important; }
     #mission-body-2 [onclick*="museum"] { display: none !important; }
     html { scroll-behavior: smooth; }
@@ -592,9 +546,6 @@
         width: 66px;
         padding-inline: 6px !important;
       }
-      #editor-toolbar { gap: 4px; padding: 6px; }
-      #editor-toolbar button { padding: 0 7px; font-size: 10px; }
-      #editor-save-state { display: none; }
     }
 
     .museum-step-chevron {
@@ -1537,13 +1488,6 @@
 </div>
 </div>
 </div>
-<!-- Inline Design Editor -->
-<aside aria-label="디자인 편집 도구" contenteditable="false" id="editor-toolbar">
-<button class="editor-primary" id="editor-toggle" onclick="toggleEditMode()" type="button">편집 시작</button>
-<button onclick="downloadEditedHtml()" type="button">HTML 저장</button>
-<button onclick="resetEditedContent()" type="button">초기화</button>
-<span aria-live="polite" id="editor-save-state">저장본 불러옴</span>
-</aside>
 <script>
     const state = { s1: false, s2: false, s3: false };
     const MISSION_STATE_STORAGE_KEY = 'icheon-tour-mission-state-v1';
