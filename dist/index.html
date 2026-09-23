@@ -1369,7 +1369,7 @@
 <div class="space-y-2">
 <label class="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] hover:border-orange-300 cursor-pointer transition-all">
 <div class="flex items-center gap-2.5">
-<input checked="" class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" name="family-reward" type="radio">
+<input checked="" class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" id="family-reward-1" name="family-reward" type="radio" value="dessert">
 <div>
 <span class="text-[13px] font-bold text-slate-900 block">카페에서 내가 원하는 디저트&nbsp;</span><span class="text-[13px] font-bold text-slate-900 block">1개 고르기</span>
 <span class="text-[11px] text-slate-500">얼쓰갤러리카페 or 흥만소 쌀크림빵 즉시 교환</span>
@@ -1379,7 +1379,7 @@
 </label>
 <label class="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] hover:border-orange-300 cursor-pointer transition-all">
 <div class="flex items-center gap-2.5">
-<input class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" name="family-reward" type="radio">
+<input class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" id="family-reward-2" name="family-reward" type="radio" value="next-trip">
 <div>
 <span class="text-[13px] font-bold text-slate-900 block">다음 달 가족 주말 여행지 1곳&nbsp;</span><span class="text-[13px] font-bold text-slate-900 block">직접 결정권</span>
 <span class="text-[11px] text-slate-500">초등 아이가 직접 다음 가족 나들이 대장 역할</span>
@@ -1389,7 +1389,7 @@
 </label>
 <label class="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] hover:border-orange-300 cursor-pointer transition-all">
 <div class="flex items-center gap-2.5">
-<input class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" name="family-reward" type="radio">
+<input class="text-orange-500 focus:ring-orange-500 bg-white border-slate-300" id="family-reward-3" name="family-reward" type="radio" value="car-quiz">
 <div>
 <span class="text-[13px] font-bold text-slate-900 block">귀가길 10분 차내 DJ &amp; 역사&nbsp;</span><span class="text-[13px] font-bold text-slate-900 block">퀴즈 출제권</span>
 <span class="text-[11px] text-slate-500">부모님에게 퀴즈 내고 오답 시 간식 압수권 부여</span>
@@ -1786,6 +1786,37 @@
       button.innerHTML = '<span class="material-symbols-outlined text-[16px]">verified</span> 미션 1 인증하기';
       button.setAttribute('aria-pressed', 'false');
       button.onclick = () => toggleStamp(1, 'sky', 'brush', '예술 발견가');
+    }
+
+    function initializeFamilyRewardSelection() {
+      const rewards = [...document.querySelectorAll(
+        '#rewards input[name="family-reward"], #rewards .space-y-2 > label input'
+      )].slice(0, 3);
+      if (!rewards.length) return;
+
+      const values = ['dessert', 'next-trip', 'car-quiz'];
+      const selectedReward = rewards.find((reward) => reward.checked)
+        || rewards.find((reward) => reward.hasAttribute('checked'))
+        || rewards[0];
+
+      const selectOnly = (activeReward) => {
+        rewards.forEach((reward, index) => {
+          const isSelected = reward === activeReward;
+          reward.type = 'radio';
+          reward.name = 'family-reward';
+          reward.id = `family-reward-${index + 1}`;
+          reward.value = values[index] || `reward-${index + 1}`;
+          reward.checked = isSelected;
+          reward.toggleAttribute('checked', isSelected);
+        });
+      };
+
+      selectOnly(selectedReward);
+      rewards.forEach((reward) => {
+        reward.addEventListener('change', () => {
+          if (reward.checked) selectOnly(reward);
+        });
+      });
     }
 
     function normalizeHeroRouteTitle() {
@@ -2977,6 +3008,7 @@
       restoreEditedContent();
       removeKakaoShareButton();
       initializeMissionOneButton();
+      initializeFamilyRewardSelection();
       normalizeHeroRouteTitle();
       normalizeMuseumStepChevron();
       normalizeMuseumMissionGuide();
