@@ -2057,6 +2057,11 @@
       const stepBody = document.getElementById('step-body-5');
       if (!stepBody) return;
 
+      stepBody.querySelectorAll('img[alt="서희테마파크 역사산책로 담판 조각상 광장"]').forEach((image) => {
+        const legacyFrame = image.parentElement;
+        if (legacyFrame && legacyFrame.id !== 'seohee-slideshow') legacyFrame.remove();
+      });
+
       let frame = document.getElementById('seohee-slideshow');
       if (!frame) {
         frame = document.createElement('div');
