@@ -799,8 +799,9 @@
 <!-- 3 Slots Grid -->
 <div class="grid grid-cols-3 gap-2 mb-4">
 <div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-1" onclick="toggleMissionDetail(1)">
-<div class="w-12 h-12 rounded-full bg-orange-500 text-white border border-orange-400 flex items-center justify-center mb-1.5 shadow-md scale-105 transition-all" id="stamp-slot-1"><span class="material-symbols-outlined text-[22px]">brush</span></div>
-<span class="text-[12px] font-bold text-slate-900 leading-tight">조각&nbsp;</span><span class="text-[12px] font-bold text-slate-900 leading-tight">큐레이터</span><span class="text-[12px] font-bold text-slate-900 leading-tight"><span style="color: rgb(234, 88, 12); font-size: 12px;">인증 완료</span></span>
+<div class="w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs" id="stamp-slot-1"><span class="material-symbols-outlined text-[22px] text-slate-400">brush</span></div>
+<span class="text-[12px] font-bold text-slate-900 leading-tight">조각&nbsp;</span><span class="text-[12px] font-bold text-slate-900 leading-tight">큐레이터</span>
+<span class="text-[10px] text-slate-500 mt-0.5" id="stamp-state-1">미션 대기</span>
 </div>
 <div class="flex flex-col items-center text-center p-3 rounded-xl bg-[#FAF7F2] border border-[#E8DFD5] cursor-pointer transition-all hover:border-orange-300" id="slot-card-2" onclick="toggleMissionDetail(2)">
 <div class="w-12 h-12 rounded-full bg-orange-500 text-white border border-orange-400 flex items-center justify-center mb-1.5 shadow-md scale-105 transition-all" id="stamp-slot-2"><span class="material-symbols-outlined text-[22px]">search</span></div>
@@ -1761,6 +1762,24 @@
     function initializeMissionOneButton() {
       state.s1 = false;
       const button = document.getElementById('btn-stamp-1');
+      const slot = document.getElementById('stamp-slot-1');
+      const card = document.getElementById('slot-card-1');
+      let stateEl = document.getElementById('stamp-state-1');
+
+      if (slot) {
+        slot.className = 'w-12 h-12 rounded-full bg-white border border-slate-300 flex items-center justify-center mb-1.5 transition-all shadow-xs';
+        slot.innerHTML = '<span class="material-symbols-outlined text-[22px] text-slate-400">brush</span>';
+      }
+      if (!stateEl && card) {
+        const directSpans = [...card.children].filter((child) => child.tagName === 'SPAN');
+        stateEl = directSpans[2] || document.createElement('span');
+        if (!stateEl.parentElement) card.appendChild(stateEl);
+      }
+      if (stateEl) {
+        stateEl.id = 'stamp-state-1';
+        stateEl.textContent = '미션 대기';
+        stateEl.className = 'text-[10px] text-slate-500 mt-0.5';
+      }
       if (!button) return;
 
       button.className = 'px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFD5] text-slate-700 text-[12px] font-bold flex items-center gap-1';
