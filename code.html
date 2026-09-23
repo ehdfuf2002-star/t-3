@@ -1548,7 +1548,7 @@
     const state = { s1: false, s2: false, s3: false };
     const EDITOR_STORAGE_KEY = 'icheon-tour-editable-main-v1';
     const EDITOR_CONTENT_VERSION_KEY = 'icheon-tour-content-version';
-    const EDITOR_CONTENT_VERSION = '2026-09-history-culture-honor-v1';
+    const EDITOR_CONTENT_VERSION = '2026-09-locked-checklist-v2';
     const SEOLBONG_SLIDES = [
       { src: 'assets/seolbong-lake-wooden-bridge.png', alt: '설봉호 둘레길 목조 다리와 호수 풍경', fit: 'cover' },
       { src: 'assets/seolbong-park-tower-walk.png', alt: '설봉공원 산책로와 기념탑 풍경', fit: 'cover' },
@@ -1730,7 +1730,7 @@
       if (saved && main) {
         const savedVersion = localStorage.getItem(EDITOR_CONTENT_VERSION_KEY);
         if (savedVersion !== EDITOR_CONTENT_VERSION) {
-          const latestSections = ['summary', 'missions', 'rewards', 'food'].map((id) => ({
+          const latestSections = ['summary', 'missions', 'rewards', 'food', 'packing-checklist'].map((id) => ({
             id,
             section: main.querySelector(`#${id}`)?.cloneNode(true)
           }));
@@ -1739,7 +1739,12 @@
 
           if (savedMain) {
             latestSections.forEach(({ id, section }) => {
-              const savedSection = savedMain.querySelector(`#${id}`);
+              let savedSection = savedMain.querySelector(`#${id}`);
+              if (!savedSection && id === 'packing-checklist') {
+                const heading = [...savedMain.querySelectorAll('h3')].find((candidate) =>
+                  candidate.textContent?.replace(/\s+/g, ' ').trim() === '초등 탐험 준비물 체크리스트');
+                savedSection = heading?.closest('section');
+              }
               if (section && savedSection) savedSection.replaceWith(section);
             });
             main.innerHTML = savedMain.innerHTML;
